@@ -1,3 +1,4 @@
+from rest_framework import generics
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
 from rest_framework import status
@@ -8,14 +9,10 @@ from . import models
 from . import serializers
 
 # Create your views here.
-class ListCreateRides(APIView):
-    def get(self, request, format=None):
-        rides = models.Ride.objects.all()
-        serialized = serializers.RideSerializer(rides, many=True)
-        return Response(serialized.data)
+class ListCreateRides(generics.ListCreateAPIView):
+    queryset = models.Ride.objects.all() #send out the data
+    serializer_class = serializers.RideSerializer
 
-    def post(self, request, format=None):
-        serialized = serializers.RideSerializer(data=request.data)
-        serialized.is_valid(raise_exception=True)
-        serialized.save() #when saving to database, serialized will be updated with all the fields from the model
-        return Response(serialized.data, status=status.HTTP_201_CREATED)
+class RetrieveUpdateDeleteRide(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Ride.objects.all() #find the object you look for
+    serializer_class = serializers.RideSerializer

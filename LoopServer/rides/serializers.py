@@ -5,6 +5,7 @@ class RideSerializer(serializers.ModelSerializer):
     class Meta:
 
         fields = (
+            'id',
             'driver_name',
             'driver_email',
             'pickup',

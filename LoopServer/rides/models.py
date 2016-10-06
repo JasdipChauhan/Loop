@@ -1,6 +1,16 @@
 from django.db import models
 
+
+#Models
+
 # Create your models here.
+class User(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    username = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+    email_address = models.EmailField()
+    phone_number = models.CharField(max_length=10)
 
 class Ride(models.Model):
     driver_name = models.CharField(max_length=255)

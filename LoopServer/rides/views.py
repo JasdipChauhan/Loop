@@ -10,11 +10,27 @@ class isSuperUser(permissions.BasePermission):
             return True
         return False
 
-# Create your views here.
-class ListCreateRides(generics.ListCreateAPIView):
-    permission_classes = (
-        isSuperUser,
-        permissions.DjangoModelPermissions,)
+# User Views
+class ListCreateUser(generics.ListCreateAPIView):
+    #permission_classes = (
+     ##  permissions.DjangoModelPermissions,)
+
+    queryset = models.User.objects.all() #send out the data
+    serializer_class = serializers.UserSerializer
+
+    def get_queryset(self):
+        return self.queryset.filter(username=self.kwargs.get('users_pk'))
+
+
+class RetrieveUpdateDeleteUser(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.User.objects.all() #find the object you look for
+    serializer_class = serializers.UserSerializer
+
+# Ride Views
+class ListCreateRide(generics.ListCreateAPIView):
+    #permission_classes = (
+      #  isSuperUser,
+     #   permissions.DjangoModelPermissions,)
 
     queryset = models.Ride.objects.all() #send out the data
     serializer_class = serializers.RideSerializer

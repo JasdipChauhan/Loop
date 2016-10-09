@@ -35,10 +35,11 @@ class RideSerializer(serializers.ModelSerializer):
             'id',
             'driver_name',
             'driver_email',
+            'driver_phone_number',
             'pickup',
             'destination',
+            'seats_left',
             'created',
-            'seats_remaining',
         )
 
         model = models.Ride

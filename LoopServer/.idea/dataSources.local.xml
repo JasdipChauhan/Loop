@@ -4,7 +4,6 @@
     <data-source name="Django default" uuid="c7d63f78-d4d5-4537-b5b4-69dd58a4cb04">
       <database-info product="SQLite" version="3.8.11" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native" />
       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
-      <auth-required>false</auth-required>
     </data-source>
   </component>
 </project>

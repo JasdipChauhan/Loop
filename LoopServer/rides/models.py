@@ -36,10 +36,11 @@ class Rider(models.Model):
 class Ride(models.Model):
     driver_name = models.CharField(max_length=255)
     driver_email = models.EmailField()
+    driver_phone_number = models.CharField(max_length=10)
     pickup = models.CharField(max_length=255)
     destination = models.CharField(max_length=255)
+    seats_left = models.IntegerField()
     created = models.DateTimeField(auto_now_add=True)
-    seats_remaining = models.IntegerField()
 
     class Meta:
         ordering = ('created',)

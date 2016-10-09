@@ -126,11 +126,11 @@ STATIC_URL = '/static/'
 # REST FRAMEWORK
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES' : (
-        'rest_framework.authentication.TokenAuthentication',
-    ),
+    #'DEFAULT_AUTHENTICATION_CLASSES' : (
+     #   'rest_framework.authentication.TokenAuthentication',
+    #),
 
-    'DEFAULT_PERMISSION_CLASSES' : (
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
 }

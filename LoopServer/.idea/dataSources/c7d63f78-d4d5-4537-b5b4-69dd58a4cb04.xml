@@ -413,78 +413,82 @@ model</columns>
       <mandatory>1</mandatory>
       <data-type>VARCHAR(10)(0,-1)|12</data-type>
     </column>
-    <key id="100" parent="13">
-      <columns>id</columns>
-      <primary>1</primary>
-    </key>
-    <column id="101" parent="14" name="id">
+    <column id="100" parent="13" name="seats_left">
       <mandatory>1</mandatory>
       <data-type>INTEGER(0,-1)|4</data-type>
     </column>
-    <column id="102" parent="14" name="first_name">
-      <mandatory>1</mandatory>
-      <data-type>VARCHAR(255)(0,-1)|12</data-type>
-    </column>
-    <column id="103" parent="14" name="last_name">
-      <mandatory>1</mandatory>
-      <data-type>VARCHAR(255)(0,-1)|12</data-type>
-    </column>
-    <column id="104" parent="14" name="username">
-      <mandatory>1</mandatory>
-      <data-type>VARCHAR(255)(0,-1)|12</data-type>
-    </column>
-    <column id="105" parent="14" name="password">
-      <mandatory>1</mandatory>
-      <data-type>VARCHAR(255)(0,-1)|12</data-type>
-    </column>
-    <column id="106" parent="14" name="email_address">
-      <mandatory>1</mandatory>
-      <data-type>VARCHAR(254)(0,-1)|12</data-type>
-    </column>
-    <column id="107" parent="14" name="phone_number">
-      <mandatory>1</mandatory>
-      <data-type>VARCHAR(10)(0,-1)|12</data-type>
-    </column>
-    <key id="108" parent="14">
+    <key id="101" parent="13">
       <columns>id</columns>
       <primary>1</primary>
     </key>
-    <column id="109" parent="15" name="id">
+    <column id="102" parent="14" name="id">
       <mandatory>1</mandatory>
       <data-type>INTEGER(0,-1)|4</data-type>
     </column>
-    <column id="110" parent="15" name="first_name">
+    <column id="103" parent="14" name="first_name">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(255)(0,-1)|12</data-type>
     </column>
-    <column id="111" parent="15" name="last_name">
+    <column id="104" parent="14" name="last_name">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(255)(0,-1)|12</data-type>
     </column>
-    <column id="112" parent="15" name="username">
+    <column id="105" parent="14" name="username">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(255)(0,-1)|12</data-type>
     </column>
-    <column id="113" parent="15" name="password">
+    <column id="106" parent="14" name="password">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(255)(0,-1)|12</data-type>
     </column>
-    <column id="114" parent="15" name="email_address">
+    <column id="107" parent="14" name="email_address">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(254)(0,-1)|12</data-type>
     </column>
-    <column id="115" parent="15" name="phone_number">
+    <column id="108" parent="14" name="phone_number">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(10)(0,-1)|12</data-type>
     </column>
-    <key id="116" parent="15">
+    <key id="109" parent="14">
       <columns>id</columns>
       <primary>1</primary>
     </key>
-    <column id="117" parent="16" name="name">
+    <column id="110" parent="15" name="id">
+      <mandatory>1</mandatory>
+      <data-type>INTEGER(0,-1)|4</data-type>
+    </column>
+    <column id="111" parent="15" name="first_name">
+      <mandatory>1</mandatory>
+      <data-type>VARCHAR(255)(0,-1)|12</data-type>
+    </column>
+    <column id="112" parent="15" name="last_name">
+      <mandatory>1</mandatory>
+      <data-type>VARCHAR(255)(0,-1)|12</data-type>
+    </column>
+    <column id="113" parent="15" name="username">
+      <mandatory>1</mandatory>
+      <data-type>VARCHAR(255)(0,-1)|12</data-type>
+    </column>
+    <column id="114" parent="15" name="password">
+      <mandatory>1</mandatory>
+      <data-type>VARCHAR(255)(0,-1)|12</data-type>
+    </column>
+    <column id="115" parent="15" name="email_address">
+      <mandatory>1</mandatory>
+      <data-type>VARCHAR(254)(0,-1)|12</data-type>
+    </column>
+    <column id="116" parent="15" name="phone_number">
+      <mandatory>1</mandatory>
+      <data-type>VARCHAR(10)(0,-1)|12</data-type>
+    </column>
+    <key id="117" parent="15">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <column id="118" parent="16" name="name">
       <data-type>(0,-1)|12</data-type>
     </column>
-    <column id="118" parent="16" name="seq">
+    <column id="119" parent="16" name="seq">
       <data-type>(0,-1)|12</data-type>
     </column>
   </database-model>

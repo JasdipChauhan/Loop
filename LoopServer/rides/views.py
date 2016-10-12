@@ -6,53 +6,54 @@ from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 from rest_framework import status
+from rest_framework.views import APIView
+from django.http import Http404
 
 
 from .models import *
 from .serializers import *
 
-@api_view(['GET', 'POST'])
-def ride_list(request, format=None):
-
+class RideList(APIView):
     """
     List all rides, or create a new ride
     """
-
-    if request.method == 'GET':
+    def get(self, request, format=None):
         rides = Ride.objects.all()
-        serializer = RideSerializer(rides, many=True)
-        return Response(serializer.data)
+        rideSerializer = RideSerializer(rides, many=True)
+        return Response(rideSerializer.data)
 
-    elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = RideSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, format=None):
+        rideSerializer = RideSerializer(data=request.data)
+        if rideSerializer.is_valid():
+            rideSerializer.save()
+            return Response(rideSerializer.data, status=status.HTTP_201_CREATED)
+        return Response(rideSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def ride_detail(request, pk, format=None):
+
+class RideDetail(APIView):
     """
-    Retrieve, update or delete a code snippet.
+    Retrieve, update or delete a ride instance.
     """
-    try:
-        ride = Ride.objects.get(pk=pk)
-    except Ride.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    def get_object(self, pk):
+        try:
+            return Ride.objects.get(pk=pk)
+        except Ride.DoesNotExist:
+            raise Http404
 
-    if request.method == 'GET':
+    def get(self, request, pk, format=None):
+        ride = self.get_object(pk)
         serializer = RideSerializer(ride)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = RideSerializer(ride, data=data)
+    def put(self, request, pk, format=None):
+        ride = self.get_object(pk)
+        serializer = RideSerializer(ride, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    elif request.method == 'DELETE':
+    def delete(self, request, pk, format=None):
+        ride = self.get_object(pk)
         ride.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

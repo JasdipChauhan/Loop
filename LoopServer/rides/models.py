@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 #Models
 
@@ -25,10 +26,11 @@ class Ride(models.Model):
     driver_email = models.EmailField()
     driver_phone_number = models.CharField(max_length=10)
     pickup = models.CharField(max_length=255)
-    destination = models.CharField(max_length=255)
+    dropoff = models.CharField(max_length=255)
+    date = models.DateField(default=datetime.datetime.now)
     time = models.CharField(max_length=255)
-    pickupLocation = models.CharField(max_length=255)
     seats_left = models.IntegerField()
+    price = models.DecimalField(decimal_places=2, max_digits=9)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

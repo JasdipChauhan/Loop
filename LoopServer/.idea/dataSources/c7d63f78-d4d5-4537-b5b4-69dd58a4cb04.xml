@@ -388,41 +388,41 @@ model</columns>
       <mandatory>1</mandatory>
       <data-type>INTEGER(0,-1)|4</data-type>
     </column>
-    <column id="93" parent="13" name="highlighted">
-      <mandatory>1</mandatory>
-      <data-type>TEXT(0,-1)|12</data-type>
-    </column>
-    <column id="94" parent="13" name="driver_name">
+    <column id="93" parent="13" name="driver_name">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(255)(0,-1)|12</data-type>
     </column>
-    <column id="95" parent="13" name="driver_email">
+    <column id="94" parent="13" name="driver_email">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(254)(0,-1)|12</data-type>
     </column>
-    <column id="96" parent="13" name="driver_phone_number">
+    <column id="95" parent="13" name="driver_phone_number">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(10)(0,-1)|12</data-type>
     </column>
-    <column id="97" parent="13" name="pickup">
+    <column id="96" parent="13" name="pickup">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(255)(0,-1)|12</data-type>
     </column>
-    <column id="98" parent="13" name="destination">
+    <column id="97" parent="13" name="destination">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(255)(0,-1)|12</data-type>
     </column>
-    <column id="99" parent="13" name="seats_left">
+    <column id="98" parent="13" name="seats_left">
       <mandatory>1</mandatory>
       <data-type>INTEGER(0,-1)|4</data-type>
     </column>
-    <column id="100" parent="13" name="created">
+    <column id="99" parent="13" name="created">
       <mandatory>1</mandatory>
       <data-type>DATETIME(0,-1)|12</data-type>
     </column>
-    <column id="101" parent="13" name="owner_id">
+    <column id="100" parent="13" name="owner_id">
       <mandatory>1</mandatory>
       <data-type>INTEGER(0,-1)|4</data-type>
+    </column>
+    <column id="101" parent="13" name="time">
+      <mandatory>1</mandatory>
+      <data-type>VARCHAR(255)(0,-1)|12</data-type>
     </column>
     <key id="102" parent="13">
       <columns>id</columns>

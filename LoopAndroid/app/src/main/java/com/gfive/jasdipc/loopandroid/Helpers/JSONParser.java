@@ -11,14 +11,6 @@ import org.json.JSONObject;
 
 public class JSONParser {
     public static void parseJSON(String responseString) {
-        JSONObject responseJSON = null;
-        try {
-            responseJSON = new JSONObject(responseString);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.e("HELPER", "ERROR TRYING TO PARSE JSON RESPONSE");
-        }
-
 
     }
 }

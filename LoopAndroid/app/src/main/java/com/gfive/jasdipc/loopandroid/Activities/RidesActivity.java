@@ -1,5 +1,7 @@
 package com.gfive.jasdipc.loopandroid.Activities;
 
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,13 +14,12 @@ import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
 import com.gfive.jasdipc.loopandroid.Clients.APIClient;
 import com.gfive.jasdipc.loopandroid.Clients.OnServerResponse;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
+import com.gfive.jasdipc.loopandroid.Models.ServerResponseModel;
 import com.gfive.jasdipc.loopandroid.Models.User;
 import com.gfive.jasdipc.loopandroid.R;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.JSONArray;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,9 +32,12 @@ public class RidesActivity extends AppCompatActivity implements OnServerResponse
     private FloatingActionButton addRideFAB;
 
     private RidesAdapter ridesAdapter;
+    private List<User> users = new ArrayList<>();
     private List<Ride> rides = new ArrayList<>();
 
     private APIClient apiClient;
+
+    private List<ServerResponseModel> responses = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,7 @@ public class RidesActivity extends AppCompatActivity implements OnServerResponse
         LinearLayoutManager llm = new LinearLayoutManager(this);
         ridesRecyclerView.setLayoutManager(llm);
 
-        ridesAdapter = new RidesAdapter(rides);
+        ridesAdapter = new RidesAdapter(rides, RidesActivity.this);
         ridesRecyclerView.setAdapter(ridesAdapter);
 
         apiClient = APIClient.getInstance();
@@ -57,12 +61,29 @@ public class RidesActivity extends AppCompatActivity implements OnServerResponse
 
                 Date now = new Date();
 
-                User user = new User("Jasdip", "Chauhan", "jc", "pass", "email", "phone num", getDrawable(R.drawable.image));
-                rides.add(new Ride(user, now, "Markham", "Waterloo", "7:30pm", 5, 7.50));
+                User user = new User();
+                user.setFirstName("JASDIP");
+                user.setLastName("CHAUHAN");
+                user.setUsername("JAS");
+                user.setPassword("PASS");
+                user.setEmail("jasdip@gmail.com");
+                user.setPhoneNumber("6475273055");
+                user.setProfilePicture(getDrawable(R.drawable.image));
+
+                Ride ride = new Ride();
+                ride.setDriver(user);
+                ride.setDate(now);
+                ride.setPickup("MARKHAM");
+                ride.setDropoff("WATERLOO");
+                ride.setTime("7:30");
+                ride.setPassengers(4);
+                ride.setCost(7.5);
+
+                rides.add(ride);
 
                 ridesAdapter.notifyItemInserted(rides.size() - 1);
 
-                apiClient.getRides(RidesActivity.this);
+                apiClient.serverGetRides(RidesActivity.this);
             }
         });
 
@@ -70,11 +91,40 @@ public class RidesActivity extends AppCompatActivity implements OnServerResponse
 
     @Override
     public void serverCallback(final Boolean isSuccessful, final Response serverResponse) {
-        try {
-            String json = serverResponse.body().string();
-            Log.i("JSON", json);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        RidesActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                String jsonString = "";
+
+                try {
+                    jsonString = serverResponse.body().string();
+                    Log.i("JSON", jsonString);
+                    rides = apiClient.parseResponse(jsonString);
+                    ridesAdapter.notifyDataSetChanged();
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.e("ERROR", "TRYING TO PARSE RESPONSE");
+                }
+
+            }
+        });
+
+    }
+
+    private User createNewUser(String firstName, String lastName, String username, String password, String email, String phoneNumber, Drawable picture) {
+        User user = new User();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+        user.setProfilePicture(picture);
+        users.add(user);
+        return user;
     }
 }

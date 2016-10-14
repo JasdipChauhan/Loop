@@ -1,5 +1,7 @@
 package com.gfive.jasdipc.loopandroid.Helpers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -8,10 +10,16 @@ import java.util.Date;
 
 public class DateFormatter {
 
-    //placeholder for now
-    public static String getFormattedDate(Date date) {
+    public static Date formatToDate(String dateString) {
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 
-        return date + "";
+    public static String formatToString(Date date) {
+        return date.toString();
     }
 
 }

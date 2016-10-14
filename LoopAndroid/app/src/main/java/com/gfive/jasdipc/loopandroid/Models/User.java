@@ -10,19 +10,13 @@ public class User {
     private String firstName;
     private String lastName;
     private String username;
+    private String name;
     private String password;
     private String email;
     private String phoneNumber;
     private Drawable profilePicture;
 
-    public User(String firstName, String lastName, String username, String password, String email, String phoneNumber, Drawable profilePicture) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.profilePicture = profilePicture;
+    public User() {
     }
 
     //GETTERS AND SETTERS
@@ -41,6 +35,14 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUsername() {

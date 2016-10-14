@@ -1,5 +1,6 @@
 package com.gfive.jasdipc.loopandroid.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +15,12 @@ import java.util.List;
 
 public class RidesAdapter extends RecyclerView.Adapter<RidesViewHolder> {
 
-    List<Ride> rides;
+    private List<Ride> rides;
+    private Context mContext;
 
-    public RidesAdapter(List<Ride> rides) {
+    public RidesAdapter(List<Ride> rides, Context mContext) {
         this.rides = rides;
-
+        this.mContext = mContext;
     }
 
     @Override
@@ -34,14 +36,14 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesViewHolder> {
 
         final Ride ride = rides.get(position);
 
-        holder.usersName.setText(ride.getDriver().getFullName());
-        holder.date.setText(DateFormatter.getFormattedDate(ride.getDate()));
+        holder.usersName.setText(ride.getDriver().getName());
+        holder.date.setText(DateFormatter.formatToString(ride.getDate()));
         holder.pickup.setText(ride.getPickup());
         holder.dropoff.setText(ride.getDropoff());
         holder.passengers.setText(Integer.toString(ride.getPassengers()));
         holder.cost.setText(Double.toString(ride.getCost()));
-        holder.userImage.setImageDrawable(ride.getDriver().getProfilePicture());
-
+        //holder.userImage.setImageDrawable(ride.getDriver().getProfilePicture());
+        holder.userImage.setImageDrawable(mContext.getDrawable(R.drawable.image));
     }
 
     @Override

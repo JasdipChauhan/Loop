@@ -2,10 +2,18 @@ package com.gfive.jasdipc.loopandroid.Clients;
 
 import android.util.Log;
 
+import com.gfive.jasdipc.loopandroid.Models.Ride;
+import com.gfive.jasdipc.loopandroid.Models.User;
+import com.gfive.jasdipc.loopandroid.R;
+
 import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.Authenticator;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -40,7 +48,7 @@ public class APIClient {
         networkClient = new OkHttpClient();
     }
 
-    public void getRides(final OnServerResponse serverResponse) {
+    public void serverGetRides(final OnServerResponse serverResponse) {
 
         try {
             Request request = new Request.Builder()
@@ -62,7 +70,6 @@ public class APIClient {
                             if (response.isSuccessful()) {
 
                                 String responseString = response.body().toString();
-
                                 serverResponse.serverCallback(true, response);
 
                             } else {
@@ -71,7 +78,7 @@ public class APIClient {
                                 Log.e("APICLIENT", "RESPONSE UNSUCCESSFUL");
                             }
 
-                            IOUtils.closeQuietly(response);
+                            ///IOUtils.closeQuietly(response);
                         }
                     });
         } catch (Exception e) {
@@ -81,5 +88,41 @@ public class APIClient {
             serverResponse.serverCallback(false, null);
         }
 
+    }
+
+    public List<Ride> parseResponse(String jsonString) {
+
+        List<Ride> rides = new ArrayList<>();
+
+        try {
+            JSONArray responsesArray = new JSONArray(jsonString);
+
+            for (int i = 0; i < responsesArray.length(); i++) {
+
+                JSONObject object = responsesArray.getJSONObject(i);
+
+                Ride tempRide = new Ride();
+                User tempUser = new User();
+
+                tempUser.setName(object.getString("driver_name"));
+                tempUser.setEmail(object.getString("driver_email"));
+                tempUser.setPhoneNumber(object.getString("driver_phone_number"));
+
+                tempRide.setPickup(object.getString("pickup"));
+                tempRide.setDropoff(object.getString("dropoff"));
+                tempRide.setDate(object.getString("date"));
+                tempRide.setPassengers(object.getInt("seats_left"));
+                tempRide.setCost(object.getDouble("price"));
+
+                tempRide.setDriver(tempUser);
+                rides.add(tempRide);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("RIDESACTIVITY", "ERROR POPULATING LIST");
+        }
+
+        return rides;
     }
 }

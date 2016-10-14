@@ -1,5 +1,7 @@
 package com.gfive.jasdipc.loopandroid.Models;
 
+import com.gfive.jasdipc.loopandroid.Helpers.DateFormatter;
+
 import java.util.Date;
 
 /**
@@ -15,14 +17,8 @@ public class Ride {
     private int passengers;
     private double cost;
 
-    public Ride(User driver, Date date, String pickup, String dropoff, String time, int passengers, double cost) {
-        this.driver = driver;
-        this.date = date;
-        this.pickup = pickup;
-        this.dropoff = dropoff;
-        this.time = time;
-        this.passengers = passengers;
-        this.cost = cost;
+    public Ride() {
+
     }
 
     //GETTERS AND SETTERS
@@ -39,9 +35,14 @@ public class Ride {
         return date;
     }
 
+    public void setDate(String dateString) {
+        this.date = DateFormatter.formatToDate(dateString);
+    }
+
     public void setDate(Date date) {
         this.date = date;
     }
+
 
     public String getPickup() {
         return pickup;

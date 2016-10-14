@@ -35,9 +35,11 @@ class RideSerializer(serializers.ModelSerializer):
             'driver_email',
             'driver_phone_number',
             'pickup',
-            'destination',
+            'dropoff',
+            'date',
             'time',
             'seats_left',
+            'price',
             'created',
         )
 

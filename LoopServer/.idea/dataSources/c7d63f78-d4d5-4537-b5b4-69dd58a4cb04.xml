@@ -404,31 +404,39 @@ model</columns>
       <mandatory>1</mandatory>
       <data-type>VARCHAR(255)(0,-1)|12</data-type>
     </column>
-    <column id="97" parent="13" name="destination">
-      <mandatory>1</mandatory>
-      <data-type>VARCHAR(255)(0,-1)|12</data-type>
-    </column>
-    <column id="98" parent="13" name="seats_left">
+    <column id="97" parent="13" name="seats_left">
       <mandatory>1</mandatory>
       <data-type>INTEGER(0,-1)|4</data-type>
     </column>
-    <column id="99" parent="13" name="created">
+    <column id="98" parent="13" name="created">
       <mandatory>1</mandatory>
       <data-type>DATETIME(0,-1)|12</data-type>
     </column>
-    <column id="100" parent="13" name="owner_id">
+    <column id="99" parent="13" name="owner_id">
       <mandatory>1</mandatory>
       <data-type>INTEGER(0,-1)|4</data-type>
     </column>
-    <column id="101" parent="13" name="time">
+    <column id="100" parent="13" name="time">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(255)(0,-1)|12</data-type>
     </column>
-    <key id="102" parent="13">
+    <column id="101" parent="13" name="price">
+      <mandatory>1</mandatory>
+      <data-type>DECIMAL(0,-1)|6</data-type>
+    </column>
+    <column id="102" parent="13" name="date">
+      <mandatory>1</mandatory>
+      <data-type>DATE(0,-1)|12</data-type>
+    </column>
+    <column id="103" parent="13" name="dropoff">
+      <mandatory>1</mandatory>
+      <data-type>VARCHAR(255)(0,-1)|12</data-type>
+    </column>
+    <key id="104" parent="13">
       <columns>id</columns>
       <primary>1</primary>
     </key>
-    <foreign-key id="103" parent="13" name="#FAKE_rides_ride_1">
+    <foreign-key id="105" parent="13" name="#FAKE_rides_ride_1">
       <name-surrogate>1</name-surrogate>
       <columns>owner_id</columns>
       <deferrable>1</deferrable>
@@ -437,42 +445,42 @@ model</columns>
       <cascade-update-rule>no_action</cascade-update-rule>
       <cascade-delete-rule>no_action</cascade-delete-rule>
     </foreign-key>
-    <column id="104" parent="14" name="id">
+    <column id="106" parent="14" name="id">
       <mandatory>1</mandatory>
       <data-type>INTEGER(0,-1)|4</data-type>
     </column>
-    <column id="105" parent="14" name="first_name">
+    <column id="107" parent="14" name="first_name">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(255)(0,-1)|12</data-type>
     </column>
-    <column id="106" parent="14" name="last_name">
+    <column id="108" parent="14" name="last_name">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(255)(0,-1)|12</data-type>
     </column>
-    <column id="107" parent="14" name="username">
+    <column id="109" parent="14" name="username">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(255)(0,-1)|12</data-type>
     </column>
-    <column id="108" parent="14" name="password">
+    <column id="110" parent="14" name="password">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(255)(0,-1)|12</data-type>
     </column>
-    <column id="109" parent="14" name="email_address">
+    <column id="111" parent="14" name="email_address">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(254)(0,-1)|12</data-type>
     </column>
-    <column id="110" parent="14" name="phone_number">
+    <column id="112" parent="14" name="phone_number">
       <mandatory>1</mandatory>
       <data-type>VARCHAR(10)(0,-1)|12</data-type>
     </column>
-    <key id="111" parent="14">
+    <key id="113" parent="14">
       <columns>id</columns>
       <primary>1</primary>
     </key>
-    <column id="112" parent="15" name="name">
+    <column id="114" parent="15" name="name">
       <data-type>(0,-1)|12</data-type>
     </column>
-    <column id="113" parent="15" name="seq">
+    <column id="115" parent="15" name="seq">
       <data-type>(0,-1)|12</data-type>
     </column>
   </database-model>

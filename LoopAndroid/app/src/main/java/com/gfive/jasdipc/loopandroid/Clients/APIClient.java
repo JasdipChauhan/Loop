@@ -111,6 +111,7 @@ public class APIClient {
                 tempRide.setPickup(object.getString("pickup"));
                 tempRide.setDropoff(object.getString("dropoff"));
                 tempRide.setDate(object.getString("date"));
+                tempRide.setTime(object.getString("time"));
                 tempRide.setPassengers(object.getInt("seats_left"));
                 tempRide.setCost(object.getDouble("price"));
 

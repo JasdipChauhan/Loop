@@ -92,7 +92,41 @@ public class RidesActivity extends AppCompatActivity implements OnServerResponse
     @Override
     public void serverCallback(final Boolean isSuccessful, final Response serverResponse) {
 
+        try {
+            String serverRidesJSON = serverResponse.body().string();
+            Log.i("RIDES ACTIVITY", serverRidesJSON);
+            List<Ride> serverRides = APIClient.getInstance().parseResponse(serverRidesJSON);
+
+            Log.i("CHECKPOINT", "SUCCESSFUL");
+
+            rides.clear();
+
+            for (Ride ride : serverRides) {
+                rides.add(ride);
+            }
+
+            Log.i("BREAKPOINT", "SUCCESSFUL");
+
+        } catch (Exception e) {
+            Log.e("ERROR", "TRYING TO PARSE RESPONSE FIRST TIME");
+            e.printStackTrace();
+        }
+
         RidesActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ridesAdapter.notifyDataSetChanged();
+            }
+        });
+
+        /*RidesActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ridesAdapter.notifyDataSetChanged();
+            }
+        });*/
+
+        /*RidesActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
 
@@ -106,12 +140,12 @@ public class RidesActivity extends AppCompatActivity implements OnServerResponse
 
 
                 } catch (Exception e) {
-                    e.printStackTrace();
                     Log.e("ERROR", "TRYING TO PARSE RESPONSE");
+                    e.printStackTrace();
                 }
 
             }
-        });
+        });*/
 
     }
 

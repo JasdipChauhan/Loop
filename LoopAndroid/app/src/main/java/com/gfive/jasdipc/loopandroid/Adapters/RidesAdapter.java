@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 
 import com.gfive.jasdipc.loopandroid.Helpers.DateFormatter;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
@@ -44,10 +45,41 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesViewHolder> {
         holder.cost.setText(Double.toString(ride.getCost()));
         //holder.userImage.setImageDrawable(ride.getDriver().getProfilePicture());
         holder.userImage.setImageDrawable(mContext.getDrawable(R.drawable.image));
+
+        runEnterAnimation(holder.itemView);
+
     }
 
     @Override
     public int getItemCount() {
         return rides.size();
     }
+
+    public void clear() {
+        int preSizeUpperRange = rides.size() - 1;
+        int preSizeLowerRange = 0;
+
+        rides.clear();
+        RidesAdapter.this.notifyItemRangeRemoved(preSizeLowerRange, preSizeUpperRange);
+    }
+
+    public void add(Ride ride) {
+        rides.add(ride);
+
+        int insertedIndex = rides.size() - 1;
+        RidesAdapter.this.notifyItemInserted(insertedIndex);
+    }
+
+    //Animations
+
+    private void runEnterAnimation(View view) {
+        view.setTranslationY(Utils.getScreenHeight(mContext));
+        view.animate()
+                .translationY(0)
+                .setInterpolator(new DecelerateInterpolator(3.f))
+                .setDuration(700)
+                .start();
+    }
+}
+
 }

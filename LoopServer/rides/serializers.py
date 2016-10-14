@@ -1,23 +1,21 @@
 from rest_framework import serializers
-from . import models
+from .models import Ride, Rider
+from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = (
-            'id',
-            'first_name',
-            'last_name',
-            'username',
-            'password',
-            'email_address',
-            'phone_number',
-        )
+    rides = serializers.PrimaryKeyRelatedField(many=True, queryset=Ride.objects.all())
 
-        model = models.User
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'rides')
+
 
 class RiderSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+
     class Meta:
         fields = (
+            'owner',
             'id',
             'first_name',
             'last_name',
@@ -27,7 +25,7 @@ class RiderSerializer(serializers.ModelSerializer):
             'phone_number',
         )
 
-        model = models.Rider
+        model = Rider
 
 class RideSerializer(serializers.ModelSerializer):
     class Meta:
@@ -38,8 +36,9 @@ class RideSerializer(serializers.ModelSerializer):
             'driver_phone_number',
             'pickup',
             'destination',
+            'time',
             'seats_left',
             'created',
         )
 
-        model = models.Ride
+        model = Ride

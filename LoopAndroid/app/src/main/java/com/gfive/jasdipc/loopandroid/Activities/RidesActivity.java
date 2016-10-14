@@ -15,6 +15,10 @@ import com.gfive.jasdipc.loopandroid.Models.Ride;
 import com.gfive.jasdipc.loopandroid.Models.User;
 import com.gfive.jasdipc.loopandroid.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -66,13 +70,11 @@ public class RidesActivity extends AppCompatActivity implements OnServerResponse
 
     @Override
     public void serverCallback(final Boolean isSuccessful, final Response serverResponse) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (isSuccessful) {
-                    Log.i("SERVER RESPONSE", serverResponse.toString());
-                }
-            }
-        });
+        try {
+            String json = serverResponse.body().string();
+            Log.i("JSON", json);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -2,16 +2,14 @@ package com.gfive.jasdipc.loopandroid.Clients;
 
 import android.util.Log;
 
+import com.gfive.jasdipc.loopandroid.Interfaces.OnServerResponse;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
 import com.gfive.jasdipc.loopandroid.Models.User;
-import com.gfive.jasdipc.loopandroid.R;
 
-import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.Authenticator;
 import java.util.ArrayList;
 import java.util.List;
 

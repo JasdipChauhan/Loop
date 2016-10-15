@@ -1,4 +1,4 @@
-package com.gfive.jasdipc.loopandroid.Clients;
+package com.gfive.jasdipc.loopandroid.Interfaces;
 
 import okhttp3.Response;
 

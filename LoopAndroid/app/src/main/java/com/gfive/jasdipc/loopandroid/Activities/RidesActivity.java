@@ -1,5 +1,7 @@
 package com.gfive.jasdipc.loopandroid.Activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.View;
 import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
 import com.gfive.jasdipc.loopandroid.Clients.APIClient;
 import com.gfive.jasdipc.loopandroid.Controllers.RidesController;
+import com.gfive.jasdipc.loopandroid.Helpers.RecyclerItemClickListener;
 import com.gfive.jasdipc.loopandroid.Interfaces.OnServerResponse;
 import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
 import com.gfive.jasdipc.loopandroid.Interfaces.ParseCallback;
@@ -31,6 +34,7 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback{
     private RidesAdapter ridesAdapter;
     private List<User> users = new ArrayList<>();
     private List<Ride> rides = new ArrayList<>();
+    private Context mContext;
 
     private RidesController ridesController;
 
@@ -43,14 +47,16 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback{
         addRideFAB = (FloatingActionButton) findViewById(R.id.add_ride_FAB);
         refreshRideFAB = (FloatingActionButton) findViewById(R.id.refresh_ride_FAB);
 
-        WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(this);
+        mContext = RidesActivity.this;
+
+        WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(mContext);
         ridesRecyclerView.setLayoutManager(wCLLM);
 
-        ridesAdapter = new RidesAdapter(rides, RidesActivity.this);
+        ridesAdapter = new RidesAdapter(rides, mContext);
         ridesRecyclerView.setAdapter(ridesAdapter);
 
         ridesController = new RidesController();
-        ridesController.refreshRidesList(RidesActivity.this);
+        ridesController.refreshRidesList(this);
 
         addRideFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +72,23 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback{
                 ridesController.refreshRidesList(RidesActivity.this);
             }
         });
+
+        ridesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
+                mContext, ridesRecyclerView,
+                new RecyclerItemClickListener.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent i = new Intent(mContext, RideDetailActivity.class);
+                startActivity(i);
+                Log.i("POSITION", position+"");
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
 
     }
 

@@ -45,9 +45,9 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesViewHolder> {
         holder.date.setText(DateFormatter.formatToString(ride.getDate()));
         holder.pickup.setText(ride.getPickup());
         holder.dropoff.setText(ride.getDropoff());
+        holder.pickupTime.setText(ride.getTime());
         holder.passengers.setText(Integer.toString(ride.getPassengers()));
         holder.cost.setText(Double.toString(ride.getCost()));
-        //holder.userImage.setImageDrawable(ride.getDriver().getProfilePicture());
         holder.userImage.setImageDrawable(mContext.getDrawable(R.drawable.image));
 
         runEnterAnimation(holder.itemView, position);
@@ -86,6 +86,5 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesViewHolder> {
             lastPosition = position;
         }
     }
-
 }
 

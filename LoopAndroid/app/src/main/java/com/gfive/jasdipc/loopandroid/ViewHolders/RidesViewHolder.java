@@ -26,7 +26,7 @@ public class RidesViewHolder extends RecyclerView.ViewHolder {
         usersName = (TextView) view.findViewById(R.id.users_fullname_tv);
         pickup = (TextView) view.findViewById(R.id.pickup_tv);
         dropoff = (TextView) view.findViewById(R.id.dropoff_tv);
-        pickupTime = (TextView) view.findViewById(R.id.pickup_tv);
+        pickupTime = (TextView) view.findViewById(R.id.time_tv);
         passengers = (TextView) view.findViewById(R.id.passengers_tv);
         cost = (TextView) view.findViewById(R.id.cost_tv);
     }

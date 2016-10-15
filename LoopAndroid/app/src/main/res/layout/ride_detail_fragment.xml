@@ -4,6 +4,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ride_drivers_name"
+        android:text="Drivers NAME"
+        android:padding="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ride_date"
+        android:text="DATE"
+        android:padding="8dp"
+        android:layout_below="@id/ride_drivers_name"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ride_pickup"
+        android:text="PICKUP"
+        android:padding="8dp"
+        android:layout_below="@id/ride_date"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ride_dropoff"
+        android:text="DROPOFF"
+        android:padding="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/ride_date"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ride_seats_left"
+        android:text="SEATS LEFT"
+        android:padding="8dp"
+        android:layout_below="@id/ride_pickup"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ride_cost"
+        android:text="COST"
+        android:textColor="@color/moneyGreen"
+        android:padding="8dp"
+        android:layout_below="@+id/ride_pickup"
+        android:layout_alignParentRight="true" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

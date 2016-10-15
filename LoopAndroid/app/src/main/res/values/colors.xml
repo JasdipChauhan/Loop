@@ -11,7 +11,7 @@
     <color name="textColor">#212121</color>
     <color name="textSecondaryColor">#757575</color>
     <color name="dividerColor">#BDBDBD</color>
-
+    <color name="moneyGreen">#216C2A</color>
     <!-- -->
     <color name="white">#FFFFFF</color>
 </resources>

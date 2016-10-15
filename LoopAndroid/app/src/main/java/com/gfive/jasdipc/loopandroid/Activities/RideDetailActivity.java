@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import com.gfive.jasdipc.loopandroid.Fragments.RideDetailFragment;
@@ -35,10 +36,11 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
         Intent intent = getIntent();
         ride = intent.getParcelableExtra("ride");
 
+        rideDetailFragment = RideDetailFragment.newInstance(ride);
 
-        //rideDetailFragment = RideDetailFragment.newInstance(ride);
-
-        //getFragmentManager().findFragmentById(R.id.ride_detail_fragment);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.detail_frame_layout, rideDetailFragment);
+        transaction.commit();
 
     }
 

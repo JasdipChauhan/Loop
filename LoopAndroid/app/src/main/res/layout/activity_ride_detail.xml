@@ -10,19 +10,17 @@
         xmlns:map="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.4"
         tools:context="com.gfive.jasdipc.loopandroid.Activities.RideDetailActivity" />
 
-    <fragment class="com.gfive.jasdipc.loopandroid.Fragments.RideDetailFragment"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.6"
-        android:id="@+id/ride_detail_fragment"
-        />
-
+        android:id="@+id/detail_frame_layout"></FrameLayout>
 
 </LinearLayout>
 

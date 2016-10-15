@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.gfive.jasdipc.loopandroid.Helpers.DateFormatter;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
 import com.gfive.jasdipc.loopandroid.R;
 
@@ -27,6 +29,12 @@ public class RideDetailFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private TextView rideDriversName;
+    private TextView rideDate;
+    private TextView ridePickup;
+    private TextView rideDropoff;
+    private TextView rideSeatsLeft;
+    private TextView rideCost;
     private Button reserveButton;
 
     public RideDetailFragment() {
@@ -57,14 +65,20 @@ public class RideDetailFragment extends Fragment {
         final View view = inflater.inflate(R.layout.ride_detail_fragment, container, false);
 
         reserveButton = (Button) view.findViewById(R.id.reserve_button);
+        rideDriversName = (TextView) view.findViewById(R.id.ride_drivers_name);
+        rideDate = (TextView) view.findViewById(R.id.ride_date);
+        ridePickup = (TextView) view.findViewById(R.id.ride_pickup);
+        rideDropoff = (TextView) view.findViewById(R.id.ride_dropoff);
+        rideSeatsLeft =(TextView) view.findViewById(R.id.ride_seats_left);
+        rideCost = (TextView) view.findViewById(R.id.ride_cost);
 
+        rideDriversName.setText(mRide.getDriver().getName());
+        rideDate.setText(DateFormatter.formatToString(mRide.getDate()));
+        ridePickup.setText(mRide.getPickup());
+        rideDropoff.setText(mRide.getDropoff());
+        rideSeatsLeft.setText(Integer.toString(mRide.getPassengers()));
+        rideCost.setText(Double.toString(mRide.getCost()));
 
-        reserveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         return view;
     }
 

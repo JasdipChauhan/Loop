@@ -1,5 +1,8 @@
 package com.gfive.jasdipc.loopandroid.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.gfive.jasdipc.loopandroid.Helpers.DateFormatter;
 
 import java.util.Date;
@@ -8,7 +11,7 @@ import java.util.Date;
  * Created by JasdipC on 2016-10-08.
  */
 
-public class Ride {
+public class Ride implements Parcelable {
     private User driver;
     private Date date;
     private String pickup;
@@ -83,4 +86,45 @@ public class Ride {
     public void setCost(double cost) {
         this.cost = cost;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    //Parcelable
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.driver, flags);
+        dest.writeLong(this.date != null ? this.date.getTime() : -1);
+        dest.writeString(this.pickup);
+        dest.writeString(this.dropoff);
+        dest.writeString(this.time);
+        dest.writeInt(this.passengers);
+        dest.writeDouble(this.cost);
+    }
+
+    protected Ride(Parcel in) {
+        this.driver = in.readParcelable(User.class.getClassLoader());
+        long tmpDate = in.readLong();
+        this.date = tmpDate == -1 ? null : new Date(tmpDate);
+        this.pickup = in.readString();
+        this.dropoff = in.readString();
+        this.time = in.readString();
+        this.passengers = in.readInt();
+        this.cost = in.readDouble();
+    }
+
+    public static final Parcelable.Creator<Ride> CREATOR = new Parcelable.Creator<Ride>() {
+        @Override
+        public Ride createFromParcel(Parcel source) {
+            return new Ride(source);
+        }
+
+        @Override
+        public Ride[] newArray(int size) {
+            return new Ride[size];
+        }
+    };
 }

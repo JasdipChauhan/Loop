@@ -2,7 +2,7 @@ package com.gfive.jasdipc.loopandroid.Activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,10 +11,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
-import com.gfive.jasdipc.loopandroid.Clients.APIClient;
 import com.gfive.jasdipc.loopandroid.Controllers.RidesController;
 import com.gfive.jasdipc.loopandroid.Helpers.RecyclerItemClickListener;
-import com.gfive.jasdipc.loopandroid.Interfaces.OnServerResponse;
 import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
 import com.gfive.jasdipc.loopandroid.Interfaces.ParseCallback;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
@@ -23,8 +21,6 @@ import com.gfive.jasdipc.loopandroid.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.Response;
 
 public class RidesActivity extends AppCompatActivity implements ParseCallback{
 
@@ -80,8 +76,10 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback{
 
             @Override
             public void onItemClick(View view, int position) {
-                Intent i = new Intent(mContext, RideDetailActivity.class);
-                startActivity(i);
+
+                Intent rideDetailIntent = new Intent(mContext, RideDetailActivity.class);
+                rideDetailIntent.putExtra("ride", (Parcelable) rides.get(position));
+                startActivity(rideDetailIntent);
                 Log.i("POSITION", position+"");
             }
 

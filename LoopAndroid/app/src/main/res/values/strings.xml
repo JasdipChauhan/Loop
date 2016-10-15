@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Loop</string>
     <string name="title_activity_ride_detail">Map</string>
+    <string name="reserve_ride_string">Reserve</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

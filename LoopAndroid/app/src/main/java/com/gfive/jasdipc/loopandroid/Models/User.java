@@ -1,12 +1,14 @@
 package com.gfive.jasdipc.loopandroid.Models;
 
 import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by JasdipC on 2016-10-08.
  */
 
-public class User {
+public class User implements Parcelable {
     private String firstName;
     private String lastName;
     private String username;
@@ -91,4 +93,46 @@ public class User {
     public String getFullName() {
         return firstName + " " + lastName;
     }
+
+    //Parcelable
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.firstName);
+        dest.writeString(this.lastName);
+        dest.writeString(this.username);
+        dest.writeString(this.name);
+        dest.writeString(this.password);
+        dest.writeString(this.email);
+        dest.writeString(this.phoneNumber);
+        dest.writeParcelable((Parcelable) this.profilePicture, flags);
+    }
+
+    protected User(Parcel in) {
+        this.firstName = in.readString();
+        this.lastName = in.readString();
+        this.username = in.readString();
+        this.name = in.readString();
+        this.password = in.readString();
+        this.email = in.readString();
+        this.phoneNumber = in.readString();
+        this.profilePicture = in.readParcelable(Drawable.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

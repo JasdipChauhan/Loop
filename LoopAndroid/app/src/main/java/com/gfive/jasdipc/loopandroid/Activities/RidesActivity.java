@@ -9,8 +9,10 @@ import android.view.View;
 
 import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
 import com.gfive.jasdipc.loopandroid.Clients.APIClient;
+import com.gfive.jasdipc.loopandroid.Controllers.RidesController;
 import com.gfive.jasdipc.loopandroid.Interfaces.OnServerResponse;
 import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
+import com.gfive.jasdipc.loopandroid.Interfaces.ParseCallback;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
 import com.gfive.jasdipc.loopandroid.Models.User;
 import com.gfive.jasdipc.loopandroid.R;
@@ -20,7 +22,7 @@ import java.util.List;
 
 import okhttp3.Response;
 
-public class RidesActivity extends AppCompatActivity implements OnServerResponse {
+public class RidesActivity extends AppCompatActivity implements ParseCallback{
 
     private RecyclerView ridesRecyclerView;
     private FloatingActionButton addRideFAB;
@@ -30,7 +32,7 @@ public class RidesActivity extends AppCompatActivity implements OnServerResponse
     private List<User> users = new ArrayList<>();
     private List<Ride> rides = new ArrayList<>();
 
-    private APIClient apiClient;
+    private RidesController ridesController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +49,8 @@ public class RidesActivity extends AppCompatActivity implements OnServerResponse
         ridesAdapter = new RidesAdapter(rides, RidesActivity.this);
         ridesRecyclerView.setAdapter(ridesAdapter);
 
-        apiClient = APIClient.getInstance();
-
-        apiClient.serverGetRides(RidesActivity.this);
+        ridesController = new RidesController();
+        ridesController.refreshRidesList(RidesActivity.this);
 
         addRideFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,41 +63,30 @@ public class RidesActivity extends AppCompatActivity implements OnServerResponse
             @Override
             public void onClick(View v) {
                 ridesAdapter.clear();
-                apiClient.serverGetRides(RidesActivity.this);
+                ridesController.refreshRidesList(RidesActivity.this);
             }
         });
 
     }
 
     @Override
-    public void serverCallback(final Boolean isSuccessful, final Response serverResponse) {
+    public void retrieveRides(boolean isSuccessful, List<Ride> ridesList) {
 
-        try {
-            String serverRidesJSON = serverResponse.body().string();
-            Log.i("RIDES ACTIVITY", serverRidesJSON);
-            List<Ride> serverRides = APIClient.getInstance().parseResponse(serverRidesJSON);
-
-            Log.i("CHECKPOINT", "SUCCESSFUL");
-
-            rides.clear();
-
-            for (Ride ride : serverRides) {
-                rides.add(ride);
-            }
-
-            Log.i("BREAKPOINT", "SUCCESSFUL");
-
-        } catch (Exception e) {
-            Log.e("ERROR", "TRYING TO PARSE RESPONSE FIRST TIME");
-            e.printStackTrace();
+        if (!isSuccessful) {
+            return;
         }
 
-        RidesActivity.this.runOnUiThread(new Runnable() {
+        for (Ride ride : ridesList) {
+            rides.add(ride);
+        }
+
+        final int lastIndex = rides.size() - 1;
+
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ridesAdapter.notifyDataSetChanged();
+                ridesAdapter.notifyItemRangeInserted(0, lastIndex);
             }
         });
-
     }
 }

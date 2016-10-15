@@ -52,7 +52,7 @@ public class RidesController implements OnServerResponse {
             }
         }
 
-        parseCallback.onParseRidesList(isSuccessful, ridesList);
+        parseCallback.retrieveRides(isSuccessful, ridesList);
     }
 
     public List<Ride> parseResponse(String jsonString) {

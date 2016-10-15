@@ -50,15 +50,13 @@ public class RidesActivity extends AppCompatActivity implements OnServerResponse
 
         apiClient = APIClient.getInstance();
 
+        apiClient.serverGetRides(RidesActivity.this);
+
         addRideFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 ridesAdapter.clear();
-
-
-                ridesAdapter.notifyItemInserted(rides.size() - 1);
-
                 apiClient.serverGetRides(RidesActivity.this);
             }
         });

@@ -1,7 +1,6 @@
 package com.gfive.jasdipc.loopandroid.Activities;
 
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,12 +12,10 @@ import android.view.View;
 import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
 import com.gfive.jasdipc.loopandroid.Clients.APIClient;
 import com.gfive.jasdipc.loopandroid.Clients.OnServerResponse;
+import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
-import com.gfive.jasdipc.loopandroid.Models.ServerResponseModel;
 import com.gfive.jasdipc.loopandroid.Models.User;
 import com.gfive.jasdipc.loopandroid.R;
-
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,8 +34,6 @@ public class RidesActivity extends AppCompatActivity implements OnServerResponse
 
     private APIClient apiClient;
 
-    private List<ServerResponseModel> responses = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +42,8 @@ public class RidesActivity extends AppCompatActivity implements OnServerResponse
         ridesRecyclerView = (RecyclerView) findViewById(R.id.rides_recycler_view);
         addRideFAB = (FloatingActionButton) findViewById(R.id.add_ride_FAB);
 
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        ridesRecyclerView.setLayoutManager(llm);
+        WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(this);
+        ridesRecyclerView.setLayoutManager(wCLLM);
 
         ridesAdapter = new RidesAdapter(rides, RidesActivity.this);
         ridesRecyclerView.setAdapter(ridesAdapter);
@@ -59,27 +54,8 @@ public class RidesActivity extends AppCompatActivity implements OnServerResponse
             @Override
             public void onClick(View v) {
 
-                Date now = new Date();
+                ridesAdapter.clear();
 
-                User user = new User();
-                user.setFirstName("JASDIP");
-                user.setLastName("CHAUHAN");
-                user.setUsername("JAS");
-                user.setPassword("PASS");
-                user.setEmail("jasdip@gmail.com");
-                user.setPhoneNumber("6475273055");
-                user.setProfilePicture(getDrawable(R.drawable.image));
-
-                Ride ride = new Ride();
-                ride.setDriver(user);
-                ride.setDate(now);
-                ride.setPickup("MARKHAM");
-                ride.setDropoff("WATERLOO");
-                ride.setTime("7:30");
-                ride.setPassengers(4);
-                ride.setCost(7.5);
-
-                rides.add(ride);
 
                 ridesAdapter.notifyItemInserted(rides.size() - 1);
 

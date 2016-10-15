@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 
 import com.gfive.jasdipc.loopandroid.Helpers.DateFormatter;
@@ -18,6 +20,8 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesViewHolder> {
 
     private List<Ride> rides;
     private Context mContext;
+
+    private int lastPosition = -1;
 
     public RidesAdapter(List<Ride> rides, Context mContext) {
         this.rides = rides;
@@ -46,7 +50,7 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesViewHolder> {
         //holder.userImage.setImageDrawable(ride.getDriver().getProfilePicture());
         holder.userImage.setImageDrawable(mContext.getDrawable(R.drawable.image));
 
-        runEnterAnimation(holder.itemView);
+        runEnterAnimation(holder.itemView, position);
 
     }
 
@@ -72,14 +76,16 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesViewHolder> {
 
     //Animations
 
-    private void runEnterAnimation(View view) {
-        view.setTranslationY(Utils.getScreenHeight(mContext));
-        view.animate()
-                .translationY(0)
-                .setInterpolator(new DecelerateInterpolator(3.f))
-                .setDuration(700)
-                .start();
+    private void runEnterAnimation(View viewToAnimate, int position)
+    {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition)
+        {
+            Animation animation = AnimationUtils.loadAnimation(mContext, android.R.anim.slide_in_left);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
     }
-}
 
 }
+

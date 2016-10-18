@@ -7,7 +7,11 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'rides')
+        fields = ('id',
+                  'username',
+                  'password',
+                  'rides',
+                  )
 
 
 class RiderSerializer(serializers.ModelSerializer):

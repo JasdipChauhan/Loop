@@ -49,9 +49,28 @@ class RideDetail(generics.RetrieveUpdateDestroyAPIView):
 #######
 
 class UserList(generics.ListAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 class UserDetail(generics.RetrieveAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+@api_view(['POST'])
+def create_auth(request, validated_data):
+    serialized = UserSerializer(data=request.data)
+    if serialized.is_valid():
+        User.objects.create_user(
+            serialized.init_data['email'],
+            serialized.init_data['username'],
+            serialized.init_data['password']
+        )
+        return Response(serialized.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
+
+class AuthUser(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer

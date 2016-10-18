@@ -58,7 +58,8 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback{
         addRideFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent i = new Intent(RidesActivity.this, CreateNewRideActivity.class);
+                startActivity(i);
             }
         });
 

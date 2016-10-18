@@ -38,7 +38,8 @@
 
         <activity
             android:name=".Activities.RideDetailActivity"
-            android:label="@string/title_activity_ride_detail"></activity>
+            android:label="@string/title_activity_ride_detail" />
+        <activity android:name=".Activities.CreateNewRideActivity"></activity>
     </application>
 
 </manifest>

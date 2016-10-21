@@ -148,6 +148,7 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:background="@color/colorAccent"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"
+            android:onClick="createRideAction"/>
     </RelativeLayout>
 </LinearLayout>

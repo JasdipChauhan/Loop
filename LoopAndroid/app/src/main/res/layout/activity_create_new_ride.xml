@@ -95,15 +95,19 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <DatePicker
-        android:layout_width="50dp"
-        android:layout_height="50dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/datePickerTV"
+        android:text="CLICK TO PICK DATE"
+        android:onClick="datePickedAction"/>
 
-    </DatePicker>
-
-    <TimePicker
-        android:layout_width="50dp"
-        android:layout_height="50dp"></TimePicker>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timePickerTV"
+        android:text="CLICK TO PICK TIME"
+        android:onClick="timePickedAction"/>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"

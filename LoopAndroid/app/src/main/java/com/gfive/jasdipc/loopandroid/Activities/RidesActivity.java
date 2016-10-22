@@ -18,6 +18,7 @@ import com.gfive.jasdipc.loopandroid.Interfaces.ParseCallback;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
 import com.gfive.jasdipc.loopandroid.Models.User;
 import com.gfive.jasdipc.loopandroid.R;
+import com.gfive.jasdipc.loopandroid.RideDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;

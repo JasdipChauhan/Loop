@@ -37,7 +37,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Activities.RideDetailActivity"
+            android:name=".RideDetailActivity"
             android:label="@string/title_activity_ride_detail" />
         <activity android:name=".Activities.CreateNewRideActivity"></activity>
     </application>

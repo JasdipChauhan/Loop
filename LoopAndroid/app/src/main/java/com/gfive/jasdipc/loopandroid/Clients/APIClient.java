@@ -6,6 +6,7 @@ import com.gfive.jasdipc.loopandroid.Interfaces.OnServerResponse;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
 import com.gfive.jasdipc.loopandroid.Models.User;
 
+import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -13,26 +14,34 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.Authenticator;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Credentials;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.Route;
 
 public class APIClient {
 
+    private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    private final int ENDPOINT_ERROR = 1;
+    private final int RESPONSE_ERROR = 2;
+    private final int NETWORK_CLIENT_ERROR = 3;
+
+    private String AUTHORIZATION_HEADER_TITLE = "Authorization";
     //DEVELOPMENT
     private final String LOOP_URL = "http://10.0.2.2:8000/api/v1/rides/";
 
-    //private final String LOOP_URL = "https://api.desktoppr.co/1/wallpapers?page=3";
     //RELEASE
     private final String RELEASE_URL = "";
 
     private static APIClient instance;
     private OkHttpClient networkClient;
 
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     public static APIClient getInstance() {
         if (instance == null) {
@@ -44,6 +53,65 @@ public class APIClient {
 
     private APIClient() {
         networkClient = new OkHttpClient();
+        //authenticate();
+    }
+
+    public void authenticate() {
+//        networkClient = new OkHttpClient.Builder()
+//                .authenticator(new Authenticator() {
+//
+//                    @Override
+//                    public Request authenticate(Route route, Response response) throws IOException {
+//                        System.out.println("Authenticating for response: " + response);
+//                        System.out.println("Challenges: " + response.challenges());
+//                        String credential = Credentials.basic("jasdipc", "Gwtv88sc");
+//                        return response.request().newBuilder()
+//                                .header("Authorization", credential)
+//                                .build();
+//                    }
+//                })
+//                .build();
+
+    }
+
+
+    public void postRide(final OnServerResponse serverResponse, final JSONObject postBody) {
+
+        RequestBody body = RequestBody.create(JSON, postBody.toString());
+        String credentials = Credentials.basic("loopuser", "looploop");
+
+        try {
+            Request request = new Request.Builder()
+                    .addHeader(AUTHORIZATION_HEADER_TITLE, credentials)
+                    .url(LOOP_URL)
+                    .post(body)
+                    .build();
+
+            networkClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    serverResponse.serverCallback(false, null);
+                    Log.e("APICLIENT", "HTTP ERROR");
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+
+                    if (response.isSuccessful()) {
+                        serverResponse.serverCallback(true, response);
+                    } else {
+                        Log.e("APICLIENT", "RESPONSE ERROR");
+                        serverResponse.serverCallback(false, response);
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("APICLIENT", "TRY SWALLOWED EXCEPTION");
+
+            serverResponse.serverCallback(false, null);
+        }
+
     }
 
     public void serverGetRides(final OnServerResponse serverResponse) {
@@ -57,16 +125,17 @@ public class APIClient {
                     .enqueue(new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
+
+                            Log.e("APICLIENT", "NETWORK ONFAILURE");
                             e.printStackTrace();
                             serverResponse.serverCallback(false, null);
-                            Log.e("APICLIENT", "CALLBACK ERROR");
+
                         }
 
                         @Override
                         public void onResponse(Call call, Response response) throws IOException {
 
                             if (response.isSuccessful()) {
-
                                 String responseString = response.body().toString();
                                 serverResponse.serverCallback(true, response);
 
@@ -76,7 +145,7 @@ public class APIClient {
                                 Log.e("APICLIENT", "RESPONSE UNSUCCESSFUL");
                             }
 
-                            ///IOUtils.closeQuietly(response);
+                            IOUtils.closeQuietly(response);
                         }
                     });
         } catch (Exception e) {
@@ -88,40 +157,34 @@ public class APIClient {
 
     }
 
-    public List<Ride> parseResponse(String jsonString) {
+    private void handleFailure(final OnServerResponse serverResponse, IOException e, int breakDownPoint) {
 
-        List<Ride> rides = new ArrayList<>();
+        e.printStackTrace();
+        serverResponse.serverCallback(false, null);
 
-        try {
-            JSONArray responsesArray = new JSONArray(jsonString);
+        Log.e("APICLIENT", getBreakdownMessage(breakDownPoint));
+    }
 
-            for (int i = 0; i < responsesArray.length(); i++) {
+    private String getBreakdownMessage(int breakdownPoint) {
+        String breakdownMessage = "";
 
-                JSONObject object = responsesArray.getJSONObject(i);
+        switch (breakdownPoint) {
+            case ENDPOINT_ERROR:
+                breakdownMessage = "SERVER NOT HITTING ENDPOINT";
+                break;
 
-                Ride tempRide = new Ride();
-                User tempUser = new User();
+            case RESPONSE_ERROR:
+                breakdownMessage = "SERVER RESPONSE ERROR";
+                break;
 
-                tempUser.setName(object.getString("driver_name"));
-                tempUser.setEmail(object.getString("driver_email"));
-                tempUser.setPhoneNumber(object.getString("driver_phone_number"));
+            case NETWORK_CLIENT_ERROR:
+                breakdownMessage = "OKHTTP CONNECTION FAULT";
+                break;
 
-                tempRide.setPickup(object.getString("pickup"));
-                tempRide.setDropoff(object.getString("dropoff"));
-                tempRide.setDate(object.getString("date"));
-                tempRide.setTime(object.getString("time"));
-                tempRide.setPassengers(object.getInt("seats_left"));
-                tempRide.setCost(object.getDouble("price"));
+            default:
 
-                tempRide.setDriver(tempUser);
-                rides.add(tempRide);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("RIDESACTIVITY", "ERROR POPULATING LIST");
         }
 
-        return rides;
+        return breakdownMessage;
     }
 }

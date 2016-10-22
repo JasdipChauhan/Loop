@@ -35,6 +35,12 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback{
 
     private RidesController ridesController;
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

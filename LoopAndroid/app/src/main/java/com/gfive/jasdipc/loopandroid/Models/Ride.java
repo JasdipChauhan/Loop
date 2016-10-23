@@ -96,15 +96,16 @@ public class Ride implements Parcelable {
         this.cost = cost;
     }
 
+    //Parcelable
+
     @Override
     public int describeContents() {
         return 0;
     }
 
-    //Parcelable
-
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
         dest.writeParcelable(this.driver, flags);
         dest.writeLong(this.date != null ? this.date.getTime() : -1);
         dest.writeString(this.pickup);
@@ -115,6 +116,7 @@ public class Ride implements Parcelable {
     }
 
     protected Ride(Parcel in) {
+        this.id = in.readInt();
         this.driver = in.readParcelable(User.class.getClassLoader());
         long tmpDate = in.readLong();
         this.date = tmpDate == -1 ? null : new Date(tmpDate);
@@ -125,7 +127,7 @@ public class Ride implements Parcelable {
         this.cost = in.readDouble();
     }
 
-    public static final Parcelable.Creator<Ride> CREATOR = new Parcelable.Creator<Ride>() {
+    public static final Creator<Ride> CREATOR = new Creator<Ride>() {
         @Override
         public Ride createFromParcel(Parcel source) {
             return new Ride(source);

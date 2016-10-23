@@ -86,6 +86,8 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback{
             @Override
             public void onItemClick(View view, int position) {
 
+                Ride selectedRide = rides.get(position);
+
                 Intent rideDetailIntent = new Intent(mContext, RideDetailActivity.class);
                 rideDetailIntent.putExtra("ride", (Parcelable) rides.get(position));
                 startActivity(rideDetailIntent);

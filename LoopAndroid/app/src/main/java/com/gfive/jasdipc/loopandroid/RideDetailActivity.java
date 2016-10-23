@@ -73,7 +73,7 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
         Log.i("butotn clicked", "button clicked");
         JSONObject updateRideObject = new JSONObject();
 
-        int rideID = ride.getId() + 1;
+        int rideID = ride.getId();
 
         try {
             updateRideObject.put("driver_name", ride.getDriver().getName());
@@ -140,6 +140,7 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
     public void serverCallback(Boolean isSuccessful, Response serverResponse) {
         if (isSuccessful) {
             Log.i("WE GOOD", "GOOD");
+            finish();
         } else {
             Log.i("WE BAD", "BAD");
         }

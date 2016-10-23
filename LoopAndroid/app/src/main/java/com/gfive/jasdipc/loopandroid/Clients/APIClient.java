@@ -130,6 +130,8 @@ public class APIClient {
                         Log.e("APICLIENT", "RESPONSE ERROR");
                         serverResponse.serverCallback(false, response);
                     }
+
+                    IOUtils.closeQuietly(response);
                 }
             });
         } catch (Exception e) {
@@ -169,6 +171,8 @@ public class APIClient {
                         Log.e("APICLIENT", "RESPONSE ERROR");
                         serverResponse.serverCallback(false, response);
                     }
+
+                    IOUtils.closeQuietly(response);
                 }
             });
         } catch (Exception e) {

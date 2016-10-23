@@ -39,6 +39,7 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback{
 
     @Override
     protected void onResume() {
+        Log.i("onResume", "CALLED");
         super.onResume();
     }
 

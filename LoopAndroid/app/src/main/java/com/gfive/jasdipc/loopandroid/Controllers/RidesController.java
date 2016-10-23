@@ -73,6 +73,7 @@ public class RidesController implements OnServerResponse {
                 tempUser.setEmail(object.getString("driver_email"));
                 tempUser.setPhoneNumber(object.getString("driver_phone_number"));
 
+                tempRide.setId(object.getInt("id"));
                 tempRide.setPickup(object.getString("pickup"));
                 tempRide.setDropoff(object.getString("dropoff"));
                 tempRide.setDate(object.getString("date"));

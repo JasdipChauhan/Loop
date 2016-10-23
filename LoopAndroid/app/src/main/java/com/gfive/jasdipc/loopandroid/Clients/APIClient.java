@@ -56,64 +56,7 @@ public class APIClient {
         //authenticate();
     }
 
-    public void authenticate() {
-//        networkClient = new OkHttpClient.Builder()
-//                .authenticator(new Authenticator() {
-//
-//                    @Override
-//                    public Request authenticate(Route route, Response response) throws IOException {
-//                        System.out.println("Authenticating for response: " + response);
-//                        System.out.println("Challenges: " + response.challenges());
-//                        String credential = Credentials.basic("jasdipc", "Gwtv88sc");
-//                        return response.request().newBuilder()
-//                                .header("Authorization", credential)
-//                                .build();
-//                    }
-//                })
-//                .build();
-
-    }
-
-
-    public void postRide(final OnServerResponse serverResponse, final JSONObject postBody) {
-
-        RequestBody body = RequestBody.create(JSON, postBody.toString());
-        String credentials = Credentials.basic("loopuser", "looploop");
-
-        try {
-            Request request = new Request.Builder()
-                    .addHeader(AUTHORIZATION_HEADER_TITLE, credentials)
-                    .url(LOOP_URL)
-                    .post(body)
-                    .build();
-
-            networkClient.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    serverResponse.serverCallback(false, null);
-                    Log.e("APICLIENT", "HTTP ERROR");
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-
-                    if (response.isSuccessful()) {
-                        serverResponse.serverCallback(true, response);
-                    } else {
-                        Log.e("APICLIENT", "RESPONSE ERROR");
-                        serverResponse.serverCallback(false, response);
-                    }
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("APICLIENT", "TRY SWALLOWED EXCEPTION");
-
-            serverResponse.serverCallback(false, null);
-        }
-
-    }
-
+    //GET
     public void serverGetRides(final OnServerResponse serverResponse) {
 
         try {
@@ -148,6 +91,86 @@ public class APIClient {
                             IOUtils.closeQuietly(response);
                         }
                     });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("APICLIENT", "TRY SWALLOWED EXCEPTION");
+
+            serverResponse.serverCallback(false, null);
+        }
+    }
+
+    //PUT
+    public void updateRide(final OnServerResponse serverResponse, JSONObject updateRideJSON, int rideID) {
+        String updateURL = LOOP_URL + rideID + "/";
+
+        RequestBody body = RequestBody.create(JSON, updateRideJSON.toString());
+        //String credentials = Credentials.basic("loopuser", "looploop");
+        String credentials = Credentials.basic("jasdipc", "Gwtv88sc");
+
+        try {
+            Request request = new Request.Builder()
+                    .addHeader(AUTHORIZATION_HEADER_TITLE, credentials)
+                    .url(updateURL)
+                    .put(body)
+                    .build();
+
+            networkClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    serverResponse.serverCallback(false, null);
+                    Log.e("APICLIENT", "HTTP ERROR");
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+
+                    if (response.isSuccessful()) {
+                        serverResponse.serverCallback(true, response);
+                    } else {
+                        Log.e("APICLIENT", "RESPONSE ERROR");
+                        serverResponse.serverCallback(false, response);
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("APICLIENT", "TRY SWALLOWED EXCEPTION");
+
+            serverResponse.serverCallback(false, null);
+        }
+    }
+
+    //POST
+    public void postRide(final OnServerResponse serverResponse, final JSONObject postBody) {
+
+        RequestBody body = RequestBody.create(JSON, postBody.toString());
+        String credentials = Credentials.basic("loopuser", "looploop");
+
+        try {
+            Request request = new Request.Builder()
+                    .addHeader(AUTHORIZATION_HEADER_TITLE, credentials)
+                    .url(LOOP_URL)
+                    .post(body)
+                    .build();
+
+            networkClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    serverResponse.serverCallback(false, null);
+                    Log.e("APICLIENT", "HTTP ERROR");
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+
+                    if (response.isSuccessful()) {
+                        serverResponse.serverCallback(true, response);
+                    } else {
+                        Log.e("APICLIENT", "RESPONSE ERROR");
+                        serverResponse.serverCallback(false, response);
+                    }
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("APICLIENT", "TRY SWALLOWED EXCEPTION");

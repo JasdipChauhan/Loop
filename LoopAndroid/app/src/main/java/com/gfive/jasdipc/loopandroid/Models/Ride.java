@@ -12,6 +12,7 @@ import java.util.Date;
  */
 
 public class Ride implements Parcelable {
+    private int id;
     private User driver;
     private Date date;
     private String pickup;
@@ -25,6 +26,14 @@ public class Ride implements Parcelable {
     }
 
     //GETTERS AND SETTERS
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public User getDriver() {
         return driver;

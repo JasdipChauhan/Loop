@@ -18,6 +18,11 @@ public class DateFormatter {
         }
     }
 
+    public static String formatToYYYYMMDD(Date date) {
+        String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        return formattedDate;
+    }
+
     public static String formatToString(Date date) {
         return date.toString();
     }

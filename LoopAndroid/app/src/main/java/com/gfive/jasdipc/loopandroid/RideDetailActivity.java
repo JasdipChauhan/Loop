@@ -8,8 +8,12 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.View;
 
+import com.gfive.jasdipc.loopandroid.Clients.APIClient;
 import com.gfive.jasdipc.loopandroid.Fragments.RideDetailFragment;
+import com.gfive.jasdipc.loopandroid.Helpers.DateFormatter;
+import com.gfive.jasdipc.loopandroid.Interfaces.OnServerResponse;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
 import com.gfive.jasdipc.loopandroid.R;
 import com.google.android.gms.maps.CameraUpdate;
@@ -22,10 +26,14 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class RideDetailActivity extends FragmentActivity implements OnMapReadyCallback, RideDetailFragment.OnFragmentInteractionListener{
+import okhttp3.Response;
+
+public class RideDetailActivity extends FragmentActivity implements OnMapReadyCallback, RideDetailFragment.OnFragmentInteractionListener, OnServerResponse{
 
     private GoogleMap mMap;
     private Ride ride;
@@ -34,6 +42,8 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
     private String pickup;
     private String dropoff;
 
+    private APIClient apiClient;
+
     private final int MAP_PADDING = 100;
 
     @Override
@@ -41,6 +51,7 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ride_detail);
 
+        apiClient = APIClient.getInstance();
         Intent intent = getIntent();
         ride = intent.getParcelableExtra("ride");
         pickup = ride.getPickup();
@@ -51,12 +62,38 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
         rideDetailFragment = RideDetailFragment.newInstance(ride);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.detail_frame_layout, rideDetailFragment);
         transaction.commit();
+    }
+
+    public void reserveButtonClicked (View view) {
+        Log.i("butotn clicked", "button clicked");
+        JSONObject updateRideObject = new JSONObject();
+
+        int rideID = ride.getId() + 1;
+
+        try {
+            updateRideObject.put("driver_name", ride.getDriver().getName());
+            updateRideObject.put("driver_email", ride.getDriver().getEmail());
+            updateRideObject.put("driver_phone_number", ride.getDriver().getPhoneNumber());
+            updateRideObject.put("pickup", ride.getPickup());
+            updateRideObject.put("dropoff", ride.getDropoff());
+            updateRideObject.put("date", DateFormatter.formatToYYYYMMDD(ride.getDate()));
+            updateRideObject.put("time", ride.getTime());
+            updateRideObject.put("seats_left", ride.getPassengers() - 1);
+            updateRideObject.put("price", ride.getCost());
+
+            //JSONObject testing = new JSONObject("{\"driver_name\":\"Jasdip Chauhan\", \"driver_email\":\"jasdip.chauhan@gmail.com\", \"driver_phone_number\":\"6475273055\", \"pickup\": \"Markham\", \"dropoff\": \"Waterloo\",\"date\": \"2016-10-14\", \"time\": \"7:30\", \"seats_left\": 1, \"price\": \"10.50\"}");
+
+            apiClient.updateRide(RideDetailActivity.this, updateRideObject, rideID);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -97,5 +134,14 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onFragmentInteraction(Uri uri) {
         Log.i("BUTTON CLICKED", "GOOOOOOD");
+    }
+
+    @Override
+    public void serverCallback(Boolean isSuccessful, Response serverResponse) {
+        if (isSuccessful) {
+            Log.i("WE GOOD", "GOOD");
+        } else {
+            Log.i("WE BAD", "BAD");
+        }
     }
 }

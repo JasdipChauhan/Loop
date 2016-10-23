@@ -64,6 +64,7 @@
         android:layout_alignParentBottom="true"
         android:textStyle="bold"
         android:padding="8dp"
+        android:onClick="reserveButtonClicked"
         />
 
 

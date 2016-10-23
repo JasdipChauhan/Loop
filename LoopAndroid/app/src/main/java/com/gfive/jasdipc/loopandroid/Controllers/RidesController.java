@@ -55,7 +55,7 @@ public class RidesController implements OnServerResponse {
         parseCallback.retrieveRides(isSuccessful, ridesList);
     }
 
-    public List<Ride> parseResponse(String jsonString) {
+    private List<Ride> parseResponse(String jsonString) {
 
         List<Ride> rides = new ArrayList<>();
 

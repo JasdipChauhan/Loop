@@ -23,7 +23,7 @@ import com.gfive.jasdipc.loopandroid.RideDetailActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RidesActivity extends AppCompatActivity implements ParseCallback{
+public class RidesActivity extends AppCompatActivity implements ParseCallback {
 
     private RecyclerView ridesRecyclerView;
     private FloatingActionButton addRideFAB;
@@ -41,7 +41,10 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback{
     protected void onResume() {
         Log.i("onResume", "CALLED");
         super.onResume();
+
+        ridesController.refreshRidesList(this);
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +55,13 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback{
         addRideFAB = (FloatingActionButton) findViewById(R.id.add_ride_FAB);
         refreshRideFAB = (FloatingActionButton) findViewById(R.id.refresh_ride_FAB);
 
+        ridesController = new RidesController();
         mContext = RidesActivity.this;
 
         WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(mContext);
         ridesRecyclerView.setLayoutManager(wCLLM);
-
         ridesAdapter = new RidesAdapter(rides, mContext);
         ridesRecyclerView.setAdapter(ridesAdapter);
-
-        ridesController = new RidesController();
-        ridesController.refreshRidesList(this);
 
         addRideFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,22 +83,22 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback{
                 mContext, ridesRecyclerView,
                 new RecyclerItemClickListener.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(View view, int position) {
+                    @Override
+                    public void onItemClick(View view, int position) {
 
-                Ride selectedRide = rides.get(position);
+                        Ride selectedRide = rides.get(position);
 
-                Intent rideDetailIntent = new Intent(mContext, RideDetailActivity.class);
-                rideDetailIntent.putExtra("ride", (Parcelable) rides.get(position));
-                startActivity(rideDetailIntent);
-                Log.i("POSITION", position+"");
-            }
+                        Intent rideDetailIntent = new Intent(mContext, RideDetailActivity.class);
+                        rideDetailIntent.putExtra("ride", (Parcelable) rides.get(position));
+                        startActivity(rideDetailIntent);
+                        Log.i("POSITION", position + "");
+                    }
 
-            @Override
-            public void onLongItemClick(View view, int position) {
+                    @Override
+                    public void onLongItemClick(View view, int position) {
 
-            }
-        }));
+                    }
+                }));
 
     }
 
@@ -108,6 +108,8 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback{
         if (!isSuccessful) {
             return;
         }
+
+        rides.clear();
 
         for (Ride ride : ridesList) {
             rides.add(ride);

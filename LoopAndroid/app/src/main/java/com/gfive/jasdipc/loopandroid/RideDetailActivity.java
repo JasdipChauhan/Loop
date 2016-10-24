@@ -1,22 +1,23 @@
 package com.gfive.jasdipc.loopandroid;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 
+import com.gfive.jasdipc.loopandroid.Activities.RidesActivity;
 import com.gfive.jasdipc.loopandroid.Clients.APIClient;
 import com.gfive.jasdipc.loopandroid.Fragments.RideDetailFragment;
 import com.gfive.jasdipc.loopandroid.Helpers.DateFormatter;
 import com.gfive.jasdipc.loopandroid.Interfaces.OnServerResponse;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
-import com.gfive.jasdipc.loopandroid.R;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -38,6 +39,9 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
     private GoogleMap mMap;
     private Ride ride;
     private RideDetailFragment rideDetailFragment;
+    private Snackbar snackbarStatus;
+    private boolean didUserReserve = false;
+    private Intent returnIntent;
 
     private String pickup;
     private String dropoff;
@@ -56,6 +60,7 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
         ride = intent.getParcelableExtra("ride");
         pickup = ride.getPickup();
         dropoff = ride.getDropoff();
+        returnIntent = new Intent();
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -87,7 +92,6 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
             updateRideObject.put("price", ride.getCost());
 
             //JSONObject testing = new JSONObject("{\"driver_name\":\"Jasdip Chauhan\", \"driver_email\":\"jasdip.chauhan@gmail.com\", \"driver_phone_number\":\"6475273055\", \"pickup\": \"Markham\", \"dropoff\": \"Waterloo\",\"date\": \"2016-10-14\", \"time\": \"7:30\", \"seats_left\": 1, \"price\": \"10.50\"}");
-
             apiClient.updateRide(RideDetailActivity.this, updateRideObject, rideID);
 
         } catch (Exception e) {
@@ -139,10 +143,15 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
     @Override
     public void serverCallback(Boolean isSuccessful, Response serverResponse) {
         if (isSuccessful) {
-            Log.i("WE GOOD", "GOOD");
+            didUserReserve = true;
+            returnIntent.putExtra("didReserve", didUserReserve);
+            setResult(Activity.RESULT_OK, returnIntent);
             finish();
+
         } else {
-            Log.i("WE BAD", "BAD");
+            snackbarStatus = Snackbar.make(findViewById(R.id.detail_frame_layout), "Could not book ride, try again later...", Snackbar.LENGTH_SHORT);
+            snackbarStatus.show();
         }
+
     }
 }

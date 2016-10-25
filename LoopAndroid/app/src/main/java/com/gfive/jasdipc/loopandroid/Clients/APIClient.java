@@ -184,12 +184,46 @@ public class APIClient {
 
     }
 
-    private void handleFailure(final OnServerResponse serverResponse, IOException e, int breakDownPoint) {
+    //DELETE
+    public void deleteRide(final OnServerResponse serverResponse, final int rideID) {
 
-        e.printStackTrace();
-        serverResponse.serverCallback(false, null);
+        String deleteURL = LOOP_URL + rideID + "/";
+        String credentials = Credentials.basic("jasdipc", "Gwtv88sc");
 
-        Log.e("APICLIENT", getBreakdownMessage(breakDownPoint));
+        try {
+            Request request = new Request.Builder()
+                    .addHeader(AUTHORIZATION_HEADER_TITLE, credentials)
+                    .url(deleteURL)
+                    .delete()
+                    .build();
+
+            networkClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    serverResponse.onDeleteRide(false, null);
+                    Log.e("APICLIENT", "HTTP ERROR");
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+
+                    if (response.isSuccessful()) {
+                        serverResponse.onDeleteRide(true, response);
+                    } else {
+                        Log.e("APICLIENT", "RESPONSE ERROR");
+                        serverResponse.onDeleteRide(false, response);
+                    }
+
+                    IOUtils.closeQuietly(response);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("APICLIENT", "TRY SWALLOWED EXCEPTION");
+
+            serverResponse.onDeleteRide(false, null);
+        }
+
     }
 
     private String getBreakdownMessage(int breakdownPoint) {

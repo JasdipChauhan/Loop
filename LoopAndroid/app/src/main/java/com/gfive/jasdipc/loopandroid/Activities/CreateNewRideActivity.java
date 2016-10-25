@@ -103,6 +103,11 @@ public class CreateNewRideActivity extends AppCompatActivity implements OnServer
         }
     }
 
+    @Override
+    public void onDeleteRide(Boolean isSuccessful, Response serverResponse) {
+
+    }
+
     //HELPER FUNCTIONS
     private void init() {
         firstName = (TextInputEditText) findViewById(R.id.first_name_input);

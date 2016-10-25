@@ -81,6 +81,11 @@ public class RidesController implements OnServerResponse {
                 tempRide.setPassengers(object.getInt("seats_left"));
                 tempRide.setCost(object.getDouble("price"));
 
+                if (tempRide.getPassengers() == 0) {
+                    apiClient.deleteRide(RidesController.this, tempRide.getId());
+                    return rides;
+                }
+
                 tempRide.setDriver(tempUser);
                 rides.add(tempRide);
             }
@@ -93,4 +98,10 @@ public class RidesController implements OnServerResponse {
         return rides;
     }
 
+    @Override
+    public void onDeleteRide(Boolean isSuccessful, Response serverResponse) {
+        if (isSuccessful) {
+            refreshRidesList(parseCallback);
+        }
+    }
 }

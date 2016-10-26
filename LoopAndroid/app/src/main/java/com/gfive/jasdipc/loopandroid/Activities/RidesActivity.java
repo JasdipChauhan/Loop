@@ -12,7 +12,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.facebook.login.LoginManager;
 import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
+import com.gfive.jasdipc.loopandroid.LoginActivity;
 import com.gfive.jasdipc.loopandroid.Managers.RidesManager;
 import com.gfive.jasdipc.loopandroid.Helpers.RecyclerItemClickListener;
 import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
@@ -30,6 +32,8 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
     private RecyclerView ridesRecyclerView;
     private FloatingActionButton addRideFAB;
     private FloatingActionButton refreshRideFAB;
+
+    private FloatingActionButton logoutButton;
 
     private RidesAdapter ridesAdapter;
     private List<User> users = new ArrayList<>();
@@ -66,6 +70,7 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
         ridesRecyclerView = (RecyclerView) findViewById(R.id.rides_recycler_view);
         addRideFAB = (FloatingActionButton) findViewById(R.id.add_ride_FAB);
         refreshRideFAB = (FloatingActionButton) findViewById(R.id.refresh_ride_FAB);
+        logoutButton = (FloatingActionButton) findViewById(R.id.logout_FAB);
 
         ridesManager = new RidesManager();
         mContext = RidesActivity.this;
@@ -156,6 +161,12 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
                 }
             }
         }
+    }
+
+    public void logoutAction(View view) {
+        LoginManager.getInstance().logOut();
+        Intent i = new Intent(RidesActivity.this, LoginActivity.class);
+        startActivity(i);
     }
 
     private void refreshList() {

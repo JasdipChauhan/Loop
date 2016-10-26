@@ -200,7 +200,7 @@ public class APIClient {
             networkClient.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    serverResponse.onDeleteRide(false, null);
+                    serverResponse.serverCallback(false, null);
                     Log.e("APICLIENT", "HTTP ERROR");
                 }
 
@@ -208,10 +208,10 @@ public class APIClient {
                 public void onResponse(Call call, Response response) throws IOException {
 
                     if (response.isSuccessful()) {
-                        serverResponse.onDeleteRide(true, response);
+                        serverResponse.serverCallback(true, response);
                     } else {
                         Log.e("APICLIENT", "RESPONSE ERROR");
-                        serverResponse.onDeleteRide(false, response);
+                        serverResponse.serverCallback(false, response);
                     }
 
                     IOUtils.closeQuietly(response);
@@ -221,7 +221,7 @@ public class APIClient {
             e.printStackTrace();
             Log.e("APICLIENT", "TRY SWALLOWED EXCEPTION");
 
-            serverResponse.onDeleteRide(false, null);
+            serverResponse.serverCallback(false, null);
         }
 
     }

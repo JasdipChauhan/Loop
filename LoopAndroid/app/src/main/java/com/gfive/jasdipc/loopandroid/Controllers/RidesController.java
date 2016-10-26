@@ -45,6 +45,11 @@ public class RidesController implements OnServerResponse {
 
             try {
                 serverResponseString = serverResponse.body().string();
+
+                if (serverResponseString.isEmpty()) {
+                    apiClient.serverGetRides(RidesController.this);
+                    return;
+                }
                 ridesList = parseResponse(serverResponseString);
 
             } catch (IOException ioE) {
@@ -96,12 +101,5 @@ public class RidesController implements OnServerResponse {
         }
 
         return rides;
-    }
-
-    @Override
-    public void onDeleteRide(Boolean isSuccessful, Response serverResponse) {
-        if (isSuccessful) {
-            refreshRidesList(parseCallback);
-        }
     }
 }

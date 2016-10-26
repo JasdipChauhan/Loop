@@ -154,9 +154,4 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
         }
 
     }
-
-    @Override
-    public void onDeleteRide(Boolean isSuccessful, Response serverResponse) {
-
-    }
 }

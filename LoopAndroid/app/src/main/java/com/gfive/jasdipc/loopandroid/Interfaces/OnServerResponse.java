@@ -8,6 +8,4 @@ import okhttp3.Response;
 
 public interface OnServerResponse {
     void serverCallback(Boolean isSuccessful, Response serverResponse);
-
-    void onDeleteRide(Boolean isSuccessful, Response serverResponse);
 }

@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 
 import com.gfive.jasdipc.loopandroid.Helpers.DateFormatter;
+import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
@@ -48,7 +49,7 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesViewHolder> {
         holder.pickupTime.setText(ride.getTime());
         holder.passengers.setText(Integer.toString(ride.getPassengers()));
         holder.cost.setText(Double.toString(ride.getCost()));
-        holder.userImage.setImageDrawable(mContext.getDrawable(R.drawable.image));
+        holder.userImage.setImageBitmap(ProfileManager.getInstance(mContext).getUserProfile().profilePictureBitmap);
 
         runEnterAnimation(holder.itemView, position);
 

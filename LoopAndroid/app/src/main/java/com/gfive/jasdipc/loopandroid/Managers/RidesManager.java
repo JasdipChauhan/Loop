@@ -1,4 +1,4 @@
-package com.gfive.jasdipc.loopandroid.Controllers;
+package com.gfive.jasdipc.loopandroid.Managers;
 
 import android.util.Log;
 
@@ -21,18 +21,18 @@ import okhttp3.Response;
  * Created by JasdipC on 2016-10-14.
  */
 
-public class RidesController implements OnServerResponse {
+public class RidesManager implements OnServerResponse {
 
     private APIClient apiClient;
     private ParseCallback parseCallback;
 
-    public RidesController() {
+    public RidesManager() {
         apiClient = APIClient.getInstance();
     }
 
     public void refreshRidesList(ParseCallback parseCallback) {
         this.parseCallback = parseCallback;
-        apiClient.serverGetRides(RidesController.this);
+        apiClient.serverGetRides(RidesManager.this);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class RidesController implements OnServerResponse {
                 serverResponseString = serverResponse.body().string();
 
                 if (serverResponseString.isEmpty()) {
-                    apiClient.serverGetRides(RidesController.this);
+                    apiClient.serverGetRides(RidesManager.this);
                     return;
                 }
                 ridesList = parseResponse(serverResponseString);
@@ -87,7 +87,7 @@ public class RidesController implements OnServerResponse {
                 tempRide.setCost(object.getDouble("price"));
 
                 if (tempRide.getPassengers() == 0) {
-                    apiClient.deleteRide(RidesController.this, tempRide.getId());
+                    apiClient.deleteRide(RidesManager.this, tempRide.getId());
                     return rides;
                 }
 

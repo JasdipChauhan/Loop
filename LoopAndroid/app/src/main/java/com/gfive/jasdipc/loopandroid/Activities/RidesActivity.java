@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
-import com.gfive.jasdipc.loopandroid.Controllers.RidesController;
+import com.gfive.jasdipc.loopandroid.Managers.RidesManager;
 import com.gfive.jasdipc.loopandroid.Helpers.RecyclerItemClickListener;
 import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
 import com.gfive.jasdipc.loopandroid.Interfaces.ParseCallback;
@@ -36,7 +36,7 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
     private List<Ride> rides = new ArrayList<>();
     private Context mContext;
 
-    private RidesController ridesController;
+    private RidesManager ridesManager;
     private Snackbar statusSnackbar;
 
     public static final int ON_START_UP = 1;
@@ -67,7 +67,7 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
         addRideFAB = (FloatingActionButton) findViewById(R.id.add_ride_FAB);
         refreshRideFAB = (FloatingActionButton) findViewById(R.id.refresh_ride_FAB);
 
-        ridesController = new RidesController();
+        ridesManager = new RidesManager();
         mContext = RidesActivity.this;
 
         WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(mContext);
@@ -159,7 +159,7 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
     }
 
     private void refreshList() {
-        ridesController.refreshRidesList(this);
+        ridesManager.refreshRidesList(this);
     }
 
     public static String getSnackbarMessage(int statusCode) {

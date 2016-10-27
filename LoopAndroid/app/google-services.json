@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "328844214005",
+    "firebase_url": "https://loopandroid-22e32.firebaseio.com",
+    "project_id": "loopandroid-22e32",
+    "storage_bucket": "loopandroid-22e32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:328844214005:android:aeffe58c7ed78bbe",
+        "android_client_info": {
+          "package_name": "com.gfive.jasdipc.loopandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "328844214005-u8dslmgsbjrsh03k5ruglbghpte9u80o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gfive.jasdipc.loopandroid",
+            "certificate_hash": "02170F4F7BE60367824C9D88AA6BC3CF6717256B"
+          }
+        },
+        {
+          "client_id": "328844214005-4a9nld5qrgav5crgulgkfra4m8ots4mb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4q5owxgU0up2ydp3Rjo8m3khkpvW3w60"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "328844214005-4a9nld5qrgav5crgulgkfra4m8ots4mb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

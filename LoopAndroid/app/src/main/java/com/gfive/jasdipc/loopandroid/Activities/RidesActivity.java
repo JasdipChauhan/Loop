@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 
 import com.facebook.login.LoginManager;
@@ -23,6 +24,9 @@ import com.gfive.jasdipc.loopandroid.Models.Ride;
 import com.gfive.jasdipc.loopandroid.Models.User;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.RideDetailActivity;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +38,9 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
     private FloatingActionButton refreshRideFAB;
 
     private FloatingActionButton logoutButton;
+
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mRef;
 
     private RidesAdapter ridesAdapter;
     private List<User> users = new ArrayList<>();
@@ -66,6 +73,12 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rides);
+
+        ////firebase start
+        mDatabase = FirebaseDatabase.getInstance();
+        mRef = mDatabase.getReference("message");
+        mRef.setValue("Hello, world");
+        ///firebase end
 
         ridesRecyclerView = (RecyclerView) findViewById(R.id.rides_recycler_view);
         addRideFAB = (FloatingActionButton) findViewById(R.id.add_ride_FAB);
@@ -208,5 +221,9 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
         return message;
     }
 
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 }

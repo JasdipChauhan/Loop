@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.facebook.login.LoginManager;
@@ -67,6 +68,7 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
         super.onResume();
 
         refreshList();
+        statusSnackbar = Snackbar.make(findViewById(R.id.rides_recycler_view), "", Snackbar.LENGTH_SHORT);
     }
 
     @Override
@@ -81,9 +83,9 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
         ///firebase end
 
         ridesRecyclerView = (RecyclerView) findViewById(R.id.rides_recycler_view);
-        addRideFAB = (FloatingActionButton) findViewById(R.id.add_ride_FAB);
-        refreshRideFAB = (FloatingActionButton) findViewById(R.id.refresh_ride_FAB);
-        logoutButton = (FloatingActionButton) findViewById(R.id.logout_FAB);
+        //addRideFAB = (FloatingActionButton) findViewById(R.id.add_ride_FAB);
+        //refreshRideFAB = (FloatingActionButton) findViewById(R.id.refresh_ride_FAB);
+        //logoutButton = (FloatingActionButton) findViewById(R.id.logout_FAB);
 
         ridesManager = new RidesManager();
         mContext = RidesActivity.this;
@@ -93,20 +95,20 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
         ridesAdapter = new RidesAdapter(rides, mContext);
         ridesRecyclerView.setAdapter(ridesAdapter);
 
-        addRideFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(RidesActivity.this, CreateNewRideActivity.class);
-                startActivity(i);
-            }
-        });
-
-        refreshRideFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refreshList();
-            }
-        });
+//        addRideFAB.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(RidesActivity.this, CreateNewRideActivity.class);
+//                startActivity(i);
+//            }
+//        });
+//
+//        refreshRideFAB.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                refreshList();
+//            }
+//        });
 
         ridesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
                 mContext, ridesRecyclerView,
@@ -182,6 +184,32 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
         startActivity(i);
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_add_ride:
+
+                startActivity(new Intent(RidesActivity.this, CreateNewRideActivity.class));
+                break;
+
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    //MARK: Helper Functions
+
     private void refreshList() {
         ridesManager.refreshRidesList(this);
     }
@@ -221,9 +249,4 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
         return message;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 }

@@ -14,6 +14,7 @@ import com.gfive.jasdipc.loopandroid.Fragments.DateDialog;
 import com.gfive.jasdipc.loopandroid.Fragments.TimeDialog;
 import com.gfive.jasdipc.loopandroid.Interfaces.OnServerResponse;
 import com.gfive.jasdipc.loopandroid.R;
+import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,7 +74,8 @@ public class CreateNewRideActivity extends AppCompatActivity implements OnServer
     }
 
     public void createRideAction(View view) {
-        getFieldData();
+
+        /*getFieldData();
 
         JSONObject rideJSONMap = new JSONObject();
         try {
@@ -91,7 +93,7 @@ public class CreateNewRideActivity extends AppCompatActivity implements OnServer
             Log.e("POST JSON", "COULD NOT INFLATE JSON");
         }
 
-        apiClient.postRide(this, rideJSONMap);
+        apiClient.postRide(this, rideJSONMap);*/
 
     }
 

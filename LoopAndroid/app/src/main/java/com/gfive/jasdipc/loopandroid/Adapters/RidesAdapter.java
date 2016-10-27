@@ -49,7 +49,7 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesViewHolder> {
         holder.pickupTime.setText(ride.getTime());
         holder.passengers.setText(Integer.toString(ride.getPassengers()));
         holder.cost.setText(Double.toString(ride.getCost()));
-        holder.userImage.setImageBitmap(ProfileManager.getInstance(mContext).getUserProfile().profilePictureBitmap);
+        holder.userImage.setImageURI(ProfileManager.getInstance(mContext).getUserProfile().profilePictureURI);
 
         runEnterAnimation(holder.itemView, position);
 

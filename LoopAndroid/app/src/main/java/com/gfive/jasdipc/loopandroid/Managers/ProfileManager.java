@@ -37,7 +37,6 @@ public class ProfileManager {
         userProfile.facebookID = profile.getId();
         userProfile.name = profile.getName();
         userProfile.profilePictureURI = profile.getProfilePictureUri(200, 200);
-        userProfile.setProfilePictureBitmap(mContext);
     }
 
     public UserProfile getUserProfile() {

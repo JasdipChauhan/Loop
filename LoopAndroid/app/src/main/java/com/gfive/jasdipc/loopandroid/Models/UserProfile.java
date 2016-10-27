@@ -20,17 +20,8 @@ public class UserProfile {
     public String lastName;
     public String middleName;
     public Uri profilePictureURI;
-    public Bitmap profilePictureBitmap;
 
     public UserProfile() {
     }
 
-    public void setProfilePictureBitmap (Context mContext) {
-        try {
-            InputStream image_stream = mContext.getContentResolver().openInputStream(profilePictureURI);
-            profilePictureBitmap = BitmapFactory.decodeStream(image_stream );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gfive.jasdipc.loopandroid.Clients.APIClient;
+import com.gfive.jasdipc.loopandroid.Clients.FirebaseClient;
 import com.gfive.jasdipc.loopandroid.Fragments.DateDialog;
 import com.gfive.jasdipc.loopandroid.Fragments.TimeDialog;
 import com.gfive.jasdipc.loopandroid.Interfaces.OnServerResponse;
@@ -74,6 +75,8 @@ public class CreateNewRideActivity extends AppCompatActivity implements OnServer
     }
 
     public void createRideAction(View view) {
+
+        FirebaseClient.getInstance().postRide();
 
         /*getFieldData();
 

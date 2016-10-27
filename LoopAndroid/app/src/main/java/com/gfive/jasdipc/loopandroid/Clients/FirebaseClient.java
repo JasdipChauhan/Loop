@@ -2,6 +2,7 @@ package com.gfive.jasdipc.loopandroid.Clients;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 /**
@@ -25,6 +26,8 @@ public class FirebaseClient {
     }
 
     private FirebaseClient() {
+        mStorage = FirebaseStorage.getInstance().getReference();
+        mRef = FirebaseDatabase.getInstance().getReference().child("");
     }
 
     public boolean uploadUserProfilePicture() {
@@ -34,5 +37,14 @@ public class FirebaseClient {
 
 
         return isSuccessful;
+    }
+
+    public void postRide() {
+        DatabaseReference newRide = mRef.push();
+        newRide.child("driver").setValue("Jasdip");
+        newRide.child("pickup").setValue("markham");
+        newRide.child("dropoff").setValue("waterloo");
+        newRide.child("seats").setValue(5);
+        newRide.child("price").setValue(6.7);
     }
 }

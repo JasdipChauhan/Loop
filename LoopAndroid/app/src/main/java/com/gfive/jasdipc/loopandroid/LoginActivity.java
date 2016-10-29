@@ -1,8 +1,13 @@
 package com.gfive.jasdipc.loopandroid;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -20,22 +25,31 @@ import com.facebook.login.widget.LoginButton;
 import com.gfive.jasdipc.loopandroid.Activities.RidesActivity;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class LoginActivity extends AppCompatActivity {
 
     private LoginButton loginButton;
     private TextView loginTV;
     private CallbackManager callbackManager;
-    private Profile loggedInProfile;
+
+    private AccessToken accessToken;
+    private Profile profile;
+
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        if (accessToken != null) {
-            loggedInProfile = Profile.getCurrentProfile();
+        accessToken = AccessToken.getCurrentAccessToken();
+        Profile.fetchProfileForCurrentAccessToken();
+        profile = Profile.getCurrentProfile();
+
+        if (accessToken != null && profile != null) {
             handleLogin();
         }
+
     }
 
     @Override
@@ -50,11 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         loginTV = (TextView) findViewById(R.id.login_TV);
         loginButton.setReadPermissions("public_profile");
 
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        if (accessToken != null) {
-            loggedInProfile = Profile.getCurrentProfile();
-            handleLogin();
-        }
+        accessToken = AccessToken.getCurrentAccessToken();
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 
@@ -69,12 +79,12 @@ public class LoginActivity extends AppCompatActivity {
                         protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
                             Log.v("facebook - profile", currentProfile.getFirstName());
                             mProfileTracker.stopTracking();
-                            loggedInProfile = currentProfile;
+                            profile = currentProfile;
                             handleLogin();
                         }
                     };
                 } else {
-                    loggedInProfile = Profile.getCurrentProfile();
+                    profile = Profile.getCurrentProfile();
                     handleLogin();
                 }
             }
@@ -100,12 +110,17 @@ public class LoginActivity extends AppCompatActivity {
 
     private void handleLogin() {
 
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        if (accessToken != null) {
 
-        ProfileManager.getInstance().register(loggedInProfile, accessToken);
-        Intent intent = new Intent(LoginActivity.this, RidesActivity.class);
-        startActivity(intent);
-        finish();
+            Profile.fetchProfileForCurrentAccessToken();
+            profile = Profile.getCurrentProfile();
+            ProfileManager.getInstance().register(profile, accessToken);
+
+            Intent intent = new Intent(LoginActivity.this, RidesActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
     }
 
 }

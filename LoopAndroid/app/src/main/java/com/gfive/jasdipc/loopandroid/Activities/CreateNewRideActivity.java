@@ -1,34 +1,28 @@
 package com.gfive.jasdipc.loopandroid.Activities;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.gfive.jasdipc.loopandroid.Clients.APIClient;
 import com.gfive.jasdipc.loopandroid.Clients.FirebaseClient;
 import com.gfive.jasdipc.loopandroid.Fragments.DateDialog;
 import com.gfive.jasdipc.loopandroid.Fragments.TimeDialog;
-import com.gfive.jasdipc.loopandroid.Interfaces.OnServerResponse;
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
+import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
+import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.gfive.jasdipc.loopandroid.R;
-import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
 
-import okhttp3.Response;
-
-
-public class CreateNewRideActivity extends AppCompatActivity implements OnServerResponse {
-
-    private APIClient apiClient;
+public class CreateNewRideActivity extends AppCompatActivity implements ServerResponse {
 
     private TextInputEditText firstName;
     private TextInputEditText lastName;
@@ -59,8 +53,6 @@ public class CreateNewRideActivity extends AppCompatActivity implements OnServer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_ride);
         init();
-
-        apiClient = APIClient.getInstance();
     }
 
     //actions
@@ -76,13 +68,19 @@ public class CreateNewRideActivity extends AppCompatActivity implements OnServer
 
     public void createRideAction(View view) {
 
-        FirebaseClient.getInstance().postRide();
+        boolean isSuccessful = getFieldData();
 
-        /*getFieldData();
+        if (!isSuccessful) {
+            return;
+        }
 
         JSONObject rideJSONMap = new JSONObject();
+        UserProfile profile;
         try {
-            rideJSONMap.put("driver_name", firstNameStr + " " + lastNameStr);
+
+            profile = ProfileManager.getInstance().getUserProfile();
+
+            rideJSONMap.put("driver_name", profile.name);
             rideJSONMap.put("driver_email", emailStr);
             rideJSONMap.put("driver_phone_number", phoneNumberStr);
             rideJSONMap.put("pickup", pickupStr);
@@ -94,18 +92,11 @@ public class CreateNewRideActivity extends AppCompatActivity implements OnServer
         } catch (JSONException e) {
             e.printStackTrace();
             Log.e("POST JSON", "COULD NOT INFLATE JSON");
+            return;
         }
 
-        apiClient.postRide(this, rideJSONMap);*/
+        FirebaseClient.getInstance().uploadRide(this, profile, rideJSONMap);
 
-    }
-
-
-    @Override
-    public void serverCallback(Boolean isSuccessful, Response serverResponse) {
-        if (isSuccessful) {
-            finish();
-        }
     }
 
     //HELPER FUNCTIONS
@@ -123,18 +114,45 @@ public class CreateNewRideActivity extends AppCompatActivity implements OnServer
         createRideButton = (Button) findViewById(R.id.create_ride_button);
     }
 
-    //TODO: input validation
-    private void getFieldData() {
-        firstNameStr = firstName.getText().toString();
-        lastNameStr = lastName.getText().toString();
-        emailStr = email.getText().toString();
-        phoneNumberStr = phoneNumber.getText().toString();
-        pickupStr = pickup.getText().toString();
-        dropoffStr = dropoff.getText().toString();
-        dateStr = datePickerTV.getText().toString();
-        timeStr = timePickerTV.getText().toString();
-        seatsInt = Integer.parseInt(seats.getText().toString());
-        priceDouble = Double.parseDouble(price.getText().toString());
+    private boolean getFieldData() {
+
+        try {
+            emailStr = email.getText().toString().trim();
+            phoneNumberStr = phoneNumber.getText().toString().trim();
+            pickupStr = pickup.getText().toString().trim();
+            dropoffStr = dropoff.getText().toString().trim();
+            dateStr = datePickerTV.getText().toString().trim();
+            timeStr = timePickerTV.getText().toString().trim();
+            seatsInt = Integer.parseInt(seats.getText().toString().trim());
+            priceDouble = Double.parseDouble(price.getText().toString().trim());
+
+        } catch (Exception e) {
+            Snackbar.make(findViewById(R.id.create_ride_button), "Please fill out all fields...",
+                    Snackbar.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(emailStr) ||
+                TextUtils.isEmpty(phoneNumberStr) ||
+                TextUtils.isEmpty(pickupStr) ||
+                TextUtils.isEmpty(dropoffStr) ||
+                TextUtils.isEmpty(dateStr) ||
+                TextUtils.isEmpty(timeStr) ||
+                seats == null) {
+
+            Snackbar.make(findViewById(R.id.create_ride_button), "Please fill out all fields...",
+                    Snackbar.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public void response(boolean isSuccessful) {
+        if (isSuccessful) {
+            finish();
+        }
     }
 
     private JSONObject forTesting() {

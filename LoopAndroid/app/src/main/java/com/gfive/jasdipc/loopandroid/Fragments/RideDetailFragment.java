@@ -45,7 +45,7 @@ public class RideDetailFragment extends Fragment {
     public static RideDetailFragment newInstance(Ride mRide) {
         RideDetailFragment fragment = new RideDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(RIDE_PARAM, mRide);
+        //bundle.putParcelable(RIDE_PARAM, mRide);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -73,12 +73,12 @@ public class RideDetailFragment extends Fragment {
         rideSeatsLeft =(TextView) view.findViewById(R.id.ride_seats_left);
         rideCost = (TextView) view.findViewById(R.id.ride_cost);
 
-        rideDriversName.setText(mRide.getDriver().getName());
-        rideDate.setText(DateFormatter.formatToString(mRide.getDate()));
-        ridePickup.setText(mRide.getPickup());
-        rideDropoff.setText(mRide.getDropoff());
-        rideSeatsLeft.setText(Integer.toString(mRide.getPassengers()));
-        rideCost.setText(Double.toString(mRide.getCost()));
+//        rideDriversName.setText(mRide.getDriver().getName());
+//        rideDate.setText(DateFormatter.formatToString(mRide.getDate()));
+//        ridePickup.setText(mRide.getPickup());
+//        rideDropoff.setText(mRide.getDropoff());
+//        rideSeatsLeft.setText(Integer.toString(mRide.getPassengers()));
+//        rideCost.setText(Double.toString(mRide.getCost()));
 
         return view;
     }

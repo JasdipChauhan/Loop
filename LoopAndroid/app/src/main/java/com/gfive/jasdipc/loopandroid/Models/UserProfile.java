@@ -13,13 +13,18 @@ import java.io.InputStream;
 
 public class UserProfile {
 
-    public AccessToken accessToken;
-    public String facebookID;
-    public String name;
+
     public String firstName;
     public String lastName;
     public String middleName;
     public Uri profilePictureURI;
+
+    public AccessToken accessToken;
+    public String facebookID;
+    public String name;
+    public String email;
+    public String phoneNumber;
+    public String profilePictureString;
 
     public UserProfile() {
     }

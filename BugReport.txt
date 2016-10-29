@@ -1,0 +1,4 @@
+TODO
+
+- bug for login/logout - on profile change DONE
+- 

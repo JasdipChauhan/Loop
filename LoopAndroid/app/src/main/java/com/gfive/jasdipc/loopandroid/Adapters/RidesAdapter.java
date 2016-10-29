@@ -40,18 +40,18 @@ public class RidesAdapter extends RecyclerView.Adapter<RidesViewHolder> {
     @Override
     public void onBindViewHolder(RidesViewHolder holder, int position) {
 
-        final Ride ride = rides.get(position);
-
-        holder.usersName.setText(ride.getDriver().getName());
-        holder.date.setText(DateFormatter.formatToString(ride.getDate()));
-        holder.pickup.setText(ride.getPickup());
-        holder.dropoff.setText(ride.getDropoff());
-        holder.pickupTime.setText(ride.getTime());
-        holder.passengers.setText(Integer.toString(ride.getPassengers()));
-        holder.cost.setText(Double.toString(ride.getCost()));
-        holder.userImage.setImageURI(ProfileManager.getInstance().getUserProfile().profilePictureURI);
-
-        runEnterAnimation(holder.itemView, position);
+//        final Ride ride = rides.get(position);
+//
+//        holder.usersName.setText(ride.getDriver().getName());
+//        holder.date.setText(DateFormatter.formatToString(ride.getDate()));
+//        holder.pickup.setText(ride.getPickup());
+//        holder.dropoff.setText(ride.getDropoff());
+//        holder.pickupTime.setText(ride.getTime());
+//        holder.passengers.setText(Integer.toString(ride.getPassengers()));
+//        holder.cost.setText(Double.toString(ride.getCost()));
+//        holder.userImage.setImageURI(ProfileManager.getInstance().getUserProfile().profilePictureURI);
+//
+//        runEnterAnimation(holder.itemView, position);
 
     }
 

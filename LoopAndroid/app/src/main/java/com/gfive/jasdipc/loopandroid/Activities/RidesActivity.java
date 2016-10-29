@@ -99,10 +99,8 @@ public class RidesActivity extends AppCompatActivity {
                 holder.pickup.setText(model.getPickup());
                 holder.dropoff.setText(model.getDropoff());
                 holder.pickupTime.setText(model.getTime());
-                holder.passengers.setText(model.getSeats_left());
-                holder.cost.setText(model.getPrice());
-//                holder.passengers.setText(Integer.toString(model.getSeats_left()));
-//                holder.cost.setText(Double.toString(model.getPrice()));
+                holder.passengers.setText(model.getSeatsLeft() + "");
+                holder.cost.setText(model.getPrice() + "");
 //
 
                 //holder.userImage.setImageURI(ProfileManager.getInstance().getUserProfile().profilePictureURI);

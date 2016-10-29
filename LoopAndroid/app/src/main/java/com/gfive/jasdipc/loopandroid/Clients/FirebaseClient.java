@@ -61,13 +61,13 @@ public class FirebaseClient {
 
             driver.child("name").setValue(profile.name);
             driver.child("photo").setValue("http://graph.facebook.com/" + profile.facebookID + "/picture?type=large");
-            driver.child("email").setValue(jsonObject.getString("driver_email").toString());
-            driver.child("phone_number").setValue(jsonObject.getString("driver_phone_number").toString());
+            driver.child("email").setValue(jsonObject.getString("email").toString());
+            driver.child("phoneNumber").setValue(jsonObject.getString("phoneNumber").toString());
             ride.child("pickup").setValue(jsonObject.getString("pickup").toString());
             ride.child("dropoff").setValue(jsonObject.getString("dropoff").toString());
             ride.child("date").setValue(jsonObject.getString("date").toString());
             ride.child("time").setValue(jsonObject.getString("time").toString());
-            ride.child("seats_left").setValue(jsonObject.getInt("seats_left"));
+            ride.child("seatsLeft").setValue(jsonObject.getInt("seatsLeft"));
             ride.child("price").setValue(jsonObject.getDouble("price"));
 
         } catch (JSONException e) {

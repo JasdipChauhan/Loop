@@ -6,8 +6,8 @@ public class FirebaseRide {
     private FirebaseDriver driver;
     private String dropoff;
     private String pickup;
-    private String price;
-    private String seats_left;
+    private double price;
+    private int seatsLeft;
     private String time;
 
     //CONSTRUCTORS
@@ -16,13 +16,13 @@ public class FirebaseRide {
 
     }
 
-    public FirebaseRide(String date, FirebaseDriver driver, String dropoff, String pickup, String price, String seats_left, String time) {
+    public FirebaseRide(String date, FirebaseDriver driver, String dropoff, String pickup, Double price, int seatsLeft, String time) {
         this.date = date;
         this.driver = driver;
         this.dropoff = dropoff;
         this.pickup = pickup;
         this.price = price;
-        this.seats_left = seats_left;
+        this.seatsLeft = seatsLeft;
         this.time = time;
     }
 
@@ -60,20 +60,20 @@ public class FirebaseRide {
         this.pickup = pickup;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public String getSeats_left() {
-        return seats_left;
+    public int getSeatsLeft() {
+        return seatsLeft;
     }
 
-    public void setSeats_left(String seats_left) {
-        this.seats_left = seats_left;
+    public void setSeatsLeft(int seatsLeft) {
+        this.seatsLeft = seatsLeft;
     }
 
     public String getTime() {

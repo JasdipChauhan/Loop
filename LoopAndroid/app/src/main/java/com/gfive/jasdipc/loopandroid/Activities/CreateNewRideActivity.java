@@ -80,14 +80,14 @@ public class CreateNewRideActivity extends AppCompatActivity implements ServerRe
 
             profile = ProfileManager.getInstance().getUserProfile();
 
-            rideJSONMap.put("driver_name", profile.name);
-            rideJSONMap.put("driver_email", emailStr);
-            rideJSONMap.put("driver_phone_number", phoneNumberStr);
+            rideJSONMap.put("name", profile.name);
+            rideJSONMap.put("email", emailStr);
+            rideJSONMap.put("phoneNumber", phoneNumberStr);
             rideJSONMap.put("pickup", pickupStr);
             rideJSONMap.put("dropoff", dropoffStr);
             rideJSONMap.put("date", dateStr);
             rideJSONMap.put("time", timeStr);
-            rideJSONMap.put("seats_left", seatsInt);
+            rideJSONMap.put("seatsLeft", seatsInt);
             rideJSONMap.put("price", priceDouble);
         } catch (JSONException e) {
             e.printStackTrace();

@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.facebook.login.LoginManager;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
 import com.gfive.jasdipc.loopandroid.LoginActivity;
 import com.gfive.jasdipc.loopandroid.Helpers.RecyclerItemClickListener;
 import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
@@ -84,31 +85,8 @@ public class RidesActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder>(
-
-                FirebaseRide.class,
-                R.layout.ride_card,
-                RidesViewHolder.class,
-                mDatabaseReference
-                ) {
-            @Override
-            protected void populateViewHolder(RidesViewHolder holder, FirebaseRide model, int position) {
-
-                holder.usersName.setText(model.getDriver().getName());
-                holder.date.setText(model.getDate());
-                holder.pickup.setText(model.getPickup());
-                holder.dropoff.setText(model.getDropoff());
-                holder.pickupTime.setText(model.getTime());
-                holder.passengers.setText(model.getSeatsLeft() + "");
-                holder.cost.setText(model.getPrice() + "");
-//
-
-                //holder.userImage.setImageURI(ProfileManager.getInstance().getUserProfile().profilePictureURI);
-                //runEnterAnimation(holder.itemView, position);
-            }
-        };
-
-        mRidesRecyclerView.setAdapter(firebaseRecyclerAdapter);
+        RidesAdapter adapter = RidesAdapter.getInstance(RidesActivity.this, mDatabaseReference);
+        mRidesRecyclerView.setAdapter(adapter.getFirebaseRecyclerAdapter());
 
     }
 

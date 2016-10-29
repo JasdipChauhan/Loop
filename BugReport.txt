@@ -1,9 +1,6 @@
 TODO
 
-- change naming convention to camelcase (seats_left)
-- firebase recyclerview animation
 - picasso loading profile picture into container
-- refactor our firebase adapter into separate class
 
 MAYBE
 
@@ -11,4 +8,7 @@ MAYBE
 
 DONE
 
+- refactor our firebase adapter into separate class
+- firebase recyclerview animation
+- change naming convention to camelcase (seats_left)
 - bug for login/logout - on profile change DONE

@@ -1,78 +1,65 @@
 package com.gfive.jasdipc.loopandroid.Adapters;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 
-import com.gfive.jasdipc.loopandroid.Helpers.DateFormatter;
-import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
-import com.gfive.jasdipc.loopandroid.Models.Ride;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
+import com.google.firebase.database.DatabaseReference;
 
-import java.util.List;
 
-public class RidesAdapter extends RecyclerView.Adapter<RidesViewHolder> {
+public class RidesAdapter {
 
-    private List<Ride> rides;
+    private static RidesAdapter ridesAdapter;
+
     private Context mContext;
-
+    private DatabaseReference mReference;
     private int lastPosition = -1;
+    private FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder> firebaseRecyclerAdapter;
 
-    public RidesAdapter(List<Ride> rides, Context mContext) {
-        this.rides = rides;
+    public static RidesAdapter getInstance(Context mContext, DatabaseReference mReference) {
+
+        if (ridesAdapter == null) {
+            ridesAdapter = new RidesAdapter(mContext, mReference);
+        }
+
+        return ridesAdapter;
+    }
+
+    private RidesAdapter(Context mContext, DatabaseReference mReference) {
         this.mContext = mContext;
+        this.mReference = mReference;
+
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder>(
+
+                FirebaseRide.class,
+                R.layout.ride_card,
+                RidesViewHolder.class,
+                mReference
+        ) {
+            @Override
+            protected void populateViewHolder(RidesViewHolder holder, FirebaseRide model, int position) {
+
+                holder.usersName.setText(model.getDriver().getName());
+                holder.date.setText(model.getDate());
+                holder.pickup.setText(model.getPickup());
+                holder.dropoff.setText(model.getDropoff());
+                holder.pickupTime.setText(model.getTime());
+                holder.passengers.setText(model.getSeatsLeft() + "");
+                holder.cost.setText(model.getPrice() + "");
+
+                //holder.userImage.setImageURI(ProfileManager.getInstance().getUserProfile().profilePictureURI);
+                runEnterAnimation(holder.itemView, position);
+            }
+        };
     }
 
-    @Override
-    public RidesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.ride_card, parent, false);
-
-        return new RidesViewHolder(itemView);
-    }
-
-    @Override
-    public void onBindViewHolder(RidesViewHolder holder, int position) {
-
-//        final Ride ride = rides.get(position);
-//
-//        holder.usersName.setText(ride.getDriver().getName());
-//        holder.date.setText(DateFormatter.formatToString(ride.getDate()));
-//        holder.pickup.setText(ride.getPickup());
-//        holder.dropoff.setText(ride.getDropoff());
-//        holder.pickupTime.setText(ride.getTime());
-//        holder.passengers.setText(Integer.toString(ride.getPassengers()));
-//        holder.cost.setText(Double.toString(ride.getCost()));
-//        holder.userImage.setImageURI(ProfileManager.getInstance().getUserProfile().profilePictureURI);
-//
-//        runEnterAnimation(holder.itemView, position);
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return rides.size();
-    }
-
-    public void clear() {
-        int preSizeUpperRange = rides.size() - 1;
-        int preSizeLowerRange = 0;
-
-        rides.clear();
-        RidesAdapter.this.notifyItemRangeRemoved(preSizeLowerRange, preSizeUpperRange);
-    }
-
-    public void add(Ride ride) {
-        rides.add(ride);
-
-        int insertedIndex = rides.size() - 1;
-        RidesAdapter.this.notifyItemInserted(insertedIndex);
+    public FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder> getFirebaseRecyclerAdapter () {
+        return firebaseRecyclerAdapter;
     }
 
     //Animations

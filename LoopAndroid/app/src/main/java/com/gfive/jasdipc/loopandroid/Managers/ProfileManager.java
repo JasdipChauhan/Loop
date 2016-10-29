@@ -14,20 +14,18 @@ import com.gfive.jasdipc.loopandroid.Models.UserProfile;
  */
 public class ProfileManager {
 
-    private Context mContext;
     private static ProfileManager profileManager;
     private UserProfile userProfile;
 
-    public static ProfileManager getInstance(Context mContext) {
+    public static ProfileManager getInstance() {
         if (profileManager == null) {
-            profileManager = new ProfileManager(mContext);
+            profileManager = new ProfileManager();
         }
 
         return profileManager;
     }
 
-    private ProfileManager(Context mContext) {
-        this.mContext = mContext;
+    private ProfileManager() {
         userProfile = new UserProfile();
     }
 
@@ -38,6 +36,7 @@ public class ProfileManager {
         userProfile.name = profile.getName();
         userProfile.profilePictureURI = profile.getProfilePictureUri(200, 200);
     }
+
 
     public UserProfile getUserProfile() {
         return userProfile;

@@ -14,9 +14,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
 import com.gfive.jasdipc.loopandroid.LoginActivity;
+import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Managers.RidesManager;
 import com.gfive.jasdipc.loopandroid.Helpers.RecyclerItemClickListener;
 import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
@@ -32,7 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RidesActivity extends AppCompatActivity implements ParseCallback {
+public class RidesActivity extends AppCompatActivity {
 
     private RecyclerView ridesRecyclerView;
     private FloatingActionButton addRideFAB;
@@ -48,17 +50,6 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
     private List<Ride> rides = new ArrayList<>();
     private Context mContext;
 
-    private RidesManager ridesManager;
-    private Snackbar statusSnackbar;
-
-    public static final int ON_START_UP = 1;
-    public static final int ON_RESERVE_RIDE = 2;
-    public static final int ON_RETRIEVE_RIDES = 3;
-    public static final int ON_GETTING_RIDES = 4;
-    public static final int ON_SERVER_ERROR = 5;
-    public static final int ON_RESERVE_RIDE_ERROR = 6;
-    public static final int ON_REENTER = 7;
-
     public static int RESERVE_RESULT = 99;
     private boolean isFirst = true;
 
@@ -66,9 +57,6 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
     protected void onResume() {
         Log.i("onResume", "CALLED");
         super.onResume();
-
-        refreshList();
-        statusSnackbar = Snackbar.make(findViewById(R.id.rides_recycler_view), "", Snackbar.LENGTH_SHORT);
     }
 
     @Override
@@ -76,39 +64,14 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rides);
 
-        ////firebase start
-        mDatabase = FirebaseDatabase.getInstance();
-        mRef = mDatabase.getReference("message");
-        mRef.setValue("Hello, world");
-        ///firebase end
-
         ridesRecyclerView = (RecyclerView) findViewById(R.id.rides_recycler_view);
-        //addRideFAB = (FloatingActionButton) findViewById(R.id.add_ride_FAB);
-        //refreshRideFAB = (FloatingActionButton) findViewById(R.id.refresh_ride_FAB);
-        //logoutButton = (FloatingActionButton) findViewById(R.id.logout_FAB);
 
-        ridesManager = new RidesManager();
         mContext = RidesActivity.this;
 
         WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(mContext);
         ridesRecyclerView.setLayoutManager(wCLLM);
         ridesAdapter = new RidesAdapter(rides, mContext);
         ridesRecyclerView.setAdapter(ridesAdapter);
-
-//        addRideFAB.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(RidesActivity.this, CreateNewRideActivity.class);
-//                startActivity(i);
-//            }
-//        });
-//
-//        refreshRideFAB.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                refreshList();
-//            }
-//        });
 
         ridesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
                 mContext, ridesRecyclerView,
@@ -130,38 +93,6 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
                 }));
 
     }
-
-    @Override
-    public void retrieveRides(final boolean isSuccessful, List<Ride> ridesList) {
-
-        if (!isSuccessful) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    statusSnackbar.setText(getSnackbarMessage(ON_SERVER_ERROR));
-                    statusSnackbar.show();
-                }
-            });
-            return;
-        }
-
-        rides.clear();
-
-        for (Ride ride : ridesList) {
-            rides.add(ride);
-        }
-
-        final int lastIndex = rides.size() - 1;
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ridesAdapter.notifyItemRangeInserted(0, lastIndex);
-
-            }
-        });
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -170,9 +101,7 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
                 boolean didReserve = data.getBooleanExtra("didReserve", false);
 
                 if (didReserve) {
-                    statusSnackbar = Snackbar.make(findViewById(R.id.rides_recycler_view), getSnackbarMessage(ON_RESERVE_RIDE),
-                            Snackbar.LENGTH_SHORT);
-                    statusSnackbar.show();
+
                 }
             }
         }
@@ -200,6 +129,11 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
                 startActivity(new Intent(RidesActivity.this, CreateNewRideActivity.class));
                 break;
 
+            case R.id.action_settings:
+
+                handleLogout();
+                break;
+
             default:
                 break;
         }
@@ -208,45 +142,12 @@ public class RidesActivity extends AppCompatActivity implements ParseCallback {
 
     }
 
-    //MARK: Helper Functions
-
-    private void refreshList() {
-        ridesManager.refreshRidesList(this);
-    }
-
-    public static String getSnackbarMessage(int statusCode) {
-
-        String message = "";
-
-        switch (statusCode) {
-            case ON_START_UP:
-                message = "Welcome to LOOP!";
-                break;
-
-            case ON_RESERVE_RIDE:
-                message = "Successfully booked ride!";
-                break;
-
-            case ON_RETRIEVE_RIDES:
-                message = "Successfully retrieved rides!";
-                break;
-
-            case ON_GETTING_RIDES:
-                message = "Refreshing the list of rides...";
-                break;
-
-            case ON_SERVER_ERROR:
-                message = "Error retrieving the list of rides...";
-                break;
-
-            case ON_REENTER:
-                message = "";
-            break;
-
-            default:
-        }
-
-        return message;
+    private void handleLogout() {
+        LoginManager.getInstance().logOut();
+        Intent intent = new Intent(RidesActivity.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        finish();
+        startActivity(intent);
     }
 
 }

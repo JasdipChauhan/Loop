@@ -4,7 +4,14 @@
 
     <item android:id="@+id/action_add_ride"
         android:icon="@mipmap/ic_add_white_24dp"
-        android:title="add_ride_title"
+        android:title="AddRideTitle"
         app:showAsAction="always"/>
+
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="Logout"
+        app:showAsAction="never" />
 
 </menu>

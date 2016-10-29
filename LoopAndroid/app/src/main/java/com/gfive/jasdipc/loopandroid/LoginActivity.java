@@ -28,6 +28,17 @@ public class LoginActivity extends AppCompatActivity {
     private Profile loggedInProfile;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        if (accessToken != null) {
+            loggedInProfile = Profile.getCurrentProfile();
+            handleLogin();
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -91,9 +102,10 @@ public class LoginActivity extends AppCompatActivity {
 
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
 
-        ProfileManager.getInstance(LoginActivity.this).register(loggedInProfile, accessToken);
+        ProfileManager.getInstance().register(loggedInProfile, accessToken);
         Intent intent = new Intent(LoginActivity.this, RidesActivity.class);
         startActivity(intent);
         finish();
     }
+
 }

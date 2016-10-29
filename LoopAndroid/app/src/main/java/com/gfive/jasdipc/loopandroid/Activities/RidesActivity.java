@@ -3,8 +3,6 @@ package com.gfive.jasdipc.loopandroid.Activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -15,15 +13,13 @@ import android.view.View;
 
 import com.facebook.login.LoginManager;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
 import com.gfive.jasdipc.loopandroid.LoginActivity;
 import com.gfive.jasdipc.loopandroid.Helpers.RecyclerItemClickListener;
 import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
+import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
 import com.gfive.jasdipc.loopandroid.Models.User;
-import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.gfive.jasdipc.loopandroid.R;
-import com.gfive.jasdipc.loopandroid.RideDetailActivity;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,7 +29,7 @@ import java.util.List;
 
 public class RidesActivity extends AppCompatActivity {
 
-    private RecyclerView ridesRecyclerView;
+    private RecyclerView mRidesRecyclerView;
     private DatabaseReference mDatabaseReference;
 
     private List<User> users = new ArrayList<>();
@@ -52,19 +48,19 @@ public class RidesActivity extends AppCompatActivity {
 
         mContext = RidesActivity.this;
 
-        ridesRecyclerView = (RecyclerView) findViewById(R.id.rides_recycler_view);
+        mRidesRecyclerView = (RecyclerView) findViewById(R.id.rides_recycler_view);
         WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(mContext);
-        ridesRecyclerView.setLayoutManager(wCLLM);
+        mRidesRecyclerView.setLayoutManager(wCLLM);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Ride");
 
-        //ridesRecyclerView.setHasFixedSize(true);
+        //mRidesRecyclerView.setHasFixedSize(true);
 
 
         //ridesAdapter = new RidesAdapter(rides, mContext);
-        //ridesRecyclerView.setAdapter(ridesAdapter);
+        //mRidesRecyclerView.setAdapter(ridesAdapter);
 
-        ridesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
-                mContext, ridesRecyclerView,
+        mRidesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
+                mContext, mRidesRecyclerView,
                 new RecyclerItemClickListener.OnItemClickListener() {
 
                     @Override
@@ -88,18 +84,34 @@ public class RidesActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter<Ride, RidesViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Ride, RidesViewHolder>(
+        FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder>(
 
-                Ride.class,
+                FirebaseRide.class,
                 R.layout.ride_card,
                 RidesViewHolder.class,
                 mDatabaseReference
                 ) {
             @Override
-            protected void populateViewHolder(RidesViewHolder viewHolder, Ride model, int position) {
+            protected void populateViewHolder(RidesViewHolder holder, FirebaseRide model, int position) {
 
+                holder.usersName.setText(model.getDriver().getName());
+                holder.date.setText(model.getDate());
+                holder.pickup.setText(model.getPickup());
+                holder.dropoff.setText(model.getDropoff());
+                holder.pickupTime.setText(model.getTime());
+                holder.passengers.setText(model.getSeats_left());
+                holder.cost.setText(model.getPrice());
+//                holder.passengers.setText(Integer.toString(model.getSeats_left()));
+//                holder.cost.setText(Double.toString(model.getPrice()));
+//
+
+                //holder.userImage.setImageURI(ProfileManager.getInstance().getUserProfile().profilePictureURI);
+                //runEnterAnimation(holder.itemView, position);
             }
         };
+
+        mRidesRecyclerView.setAdapter(firebaseRecyclerAdapter);
+
     }
 
     @Override

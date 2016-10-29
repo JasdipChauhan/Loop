@@ -1,4 +1,8 @@
 TODO
 
 - bug for login/logout - on profile change DONE
-- 
+- upload facebook profile image
+- change naming convention to camelcase (seats_left)
+- firebase recyclerview animation
+- picasso loading profile picture into container
+- refactor our firebase adapter into separate class

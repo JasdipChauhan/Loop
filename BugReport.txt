@@ -1,6 +1,14 @@
 TODO
 
-- picasso loading profile picture into container
+- reserve ride and update backend
+- save rides into local storage
+- migrate to fragments to allow for switching
+- current user profile view on navigation bar
+- incorporate tree node for riders in a ride
+- alert dialogs for viewing individual riders
+- android splash screen
+- organization on github for loop???
+- loop website???
 
 MAYBE
 
@@ -8,6 +16,7 @@ MAYBE
 
 DONE
 
+- picasso loading profile picture into container
 - refactor our firebase adapter into separate class
 - firebase recyclerview animation
 - change naming convention to camelcase (seats_left)

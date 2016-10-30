@@ -6,10 +6,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
 import com.google.firebase.database.DatabaseReference;
+import com.squareup.picasso.Picasso;
 
 
 public class RidesAdapter {
@@ -30,7 +32,7 @@ public class RidesAdapter {
         return ridesAdapter;
     }
 
-    private RidesAdapter(Context mContext, DatabaseReference mReference) {
+    private RidesAdapter(final Context mContext, DatabaseReference mReference) {
         this.mContext = mContext;
         this.mReference = mReference;
 
@@ -52,7 +54,9 @@ public class RidesAdapter {
                 holder.passengers.setText(model.getSeatsLeft() + "");
                 holder.cost.setText(model.getPrice() + "");
 
-                //holder.userImage.setImageURI(ProfileManager.getInstance().getUserProfile().profilePictureURI);
+                Picasso.with(mContext).load(model.getDriver().getPhoto())
+                        .into(holder.userImage);
+
                 runEnterAnimation(holder.itemView, position);
             }
         };

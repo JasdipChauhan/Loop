@@ -17,8 +17,8 @@ public class ProfileManager {
     private static ProfileManager profileManager;
     private UserProfile userProfile;
 
-    private final int PROFILE_PICTURE_HEIGHT = 50;
-    private final int PROFILE_PICTURE_WIDTH = 50;
+    private final int PROFILE_PICTURE_HEIGHT = 200;
+    private final int PROFILE_PICTURE_WIDTH = 200;
 
     public static ProfileManager getInstance() {
         if (profileManager == null) {
@@ -39,6 +39,7 @@ public class ProfileManager {
         userProfile.name = profile.getName();
         userProfile.profilePictureURI = profile.getProfilePictureUri(PROFILE_PICTURE_WIDTH, PROFILE_PICTURE_HEIGHT);
         userProfile.profilePictureString = "http://graph.facebook.com/" + profile.getId() + "/picture?type=square";
+
     }
 
 

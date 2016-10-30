@@ -60,7 +60,7 @@ public class FirebaseClient {
             DatabaseReference driver = ride.child("driver");
 
             driver.child("name").setValue(profile.name);
-            driver.child("photo").setValue("http://graph.facebook.com/" + profile.facebookID + "/picture?type=large");
+            driver.child("photo").setValue(profile.profilePictureString);
             driver.child("email").setValue(jsonObject.getString("email").toString());
             driver.child("phoneNumber").setValue(jsonObject.getString("phoneNumber").toString());
             ride.child("pickup").setValue(jsonObject.getString("pickup").toString());
@@ -82,9 +82,5 @@ public class FirebaseClient {
         }
 
         callback.response(onCreateSuccess);
-    }
-
-    private void forTestingServices() {
-
     }
 }

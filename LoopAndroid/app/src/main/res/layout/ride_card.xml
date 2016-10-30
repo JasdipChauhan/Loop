@@ -40,7 +40,6 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:id="@+id/users_image"
-                android:src="@drawable/image"
                 android:layout_below="@id/date_view"
                 />
 

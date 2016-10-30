@@ -1,5 +1,6 @@
 package com.gfive.jasdipc.loopandroid.Activities;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
@@ -35,6 +36,8 @@ public class CreateNewRideActivity extends AppCompatActivity implements ServerRe
     private TextInputEditText seats;
     private TextInputEditText price;
     private Button createRideButton;
+
+    private ProgressDialog mProgress;
 
     private String firstNameStr;
     private String lastNameStr;
@@ -73,6 +76,8 @@ public class CreateNewRideActivity extends AppCompatActivity implements ServerRe
         if (!isSuccessful) {
             return;
         }
+
+        mProgress = new ProgressDialog(this);
 
         JSONObject rideJSONMap = new JSONObject();
         UserProfile profile;
@@ -151,7 +156,11 @@ public class CreateNewRideActivity extends AppCompatActivity implements ServerRe
     @Override
     public void response(boolean isSuccessful) {
         if (isSuccessful) {
+            mProgress.dismiss();
             finish();
+        } else {
+            Snackbar.make(findViewById(R.id.create_ride_button), "Error creating ride, try again later...", Snackbar.LENGTH_SHORT)
+                    .show();
         }
     }
 

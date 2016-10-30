@@ -116,9 +116,9 @@ public class LoginActivity extends AppCompatActivity {
             profile = Profile.getCurrentProfile();
             ProfileManager.getInstance().register(profile, accessToken);
 
+            finish();
             Intent intent = new Intent(LoginActivity.this, RidesActivity.class);
             startActivity(intent);
-            finish();
         }
 
     }

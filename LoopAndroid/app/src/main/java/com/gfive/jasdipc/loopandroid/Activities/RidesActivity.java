@@ -34,12 +34,12 @@ public class RidesActivity extends AppCompatActivity {
     private RecyclerView mRidesRecyclerView;
     private DatabaseReference mDatabaseReference;
 
-    private List<User> users = new ArrayList<>();
-    private List<Ride> rides = new ArrayList<>();
     private Context mContext;
 
     public static int RESERVE_RESULT = 99;
-    private boolean isFirst = true;
+
+    private RidesAdapter ridesAdapter;
+    private FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder> firebaseAdapter;
 
     //Android Lifecycle Methods
 
@@ -68,10 +68,14 @@ public class RidesActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
 
-                        //Intent rideDetailIntent = new Intent(mContext, RideDetailActivity.class);
-                        //rideDetailIntent.putExtra("ride", (Parcelable) rides.get(position));
-                        //startActivityForResult(rideDetailIntent, RESERVE_RESULT);
-                        //Log.i("POSITION", position + "");
+                        if (firebaseAdapter == null) {
+                            return;
+                        }
+
+                        Intent rideDetailIntent = new Intent(mContext, RideDetailActivity.class);
+                        rideDetailIntent.putExtra("ride", firebaseAdapter.getItem(position));
+                        startActivityForResult(rideDetailIntent, RESERVE_RESULT);
+                        Log.i("POSITION", position + "");
                     }
 
                     @Override
@@ -86,8 +90,9 @@ public class RidesActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        RidesAdapter adapter = RidesAdapter.getInstance(RidesActivity.this, mDatabaseReference);
-        mRidesRecyclerView.setAdapter(adapter.getFirebaseRecyclerAdapter());
+        ridesAdapter = RidesAdapter.getInstance(RidesActivity.this, mDatabaseReference);
+        firebaseAdapter = ridesAdapter.getFirebaseRecyclerAdapter();
+        mRidesRecyclerView.setAdapter(firebaseAdapter);
 
     }
 

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.gfive.jasdipc.loopandroid.Helpers.DateFormatter;
+import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
 import com.gfive.jasdipc.loopandroid.R;
 
@@ -26,7 +27,7 @@ import com.gfive.jasdipc.loopandroid.R;
 public class RideDetailFragment extends Fragment {
 
     private static final String RIDE_PARAM = "RIDE_KEY";
-    private Ride mRide;
+    private FirebaseRide mRide;
 
     private OnFragmentInteractionListener mListener;
 
@@ -42,10 +43,10 @@ public class RideDetailFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static RideDetailFragment newInstance(Ride mRide) {
+    public static RideDetailFragment newInstance(FirebaseRide mRide) {
         RideDetailFragment fragment = new RideDetailFragment();
         Bundle bundle = new Bundle();
-        //bundle.putParcelable(RIDE_PARAM, mRide);
+        bundle.putParcelable(RIDE_PARAM, mRide);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -73,12 +74,12 @@ public class RideDetailFragment extends Fragment {
         rideSeatsLeft =(TextView) view.findViewById(R.id.ride_seats_left);
         rideCost = (TextView) view.findViewById(R.id.ride_cost);
 
-//        rideDriversName.setText(mRide.getDriver().getName());
-//        rideDate.setText(DateFormatter.formatToString(mRide.getDate()));
-//        ridePickup.setText(mRide.getPickup());
-//        rideDropoff.setText(mRide.getDropoff());
-//        rideSeatsLeft.setText(Integer.toString(mRide.getPassengers()));
-//        rideCost.setText(Double.toString(mRide.getCost()));
+        rideDriversName.setText(mRide.getDriver().getName());
+        rideDate.setText(mRide.getDate());
+        ridePickup.setText(mRide.getPickup());
+        rideDropoff.setText(mRide.getDropoff());
+        rideSeatsLeft.setText(Integer.toString(mRide.getSeatsLeft()));
+        rideCost.setText(Double.toString(mRide.getPrice()));
 
         return view;
     }

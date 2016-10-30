@@ -1,6 +1,9 @@
 package com.gfive.jasdipc.loopandroid.Models;
 
-public class FirebaseRide {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class FirebaseRide implements Parcelable {
 
     private String date;
     private FirebaseDriver driver;
@@ -83,4 +86,45 @@ public class FirebaseRide {
     public void setTime(String time) {
         this.time = time;
     }
+
+    //Parcelable
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.date);
+        dest.writeParcelable(this.driver, flags);
+        dest.writeString(this.dropoff);
+        dest.writeString(this.pickup);
+        dest.writeDouble(this.price);
+        dest.writeInt(this.seatsLeft);
+        dest.writeString(this.time);
+    }
+
+    protected FirebaseRide(Parcel in) {
+        this.date = in.readString();
+        this.driver = in.readParcelable(FirebaseDriver.class.getClassLoader());
+        this.dropoff = in.readString();
+        this.pickup = in.readString();
+        this.price = in.readDouble();
+        this.seatsLeft = in.readInt();
+        this.time = in.readString();
+    }
+
+    public static final Parcelable.Creator<FirebaseRide> CREATOR = new Parcelable.Creator<FirebaseRide>() {
+        @Override
+        public FirebaseRide createFromParcel(Parcel source) {
+            return new FirebaseRide(source);
+        }
+
+        @Override
+        public FirebaseRide[] newArray(int size) {
+            return new FirebaseRide[size];
+        }
+    };
 }

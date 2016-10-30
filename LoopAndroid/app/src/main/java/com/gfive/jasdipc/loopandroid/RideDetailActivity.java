@@ -14,6 +14,7 @@ import android.view.View;
 
 import com.gfive.jasdipc.loopandroid.Fragments.RideDetailFragment;
 import com.gfive.jasdipc.loopandroid.Helpers.DateFormatter;
+import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -34,7 +35,7 @@ import okhttp3.Response;
 public class RideDetailActivity extends FragmentActivity implements OnMapReadyCallback, RideDetailFragment.OnFragmentInteractionListener{
 
     private GoogleMap mMap;
-    private Ride ride;
+    private FirebaseRide ride;
     private RideDetailFragment rideDetailFragment;
     private Snackbar snackbarStatus;
     private boolean didUserReserve = false;
@@ -52,8 +53,8 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
 
         Intent intent = getIntent();
         ride = intent.getParcelableExtra("ride");
-//        pickup = ride.getPickup();
-//        dropoff = ride.getDropoff();
+        pickup = ride.getPickup();
+        dropoff = ride.getDropoff();
         returnIntent = new Intent();
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.

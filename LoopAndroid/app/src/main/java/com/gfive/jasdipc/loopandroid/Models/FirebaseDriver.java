@@ -1,10 +1,13 @@
 package com.gfive.jasdipc.loopandroid.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by JasdipC on 2016-10-29.
  */
 
-public class FirebaseDriver {
+public class FirebaseDriver implements Parcelable {
 
     private String email;
     private String name;
@@ -57,4 +60,38 @@ public class FirebaseDriver {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+
+    //Parcelable
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.email);
+        dest.writeString(this.name);
+        dest.writeString(this.phone_number);
+        dest.writeString(this.photo);
+    }
+
+    protected FirebaseDriver(Parcel in) {
+        this.email = in.readString();
+        this.name = in.readString();
+        this.phone_number = in.readString();
+        this.photo = in.readString();
+    }
+
+    public static final Parcelable.Creator<FirebaseDriver> CREATOR = new Parcelable.Creator<FirebaseDriver>() {
+        @Override
+        public FirebaseDriver createFromParcel(Parcel source) {
+            return new FirebaseDriver(source);
+        }
+
+        @Override
+        public FirebaseDriver[] newArray(int size) {
+            return new FirebaseDriver[size];
+        }
+    };
 }

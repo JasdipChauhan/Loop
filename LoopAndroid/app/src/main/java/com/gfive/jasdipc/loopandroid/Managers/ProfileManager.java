@@ -38,8 +38,6 @@ public class ProfileManager {
         userProfile.facebookID = profile.getId();
         userProfile.name = profile.getName();
         userProfile.profilePictureURI = profile.getProfilePictureUri(PROFILE_PICTURE_WIDTH, PROFILE_PICTURE_HEIGHT);
-        userProfile.profilePictureString = "http://graph.facebook.com/" + profile.getId() + "/picture?type=square";
-
     }
 
 

@@ -11,7 +11,7 @@ public class FirebaseDriver implements Parcelable {
 
     private String email;
     private String name;
-    private String phone_number;
+    private String phoneNumber;
     private String photo;
 
     //CONSTRUCTORS
@@ -20,10 +20,10 @@ public class FirebaseDriver implements Parcelable {
 
     }
 
-    public FirebaseDriver(String email, String name, String phone_number, String photo) {
+    public FirebaseDriver(String email, String name, String phoneNumber, String photo) {
         this.email = email;
         this.name = name;
-        this.phone_number = phone_number;
+        this.phoneNumber = phoneNumber;
         this.photo = photo;
     }
 
@@ -45,12 +45,12 @@ public class FirebaseDriver implements Parcelable {
         this.name = name;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getPhoto() {
@@ -72,14 +72,14 @@ public class FirebaseDriver implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.email);
         dest.writeString(this.name);
-        dest.writeString(this.phone_number);
+        dest.writeString(this.phoneNumber);
         dest.writeString(this.photo);
     }
 
     protected FirebaseDriver(Parcel in) {
         this.email = in.readString();
         this.name = in.readString();
-        this.phone_number = in.readString();
+        this.phoneNumber = in.readString();
         this.photo = in.readString();
     }
 

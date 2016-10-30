@@ -24,7 +24,6 @@ public class UserProfile {
     public String name;
     public String email;
     public String phoneNumber;
-    public String profilePictureString;
 
     public UserProfile() {
     }

@@ -1,18 +1,11 @@
 package com.gfive.jasdipc.loopandroid.Clients;
 
-import android.net.Uri;
-import android.util.Log;
-
-import com.facebook.login.LoginManager;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
-import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Models.UserProfile;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,23 +13,23 @@ import org.json.JSONObject;
 /**
  * Created by jasdip on 2016-10-27.
  */
-public class FirebaseClient {
+public class BackendClient {
 
-    private static FirebaseClient firebaseClient;
+    private static BackendClient backendClient;
 
     private DatabaseReference mDatabase;
     private StorageReference mStorage;
 
 
-    public static FirebaseClient getInstance() {
-        if (firebaseClient == null) {
-            firebaseClient = new FirebaseClient();
+    public static BackendClient getInstance() {
+        if (backendClient == null) {
+            backendClient = new BackendClient();
         }
 
-        return firebaseClient;
+        return backendClient;
     }
 
-    private FirebaseClient() {
+    private BackendClient() {
         mStorage = FirebaseStorage.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Ride");
     }

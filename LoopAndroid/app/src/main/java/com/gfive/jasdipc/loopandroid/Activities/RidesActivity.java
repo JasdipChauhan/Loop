@@ -21,6 +21,7 @@ import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
 import com.gfive.jasdipc.loopandroid.Models.User;
 import com.gfive.jasdipc.loopandroid.R;
+import com.gfive.jasdipc.loopandroid.RideDetailActivity;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -67,10 +68,10 @@ public class RidesActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
 
-//                        Intent rideDetailIntent = new Intent(mContext, RideDetailActivity.class);
-//                        rideDetailIntent.putExtra("ride", (Parcelable) rides.get(position));
-//                        startActivityForResult(rideDetailIntent, RESERVE_RESULT);
-//                        Log.i("POSITION", position + "");
+                        //Intent rideDetailIntent = new Intent(mContext, RideDetailActivity.class);
+                        //rideDetailIntent.putExtra("ride", (Parcelable) rides.get(position));
+                        //startActivityForResult(rideDetailIntent, RESERVE_RESULT);
+                        //Log.i("POSITION", position + "");
                     }
 
                     @Override

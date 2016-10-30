@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.gfive.jasdipc.loopandroid.Clients.FirebaseClient;
+import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Fragments.DateDialog;
 import com.gfive.jasdipc.loopandroid.Fragments.TimeDialog;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
@@ -100,7 +100,7 @@ public class CreateNewRideActivity extends AppCompatActivity implements ServerRe
             return;
         }
 
-        FirebaseClient.getInstance().uploadRide(this, profile, rideJSONMap);
+        BackendClient.getInstance().uploadRide(this, profile, rideJSONMap);
 
     }
 

@@ -10,4 +10,47 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.gfive.jasdipc.loopandroid.Activities.RegisterActivity">
 
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/register_photo"
+        android:src="@drawable/image"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_photo"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/register_name"
+        android:text="USER'S NAME"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_name"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/register_email"
+        android:text="USER'S EMAIL" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_email"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/register_phone_number"
+        android:text="USER'S PHONE NUMBER" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent"
+        android:text="Register"
+        android:textColor="@color/white"
+        android:id="@+id/register_button"/>
+
 </RelativeLayout>

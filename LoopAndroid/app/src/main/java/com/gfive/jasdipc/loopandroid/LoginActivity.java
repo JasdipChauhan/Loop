@@ -1,6 +1,7 @@
 package com.gfive.jasdipc.loopandroid;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -78,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
                     Log.i("USER", user.getUid());
@@ -116,7 +117,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void handleLogin() {
 
-        FirebaseUser user = mAuth.getCurrentUser();
+        if (user == null) {
+            return;
+        }
 
         ProfileManager.getInstance().setLocalUser(user);
 
@@ -134,6 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                             //need to register user
                             intent = new Intent(LoginActivity.this, RegisterActivity.class);
                         }
+                        finish();
                         startActivity(intent);
                     }
                 }
@@ -141,7 +145,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //MARK: Lifecycle Methods
-
 
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {

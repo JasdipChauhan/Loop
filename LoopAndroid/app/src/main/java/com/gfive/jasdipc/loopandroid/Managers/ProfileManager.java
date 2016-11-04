@@ -10,6 +10,7 @@ public class ProfileManager {
 
     private static ProfileManager profileManager;
     private UserProfile userProfile;
+    private FirebaseUser firebaseUser;
 
     private final int PROFILE_PICTURE_HEIGHT = 200;
     private final int PROFILE_PICTURE_WIDTH = 200;
@@ -28,6 +29,8 @@ public class ProfileManager {
 
     public void setLocalUser(FirebaseUser profile) {
 
+        firebaseUser = profile;
+
         userProfile.id = profile.getUid();
         userProfile.name = profile.getDisplayName();
         userProfile.profilePictureURI = profile.getPhotoUrl();
@@ -37,4 +40,5 @@ public class ProfileManager {
         return userProfile;
     }
 
+    public FirebaseUser getFirebaseUser() {return firebaseUser;}
 }

@@ -41,9 +41,7 @@ public class BackendClient {
 
     public void reserveRide(final String rideID, final ServerResponse callback) {
 
-        DatabaseReference rideRef = mDatabase.child(rideID).child("seatsLeft");
-
-        rideRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.child(rideID).child("seatsLeft").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

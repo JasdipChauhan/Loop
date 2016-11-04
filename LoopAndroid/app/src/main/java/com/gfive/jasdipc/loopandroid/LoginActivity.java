@@ -1,18 +1,12 @@
 package com.gfive.jasdipc.loopandroid;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -22,11 +16,11 @@ import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.gfive.jasdipc.loopandroid.Activities.RegisterActivity;
 import com.gfive.jasdipc.loopandroid.Activities.RidesActivity;
+import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -114,11 +108,30 @@ public class LoginActivity extends AppCompatActivity {
 
             Profile.fetchProfileForCurrentAccessToken();
             profile = Profile.getCurrentProfile();
-            ProfileManager.getInstance().register(profile, accessToken);
+            ProfileManager.getInstance().setLocalUser(profile, accessToken);
 
-            finish();
-            Intent intent = new Intent(LoginActivity.this, RidesActivity.class);
-            startActivity(intent);
+            BackendClient.getInstance().doesUserExist(
+                    ProfileManager.getInstance().getUserProfile(),
+                    new ServerResponse() {
+                        @Override
+                        public void response(boolean userExists) {
+
+                            finish();
+                            Intent intent;
+
+                            if (userExists) {
+                                //user has already registered
+                                intent = new Intent(LoginActivity.this, RidesActivity.class);
+                            } else {
+                                //need to register user
+                                intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                            }
+                            startActivity(intent);
+
+
+                        }
+                    }
+            );
         }
 
     }

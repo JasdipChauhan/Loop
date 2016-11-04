@@ -22,7 +22,8 @@ public class BackendClient {
 
     private static BackendClient backendClient;
 
-    private DatabaseReference mDatabase;
+    private DatabaseReference mRideDatabase;
+    private DatabaseReference mUserDatabase;
     private StorageReference mStorage;
 
 
@@ -36,12 +37,13 @@ public class BackendClient {
 
     private BackendClient() {
         mStorage = FirebaseStorage.getInstance().getReference();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Ride");
+        mRideDatabase = FirebaseDatabase.getInstance().getReference().child("Ride");
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
     }
 
     public void reserveRide(final String rideID, final ServerResponse callback) {
 
-        mDatabase.child(rideID).child("seatsLeft").addListenerForSingleValueEvent(new ValueEventListener() {
+        mRideDatabase.child(rideID).child("seatsLeft").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -60,10 +62,10 @@ public class BackendClient {
 
                 if (seatsLeft > 0 ) {
 
-                    mDatabase.child(rideID).child("seatsLeft").setValue(seatsLeft);
+                    mRideDatabase.child(rideID).child("seatsLeft").setValue(seatsLeft);
                     callback.response(true);
                 } else {
-                    mDatabase.child(rideID).removeValue();
+                    mRideDatabase.child(rideID).removeValue();
                     callback.response(true);
                 }
 
@@ -87,7 +89,7 @@ public class BackendClient {
     public void uploadRide(ServerResponse callback, final UserProfile profile, JSONObject jsonObject) {
 
         boolean onCreateSuccess = true;
-        DatabaseReference ride = mDatabase.push();
+        DatabaseReference ride = mRideDatabase.push();
 
         try {
 
@@ -116,5 +118,29 @@ public class BackendClient {
         }
 
         callback.response(onCreateSuccess);
+    }
+
+    public void doesUserExist(final UserProfile user, final ServerResponse callback) {
+
+        mUserDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.hasChild(user.facebookID)) {
+                    callback.response(true);
+                } else {
+                    callback.response(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                databaseError.toException().printStackTrace();
+                Log.e("BACKEND DOES USER EXIST", "CANCELLED");
+                callback.response(false);
+
+            }
+        });
+
     }
 }

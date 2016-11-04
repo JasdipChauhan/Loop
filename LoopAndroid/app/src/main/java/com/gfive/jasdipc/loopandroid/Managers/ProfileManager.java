@@ -32,7 +32,7 @@ public class ProfileManager {
         userProfile = new UserProfile();
     }
 
-    public void register(Profile profile, AccessToken accessToken) {
+    public void setLocalUser(Profile profile, AccessToken accessToken) {
 
         userProfile.accessToken = accessToken;
         userProfile.facebookID = profile.getId();
@@ -40,8 +40,8 @@ public class ProfileManager {
         userProfile.profilePictureURI = profile.getProfilePictureUri(PROFILE_PICTURE_WIDTH, PROFILE_PICTURE_HEIGHT);
     }
 
-
     public UserProfile getUserProfile() {
         return userProfile;
     }
+
 }

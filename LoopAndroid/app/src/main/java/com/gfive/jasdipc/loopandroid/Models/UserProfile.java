@@ -20,7 +20,7 @@ public class UserProfile {
     public Uri profilePictureURI;
 
     public AccessToken accessToken;
-    public String facebookID;
+    public String id;
     public String name;
     public String email;
     public String phoneNumber;

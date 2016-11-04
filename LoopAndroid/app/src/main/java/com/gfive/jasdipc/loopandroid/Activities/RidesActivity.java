@@ -21,6 +21,7 @@ import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.RideDetailActivity;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -137,7 +138,7 @@ public class RidesActivity extends AppCompatActivity {
     }
 
     private void handleLogout() {
-        LoginManager.getInstance().logOut();
+        FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(RidesActivity.this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         finish();

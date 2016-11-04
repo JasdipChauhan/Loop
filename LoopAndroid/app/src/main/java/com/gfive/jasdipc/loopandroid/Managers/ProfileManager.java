@@ -1,13 +1,7 @@
 package com.gfive.jasdipc.loopandroid.Managers;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.provider.MediaStore;
-
-import com.facebook.AccessToken;
-import com.facebook.Profile;
-import com.facebook.login.LoginManager;
 import com.gfive.jasdipc.loopandroid.Models.UserProfile;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Created by JasdipC on 2016-10-25.
@@ -32,12 +26,11 @@ public class ProfileManager {
         userProfile = new UserProfile();
     }
 
-    public void setLocalUser(Profile profile, AccessToken accessToken) {
+    public void setLocalUser(FirebaseUser profile) {
 
-        userProfile.accessToken = accessToken;
-        userProfile.facebookID = profile.getId();
-        userProfile.name = profile.getName();
-        userProfile.profilePictureURI = profile.getProfilePictureUri(PROFILE_PICTURE_WIDTH, PROFILE_PICTURE_HEIGHT);
+        userProfile.id = profile.getUid();
+        userProfile.name = profile.getDisplayName();
+        userProfile.profilePictureURI = profile.getPhotoUrl();
     }
 
     public UserProfile getUserProfile() {

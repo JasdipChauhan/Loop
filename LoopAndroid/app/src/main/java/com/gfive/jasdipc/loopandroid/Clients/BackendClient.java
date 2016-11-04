@@ -126,7 +126,7 @@ public class BackendClient {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if (dataSnapshot.hasChild(user.facebookID)) {
+                if (dataSnapshot.hasChild(user.id)) {
                     callback.response(true);
                 } else {
                     callback.response(false);

@@ -18,16 +18,11 @@ import com.gfive.jasdipc.loopandroid.LoginActivity;
 import com.gfive.jasdipc.loopandroid.Helpers.RecyclerItemClickListener;
 import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
 import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
-import com.gfive.jasdipc.loopandroid.Models.Ride;
-import com.gfive.jasdipc.loopandroid.Models.User;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.RideDetailActivity;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RidesActivity extends AppCompatActivity {
 
@@ -72,8 +67,11 @@ public class RidesActivity extends AppCompatActivity {
                             return;
                         }
 
+                        String rideKey = firebaseAdapter.getRef(position).getKey();
+
                         Intent rideDetailIntent = new Intent(mContext, RideDetailActivity.class);
                         rideDetailIntent.putExtra("ride", firebaseAdapter.getItem(position));
+                        rideDetailIntent.putExtra("rideKey", rideKey);
                         startActivityForResult(rideDetailIntent, RESERVE_RESULT);
                         Log.i("POSITION", position + "");
                     }
@@ -131,7 +129,7 @@ public class RidesActivity extends AppCompatActivity {
                 startActivity(new Intent(RidesActivity.this, CreateNewRideActivity.class));
                 break;
 
-            case R.id.action_settings:
+            case R.id.logout_menu:
 
                 handleLogout();
                 break;

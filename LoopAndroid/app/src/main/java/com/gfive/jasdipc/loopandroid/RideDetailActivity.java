@@ -36,6 +36,7 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
 
     private GoogleMap mMap;
     private FirebaseRide ride;
+    private String rideKey;
     private RideDetailFragment rideDetailFragment;
     private Snackbar snackbarStatus;
     private boolean didUserReserve = false;
@@ -53,6 +54,8 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
 
         Intent intent = getIntent();
         ride = intent.getParcelableExtra("ride");
+        rideKey = intent.getStringExtra("rideKey");
+
         pickup = ride.getPickup();
         dropoff = ride.getDropoff();
         returnIntent = new Intent();

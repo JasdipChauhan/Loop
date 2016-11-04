@@ -50,12 +50,6 @@ public class RidesActivity extends AppCompatActivity {
         mRidesRecyclerView.setLayoutManager(wCLLM);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Ride");
 
-        //mRidesRecyclerView.setHasFixedSize(true);
-
-
-        //ridesAdapter = new RidesAdapter(rides, mContext);
-        //mRidesRecyclerView.setAdapter(ridesAdapter);
-
         mRidesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
                 mContext, mRidesRecyclerView,
                 new RecyclerItemClickListener.OnItemClickListener() {

@@ -9,11 +9,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
+import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Fragments.RideDetailFragment;
 import com.gfive.jasdipc.loopandroid.Helpers.DateFormatter;
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
 import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
 import com.gfive.jasdipc.loopandroid.Models.Ride;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -32,7 +35,7 @@ import java.util.List;
 
 import okhttp3.Response;
 
-public class RideDetailActivity extends FragmentActivity implements OnMapReadyCallback, RideDetailFragment.OnFragmentInteractionListener{
+public class RideDetailActivity extends FragmentActivity implements OnMapReadyCallback, RideDetailFragment.OnFragmentInteractionListener {
 
     private GoogleMap mMap;
     private FirebaseRide ride;
@@ -73,8 +76,20 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     public void reserveButtonClicked (View view) {
-        Log.i("butotn clicked", "button clicked");
-        JSONObject updateRideObject = new JSONObject();
+        Log.i("button clicked", "button clicked");
+
+        if (!TextUtils.isEmpty(rideKey)) {
+            BackendClient.getInstance().reserveRide(rideKey, new ServerResponse() {
+                        @Override
+                        public void response(boolean isSuccessful) {
+
+                            if (isSuccessful) {
+                                finish();
+                            }
+
+                        }
+                    });
+        }
 //
 //        int rideID = ride.getId();
 //

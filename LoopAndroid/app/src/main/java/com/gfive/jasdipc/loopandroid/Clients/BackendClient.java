@@ -1,9 +1,14 @@
 package com.gfive.jasdipc.loopandroid.Clients;
 
+import android.util.Log;
+
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
 import com.gfive.jasdipc.loopandroid.Models.UserProfile;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -34,14 +39,52 @@ public class BackendClient {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Ride");
     }
 
-    public boolean uploadUserProfilePicture() {
+    public void reserveRide(final String rideID, final ServerResponse callback) {
 
-        boolean isSuccessful = false;
+        DatabaseReference rideRef = mDatabase.child(rideID).child("seatsLeft");
+
+        rideRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                int seatsLeft;
+                try {
+                    seatsLeft = dataSnapshot.getValue(Integer.class);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    callback.response(false);
+                    return;
+                }
+
+                seatsLeft--;
 
 
+                if (seatsLeft > 0 ) {
 
-        return isSuccessful;
+                    mDatabase.child(rideID).child("seatsLeft").setValue(seatsLeft);
+                    callback.response(true);
+                } else {
+                    mDatabase.child(rideID).removeValue();
+                    callback.response(true);
+                }
+
+                callback.response(false);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                databaseError.toException().printStackTrace();
+                Log.e("API CODE:", Integer.toString(databaseError.getCode()));
+                Log.e("API MESSAGE:", databaseError.getMessage());
+                Log.e("API DETAILS:", databaseError.getDetails());
+
+                callback.response(false);
+            }
+        });
+
     }
+
 
     public void uploadRide(ServerResponse callback, final UserProfile profile, JSONObject jsonObject) {
 

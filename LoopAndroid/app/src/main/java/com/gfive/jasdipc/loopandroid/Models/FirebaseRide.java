@@ -3,13 +3,20 @@ package com.gfive.jasdipc.loopandroid.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class FirebaseRide implements Parcelable {
 
     private String date;
     private FirebaseDriver driver;
+    private Map<String, String> riders = new HashMap<>();
     private String dropoff;
     private String pickup;
     private double price;
+    private int seatsSize;
     private int seatsLeft;
     private String time;
 
@@ -19,12 +26,14 @@ public class FirebaseRide implements Parcelable {
 
     }
 
-    public FirebaseRide(String date, FirebaseDriver driver, String dropoff, String pickup, Double price, int seatsLeft, String time) {
+    public FirebaseRide(String date, FirebaseDriver driver, Map<String, String> riders, String dropoff, String pickup, double price, int seatsSize, int seatsLeft, String time) {
         this.date = date;
         this.driver = driver;
+        this.riders = riders;
         this.dropoff = dropoff;
         this.pickup = pickup;
         this.price = price;
+        this.seatsSize = seatsSize;
         this.seatsLeft = seatsLeft;
         this.time = time;
     }
@@ -47,6 +56,14 @@ public class FirebaseRide implements Parcelable {
         this.driver = driver;
     }
 
+    public Map<String, String> getRiders() {
+        return riders;
+    }
+
+    public void setRiders(Map<String, String> riders) {
+        this.riders = riders;
+    }
+
     public String getDropoff() {
         return dropoff;
     }
@@ -63,12 +80,20 @@ public class FirebaseRide implements Parcelable {
         this.pickup = pickup;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getSeatsSize() {
+        return seatsSize;
+    }
+
+    public void setSeatsSize(int seatsSize) {
+        this.seatsSize = seatsSize;
     }
 
     public int getSeatsLeft() {
@@ -87,8 +112,12 @@ public class FirebaseRide implements Parcelable {
         this.time = time;
     }
 
-    //Parcelable
+    public static Creator<FirebaseRide> getCREATOR() {
+        return CREATOR;
+    }
 
+
+    //Parcelable
 
     @Override
     public int describeContents() {
@@ -99,9 +128,15 @@ public class FirebaseRide implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.date);
         dest.writeParcelable(this.driver, flags);
+        dest.writeInt(this.riders.size());
+        for (Map.Entry<String, String> entry : this.riders.entrySet()) {
+            dest.writeString(entry.getKey());
+            dest.writeString(entry.getValue());
+        }
         dest.writeString(this.dropoff);
         dest.writeString(this.pickup);
         dest.writeDouble(this.price);
+        dest.writeInt(this.seatsSize);
         dest.writeInt(this.seatsLeft);
         dest.writeString(this.time);
     }
@@ -109,14 +144,22 @@ public class FirebaseRide implements Parcelable {
     protected FirebaseRide(Parcel in) {
         this.date = in.readString();
         this.driver = in.readParcelable(FirebaseDriver.class.getClassLoader());
+        int ridersSize = in.readInt();
+        this.riders = new HashMap<String, String>(ridersSize);
+        for (int i = 0; i < ridersSize; i++) {
+            String key = in.readString();
+            String value = in.readString();
+            this.riders.put(key, value);
+        }
         this.dropoff = in.readString();
         this.pickup = in.readString();
         this.price = in.readDouble();
+        this.seatsSize = in.readInt();
         this.seatsLeft = in.readInt();
         this.time = in.readString();
     }
 
-    public static final Parcelable.Creator<FirebaseRide> CREATOR = new Parcelable.Creator<FirebaseRide>() {
+    public static final Creator<FirebaseRide> CREATOR = new Creator<FirebaseRide>() {
         @Override
         public FirebaseRide createFromParcel(Parcel source) {
             return new FirebaseRide(source);

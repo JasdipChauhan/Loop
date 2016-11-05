@@ -15,7 +15,7 @@ public class RidesViewHolder extends RecyclerView.ViewHolder {
     public TextView pickup;
     public TextView dropoff;
     public TextView pickupTime;
-    public TextView passengers;
+    public TextView seats;
     public TextView cost;
 
     public RidesViewHolder(View view) {
@@ -27,7 +27,7 @@ public class RidesViewHolder extends RecyclerView.ViewHolder {
         pickup = (TextView) view.findViewById(R.id.pickup_tv);
         dropoff = (TextView) view.findViewById(R.id.dropoff_tv);
         pickupTime = (TextView) view.findViewById(R.id.time_tv);
-        passengers = (TextView) view.findViewById(R.id.passengers_tv);
+        seats = (TextView) view.findViewById(R.id.passengers_tv);
         cost = (TextView) view.findViewById(R.id.cost_tv);
     }
 }

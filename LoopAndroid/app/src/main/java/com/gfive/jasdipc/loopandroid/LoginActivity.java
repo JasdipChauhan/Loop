@@ -157,6 +157,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+
+        if (mAuth.getCurrentUser() != null) {
+            handleLogin();
+        }
     }
 
 
@@ -164,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        FirebaseUser user = mAuth.getCurrentUser();
+        user = mAuth.getCurrentUser();
 
         if (user != null) {
             handleLogin();

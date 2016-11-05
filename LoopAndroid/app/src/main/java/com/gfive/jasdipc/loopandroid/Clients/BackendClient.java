@@ -100,7 +100,8 @@ public class BackendClient {
             ride.child("dropoff").setValue(jsonObject.getString("dropoff").toString());
             ride.child("date").setValue(jsonObject.getString("date").toString());
             ride.child("time").setValue(jsonObject.getString("time").toString());
-            ride.child("seatsLeft").setValue(jsonObject.getInt("seatsLeft"));
+            ride.child("seatsSize").setValue(jsonObject.getInt("seats"));
+            ride.child("seatsLeft").setValue(jsonObject.getInt("seats"));
             ride.child("price").setValue(jsonObject.getDouble("price"));
 
         } catch (JSONException e) {
@@ -117,7 +118,7 @@ public class BackendClient {
         callback.response(onCreateSuccess);
     }
 
-    public void reserveRide(final String rideID, final ServerResponse callback) {
+    public void reserveRide(final String rideID, final String userID, final ServerResponse callback) {
 
         mRideDatabase.child(rideID).child("seatsLeft").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -139,6 +140,7 @@ public class BackendClient {
                 if (seatsLeft > 0 ) {
 
                     mRideDatabase.child(rideID).child("seatsLeft").setValue(seatsLeft);
+                    mRideDatabase.child(rideID).child("riders").push().setValue(userID);
                     callback.response(true);
                 } else {
                     mRideDatabase.child(rideID).removeValue();

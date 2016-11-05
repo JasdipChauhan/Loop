@@ -92,7 +92,7 @@ public class CreateNewRideActivity extends AppCompatActivity implements ServerRe
             rideJSONMap.put("dropoff", dropoffStr);
             rideJSONMap.put("date", dateStr);
             rideJSONMap.put("time", timeStr);
-            rideJSONMap.put("seatsLeft", seatsInt);
+            rideJSONMap.put("seats", seatsInt);
             rideJSONMap.put("price", priceDouble);
         } catch (JSONException e) {
             e.printStackTrace();

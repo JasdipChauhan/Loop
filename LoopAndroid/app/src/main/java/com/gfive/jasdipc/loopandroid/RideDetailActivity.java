@@ -1,6 +1,5 @@
 package com.gfive.jasdipc.loopandroid;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -15,10 +14,10 @@ import android.view.View;
 
 import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Fragments.RideDetailFragment;
-import com.gfive.jasdipc.loopandroid.Helpers.DateFormatter;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
+import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
-import com.gfive.jasdipc.loopandroid.Models.Ride;
+import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,12 +27,8 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.Response;
 
 public class RideDetailActivity extends FragmentActivity implements OnMapReadyCallback, RideDetailFragment.OnFragmentInteractionListener {
 
@@ -79,7 +74,10 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
         Log.i("button clicked", "button clicked");
 
         if (!TextUtils.isEmpty(rideKey)) {
-            BackendClient.getInstance().reserveRide(rideKey, new ServerResponse() {
+
+            UserProfile currentUser = ProfileManager.getInstance().getUserProfile();
+
+            BackendClient.getInstance().reserveRide(rideKey, currentUser.id, new ServerResponse() {
                         @Override
                         public void response(boolean isSuccessful) {
 

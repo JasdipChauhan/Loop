@@ -13,19 +13,15 @@ import java.io.InputStream;
 
 public class UserProfile {
 
-
-    public String firstName;
-    public String lastName;
-    public String middleName;
-    public Uri profilePictureURI;
-
-    public AccessToken accessToken;
     public String id;
+    public Uri profilePictureURI;
     public String name;
     public String email;
     public String phoneNumber;
 
     public UserProfile() {
     }
+
+
 
 }

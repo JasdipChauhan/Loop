@@ -29,11 +29,12 @@ public class ProfileManager {
 
     public void setLocalUser(FirebaseUser profile) {
 
-        firebaseUser = profile;
-
         userProfile.id = profile.getUid();
         userProfile.name = profile.getDisplayName();
+        userProfile.email = profile.getEmail();
         userProfile.profilePictureURI = profile.getPhotoUrl();
+
+        firebaseUser = profile;
     }
 
     public UserProfile getUserProfile() {

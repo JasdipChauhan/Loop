@@ -42,7 +42,7 @@
         android:layout_below="@+id/register_email"
         android:layout_centerHorizontal="true"
         android:id="@+id/register_phone_number"
-        android:text="USER'S PHONE NUMBER" />
+        android:hint="Enter your phone number..." />
 
     <Button
         android:layout_width="match_parent"

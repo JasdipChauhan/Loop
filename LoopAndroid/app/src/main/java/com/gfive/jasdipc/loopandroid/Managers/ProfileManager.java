@@ -32,7 +32,7 @@ public class ProfileManager {
         userProfile.id = profile.getUid();
         userProfile.name = profile.getDisplayName();
         userProfile.email = profile.getEmail();
-        userProfile.profilePictureURI = profile.getPhotoUrl();
+        userProfile.profilePictureURI = profile.getPhotoUrl().toString();
 
         firebaseUser = profile;
     }

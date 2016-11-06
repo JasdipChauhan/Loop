@@ -14,7 +14,7 @@ import java.io.InputStream;
 public class UserProfile {
 
     public String id;
-    public Uri profilePictureURI;
+    public String profilePictureURI;
     public String name;
     public String email;
     public String phoneNumber;

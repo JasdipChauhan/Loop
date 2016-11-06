@@ -1,7 +1,9 @@
 package com.gfive.jasdipc.loopandroid.Clients;
 
+import android.net.Uri;
 import android.util.Log;
 
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerLookup;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
 import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.google.firebase.auth.FirebaseUser;
@@ -15,6 +17,11 @@ import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jasdip on 2016-10-27.
@@ -158,6 +165,30 @@ public class BackendClient {
                 Log.e("API DETAILS:", databaseError.getDetails());
 
                 callback.response(false);
+            }
+        });
+
+    }
+
+    public void userLookup(String riderID, final ServerLookup callback) {
+
+        mUserDatabase.child(riderID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                UserProfile user = new UserProfile();
+
+                user.email = dataSnapshot.child("email").getValue(String.class);
+                user.name = dataSnapshot.child("name").getValue(String.class);
+                user.phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
+                user.profilePictureURI = dataSnapshot.child("photo").getValue(String.class);
+
+                callback.onLookup(user);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 

@@ -18,6 +18,8 @@ public class RidesViewHolder extends RecyclerView.ViewHolder {
     public TextView seats;
     public TextView cost;
 
+    public ImageView riderImage;
+
     public RidesViewHolder(View view) {
         super(view);
 
@@ -29,5 +31,7 @@ public class RidesViewHolder extends RecyclerView.ViewHolder {
         pickupTime = (TextView) view.findViewById(R.id.time_tv);
         seats = (TextView) view.findViewById(R.id.passengers_tv);
         cost = (TextView) view.findViewById(R.id.cost_tv);
+
+        riderImage = (ImageView) view.findViewById(R.id.rider_image);
     }
 }

@@ -1,16 +1,24 @@
 package com.gfive.jasdipc.loopandroid.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerLookup;
 import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
+import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
 import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 public class RidesAdapter {
@@ -43,7 +51,7 @@ public class RidesAdapter {
                 mReference
         ) {
             @Override
-            protected void populateViewHolder(RidesViewHolder holder, FirebaseRide model, int position) {
+            protected void populateViewHolder(final RidesViewHolder holder, FirebaseRide model, int position) {
 
                 holder.usersName.setText(model.getDriver().getName());
                 holder.date.setText(model.getDate());
@@ -56,6 +64,21 @@ public class RidesAdapter {
                 Picasso.with(mContext).load(model.getDriver().getPhoto())
                         .into(holder.userImage);
 
+
+                List<String> riders = getRiderList(model.getRiders());
+
+                for (String riderID : riders) {
+
+                    BackendClient.getInstance().userLookup(riderID, new ServerLookup() {
+                        @Override
+                        public void onLookup(UserProfile userProfile) {
+                            Picasso.with(mContext).load(userProfile.profilePictureURI).into(holder.riderImage);
+                        }
+                    });
+                }
+
+                //Log.i("Passenger", model.getRiders().);
+
                 runEnterAnimation(holder.itemView, position);
             }
         };
@@ -64,6 +87,25 @@ public class RidesAdapter {
     public FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder> getFirebaseRecyclerAdapter () {
         return firebaseRecyclerAdapter;
     }
+
+    //Helper functions
+
+    private List<String> getRiderList(Map<String, String> riderMap) {
+        List<String> riderList = new ArrayList<>();
+
+        ///DEBUG PURPOSES
+        for (Map.Entry<String, String> entry: riderMap.entrySet()) {
+
+            Log.i("USER KEY", entry.getKey());
+            Log.i("USER ID VALUE", entry.getValue());
+        }
+        ///DEBUG PURPOSES
+
+        riderList.addAll(riderMap.values());
+
+        return riderList;
+    }
+
 
     //Animations
 

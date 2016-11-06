@@ -16,6 +16,7 @@ import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Fragments.RideDetailFragment;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
+import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
 import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
 import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -82,7 +83,10 @@ public class RideDetailActivity extends FragmentActivity implements OnMapReadyCa
                         public void response(boolean isSuccessful) {
 
                             if (isSuccessful) {
+                                StorageManager.getInstance(RideDetailActivity.this)
+                                        .saveRide(rideKey);
                                 finish();
+
                             }
 
                         }

@@ -148,6 +148,7 @@ public class BackendClient {
 
                     mRideDatabase.child(rideID).child("seatsLeft").setValue(seatsLeft);
                     mRideDatabase.child(rideID).child("riders").push().setValue(userID);
+
                     callback.response(true);
                 } else {
                     mRideDatabase.child(rideID).removeValue();

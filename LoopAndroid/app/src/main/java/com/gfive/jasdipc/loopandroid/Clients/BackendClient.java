@@ -170,6 +170,20 @@ public class BackendClient {
 
     }
 
+    //ON PRESENTATION LAYER
+    //    List<String> riders = getRiderList(model.getRiders());
+    //
+    //    for (String riderID : riders) {
+    //
+    //        BackendClient.getInstance().userLookup(riderID, new ServerLookup() {
+    //            @Override
+    //            public void onLookup(UserProfile userProfile) {
+    //                Picasso.with(mContext).load(userProfile.profilePictureURI).into(holder.riderImage);
+    //            }
+    //        });
+    //    }
+
+
     public void userLookup(String riderID, final ServerLookup callback) {
 
         mUserDatabase.child(riderID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -188,7 +202,8 @@ public class BackendClient {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                databaseError.toException().printStackTrace();
+                callback.onLookup(null);
             }
         });
 

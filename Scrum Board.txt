@@ -1,6 +1,5 @@
 TODO
 
-- save user under array of riders
 - save rides into local storage
 - migrate to fragments to allow for switching
 - current user profile view on navigation bar
@@ -16,6 +15,7 @@ MAYBE
 
 DONE
 
+- save user under array of riders
 - reserve ride and update backend
 - picasso loading profile picture into container
 - refactor our firebase adapter into separate class

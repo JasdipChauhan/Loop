@@ -97,15 +97,6 @@
                 android:paddingTop="4dp"
                 android:text="PASSENGERS"/>
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/image"
-                android:layout_below="@id/passengers_tv"
-                android:layout_toRightOf="@id/users_image"
-                android:id="@+id/rider_image"
-                android:visibility="gone"/>
-
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

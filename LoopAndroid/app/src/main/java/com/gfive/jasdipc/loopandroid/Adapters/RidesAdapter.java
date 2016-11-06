@@ -64,21 +64,6 @@ public class RidesAdapter {
                 Picasso.with(mContext).load(model.getDriver().getPhoto())
                         .into(holder.userImage);
 
-
-                List<String> riders = getRiderList(model.getRiders());
-
-                for (String riderID : riders) {
-
-                    BackendClient.getInstance().userLookup(riderID, new ServerLookup() {
-                        @Override
-                        public void onLookup(UserProfile userProfile) {
-                            Picasso.with(mContext).load(userProfile.profilePictureURI).into(holder.riderImage);
-                        }
-                    });
-                }
-
-                //Log.i("Passenger", model.getRiders().);
-
                 runEnterAnimation(holder.itemView, position);
             }
         };

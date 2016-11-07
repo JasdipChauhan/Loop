@@ -4,6 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/date_container"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATE"
+            android:padding="8dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:id="@+id/date_header"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ride_date"
+            android:text="DATE"
+            android:padding="8dp"
+            android:textColor="@color/white"
+            android:layout_below="@+id/date_header"
+            android:layout_alignStart="@+id/date_header"
+            />
+
+    </RelativeLayout>
+    
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -11,13 +40,6 @@
         android:text="Drivers NAME"
         android:padding="8dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ride_date"
-        android:text="DATE"
-        android:padding="8dp"
-        android:layout_below="@id/ride_drivers_name"/>
 
     <TextView
         android:layout_width="wrap_content"

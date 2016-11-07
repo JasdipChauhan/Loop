@@ -10,21 +10,21 @@ import java.util.Date;
 
 public class DateFormatter {
 
-    public static Date formatToDate(String dateString) {
+    public static String getReadableDate(String dateString) {
+
         try {
-            return new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
-        } catch (ParseException e) {
-            return null;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = sdf.parse(dateString);
+            sdf = new SimpleDateFormat("MMM dd, yyyy");
+            String readableString = sdf.format(date);
+
+            return readableString;
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }
 
-    public static String formatToYYYYMMDD(Date date) {
-        String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
-        return formattedDate;
-    }
-
-    public static String formatToString(Date date) {
-        return date.toString();
+        return dateString;
     }
 
 }

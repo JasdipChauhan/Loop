@@ -75,7 +75,7 @@ public class RideDetailFragment extends Fragment {
         rideCost = (TextView) view.findViewById(R.id.ride_cost);
 
         rideDriversName.setText(mRide.getDriver().getName());
-        rideDate.setText(mRide.getDate());
+        rideDate.setText(DateFormatter.getReadableDate(mRide.getDate()));
         ridePickup.setText(mRide.getPickup());
         rideDropoff.setText(mRide.getDropoff());
         rideSeatsLeft.setText(Integer.toString(mRide.getSeatsLeft()));

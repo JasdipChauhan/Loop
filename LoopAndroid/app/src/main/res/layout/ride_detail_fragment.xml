@@ -6,8 +6,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:id="@+id/date_container"
+        android:background="@color/colorPrimary"
         >
 
         <TextView
@@ -16,7 +17,8 @@
             android:text="DATE"
             android:padding="8dp"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/white"
+            android:textColor="@color/text"
+            android:alpha="0.5"
             android:id="@+id/date_header"
             />
 
@@ -26,7 +28,7 @@
             android:id="@+id/ride_date"
             android:text="DATE"
             android:padding="8dp"
-            android:textColor="@color/white"
+            android:textColor="@color/text"
             android:layout_below="@+id/date_header"
             android:layout_alignStart="@+id/date_header"
             />

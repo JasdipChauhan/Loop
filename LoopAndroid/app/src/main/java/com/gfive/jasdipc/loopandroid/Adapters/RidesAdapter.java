@@ -1,6 +1,7 @@
 package com.gfive.jasdipc.loopandroid.Adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -53,6 +54,7 @@ public class RidesAdapter {
             @Override
             protected void populateViewHolder(final RidesViewHolder holder, FirebaseRide model, int position) {
 
+                holder.cardLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLightest));
                 holder.usersName.setText(model.getDriver().getName());
                 holder.date.setText(model.getDate());
                 holder.pickup.setText(model.getPickup());
@@ -63,6 +65,7 @@ public class RidesAdapter {
 
                 Picasso.with(mContext).load(model.getDriver().getPhoto())
                         .into(holder.userImage);
+
 
                 runEnterAnimation(holder.itemView, position);
             }

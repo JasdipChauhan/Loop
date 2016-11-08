@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/ride_card_layout">
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -17,7 +16,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
+            android:id="@+id/ride_card_layout">
 
             <View
                 android:layout_width="match_parent"
@@ -33,7 +32,7 @@
                 android:layout_height="25dp"
                 android:id="@+id/date_tv"
                 android:text="DATE"
-                android:textColor="@color/white"
+                android:textColor="@color/text"
                 android:padding="4dp"/>
 
             <ImageView
@@ -41,6 +40,7 @@
                 android:layout_height="100dp"
                 android:id="@+id/users_image"
                 android:layout_below="@id/date_view"
+
                 />
 
             <TextView
@@ -48,7 +48,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/users_fullname_tv"
                 android:text="FULL NAME"
-                android:layout_below="@+id/users_image"/>
+                android:layout_below="@+id/users_image"
+                android:textColor="@color/text"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -57,6 +59,7 @@
                 android:layout_toRightOf="@+id/users_image"
                 android:layout_below="@id/date_view"
                 android:paddingTop="4dp"
+                android:textColor="@color/text"
                 android:text="PICKUP"/>
 
             <TextView
@@ -66,7 +69,9 @@
                 android:layout_below="@+id/pickup_tv"
                 android:layout_toRightOf="@id/users_image"
                 android:paddingTop="4dp"
-                android:text="DROPOFF DESTINATION"/>
+                android:text="DROPOFF DESTINATION"
+                android:textColor="@color/text"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -75,7 +80,9 @@
                 android:layout_below="@+id/dropoff_tv"
                 android:layout_toRightOf="@id/users_image"
                 android:paddingTop="4dp"
-                android:text="TIME"/>
+                android:text="TIME"
+                android:textColor="@color/text"
+                />
 
 
             <TextView
@@ -86,7 +93,9 @@
                 android:layout_toRightOf="@id/time_tv"
                 android:paddingTop="4dp"
                 android:paddingLeft="12dp"
-                android:text="COST"/>
+                android:text="COST"
+                android:textColor="@color/text"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -95,7 +104,9 @@
                 android:layout_below="@+id/time_tv"
                 android:layout_toRightOf="@id/users_image"
                 android:paddingTop="4dp"
-                android:text="PASSENGERS"/>
+                android:text="PASSENGERS"
+                android:textColor="@color/text"
+                />
 
         </RelativeLayout>
 

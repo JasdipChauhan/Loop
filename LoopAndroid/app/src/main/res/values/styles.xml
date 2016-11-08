@@ -27,7 +27,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">8dp</item>
-        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerVertical">true</item>
         <item name="android:textColor">@color/text</item>
         <item name="android:alpha">0.5</item>
 
@@ -40,6 +40,16 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">8dp</item>
         <item name="android:textColor">@color/white</item>
+
+    </style>
+
+    <style name="divider">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/colorPrimaryLightest</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
 
     </style>
 

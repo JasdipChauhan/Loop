@@ -23,7 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class CreateNewRideActivity extends AppCompatActivity implements ServerResponse {
+public class CreateRideActivity extends AppCompatActivity implements ServerResponse {
 
     private TextInputEditText firstName;
     private TextInputEditText lastName;
@@ -54,7 +54,7 @@ public class CreateNewRideActivity extends AppCompatActivity implements ServerRe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_new_ride);
+        setContentView(R.layout.activity_create_ride);
         init();
     }
 

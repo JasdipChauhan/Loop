@@ -4,7 +4,7 @@
     android:id="@+id/activity_create_new_ride"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gfive.jasdipc.loopandroid.Activities.CreateNewRideActivity"
+    tools:context="com.gfive.jasdipc.loopandroid.Activities.CreateRideActivity"
     android:orientation="vertical">
 
     <LinearLayout

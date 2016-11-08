@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.facebook.login.LoginManager;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
 import com.gfive.jasdipc.loopandroid.LoginActivity;
@@ -121,7 +120,7 @@ public class RidesActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_add_ride:
 
-                startActivity(new Intent(RidesActivity.this, CreateNewRideActivity.class));
+                startActivity(new Intent(RidesActivity.this, CreateRideActivity.class));
                 break;
 
             case R.id.logout_menu:

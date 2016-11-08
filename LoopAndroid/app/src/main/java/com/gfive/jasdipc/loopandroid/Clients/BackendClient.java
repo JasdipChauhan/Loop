@@ -151,8 +151,8 @@ public class BackendClient {
 
                     callback.response(true);
                 } else {
-                    mRideDatabase.child(rideID).removeValue();
-                    callback.response(true);
+                    //mRideDatabase.child(rideID).removeValue();
+                    callback.response(false);
                 }
 
                 callback.response(false);

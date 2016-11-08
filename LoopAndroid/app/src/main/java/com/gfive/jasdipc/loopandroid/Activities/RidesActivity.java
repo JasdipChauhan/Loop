@@ -16,6 +16,7 @@ import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
 import com.gfive.jasdipc.loopandroid.LoginActivity;
 import com.gfive.jasdipc.loopandroid.Helpers.RecyclerItemClickListener;
 import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
+import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
 import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.RideDetailActivity;
@@ -24,10 +25,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Set;
+
 public class RidesActivity extends AppCompatActivity {
 
     private RecyclerView mRidesRecyclerView;
-    private DatabaseReference mDatabaseReference;
+    private DatabaseReference mFirebaseDatabase;
+    private DatabaseReference mLocalDatabase;
 
     private Context mContext;
 
@@ -35,6 +39,7 @@ public class RidesActivity extends AppCompatActivity {
 
     private RidesAdapter ridesAdapter;
     private FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder> firebaseAdapter;
+    private boolean isMyRides = false;
 
     //Android Lifecycle Methods
 
@@ -48,7 +53,7 @@ public class RidesActivity extends AppCompatActivity {
         mRidesRecyclerView = (RecyclerView) findViewById(R.id.rides_recycler_view);
         WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(mContext);
         mRidesRecyclerView.setLayoutManager(wCLLM);
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Ride");
+        mFirebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Ride");
 
         mRidesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
                 mContext, mRidesRecyclerView,
@@ -78,14 +83,45 @@ public class RidesActivity extends AppCompatActivity {
 
     }
 
+
+    private void handleLogout() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(RidesActivity.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        finish();
+        startActivity(intent);
+    }
+
+    private void setAdapter() {
+
+        if (isMyRides) {
+
+            Set<String> savedRides = StorageManager.getInstance(RidesActivity.this).getSavedRides();
+
+            ridesAdapter = RidesAdapter.getInstance(RidesActivity.this, mFirebaseDatabase);
+            firebaseAdapter = ridesAdapter.getLocalRecyclerAdapter(savedRides);
+            //mRidesRecyclerView.swapAdapter(firebaseAdapter, false);
+            mRidesRecyclerView.setAdapter(firebaseAdapter);
+            firebaseAdapter.notifyDataSetChanged();
+
+        } else {
+            ridesAdapter = RidesAdapter.getInstance(RidesActivity.this, mFirebaseDatabase);
+            firebaseAdapter = ridesAdapter.getFirebaseRecyclerAdapter();
+            //mRidesRecyclerView.swapAdapter(firebaseAdapter, false);
+            mRidesRecyclerView.setAdapter(firebaseAdapter);
+            firebaseAdapter.notifyDataSetChanged();
+        }
+
+
+
+
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
 
-        ridesAdapter = RidesAdapter.getInstance(RidesActivity.this, mDatabaseReference);
-        firebaseAdapter = ridesAdapter.getFirebaseRecyclerAdapter();
-        mRidesRecyclerView.setAdapter(firebaseAdapter);
-
+        setAdapter();
     }
 
     @Override
@@ -128,20 +164,28 @@ public class RidesActivity extends AppCompatActivity {
                 handleLogout();
                 break;
 
+            case R.id.toggle_my_rides:
+
+                if (item.isChecked()) {
+                    isMyRides = true;
+                    item.setChecked(true);
+                } else {
+                    isMyRides = false;
+                    item.setChecked(false);
+                }
+
+                item.setChecked(!item.isChecked());
+                isMyRides = item.isChecked();
+                setAdapter();
+
+                break;
+
             default:
                 break;
         }
 
         return super.onOptionsItemSelected(item);
 
-    }
-
-    private void handleLogout() {
-        FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(RidesActivity.this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        finish();
-        startActivity(intent);
     }
 
 }

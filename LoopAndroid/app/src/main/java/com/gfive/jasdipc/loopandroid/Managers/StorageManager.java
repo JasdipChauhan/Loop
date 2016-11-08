@@ -39,6 +39,10 @@ public class StorageManager {
 
         Set<String> savedRides = mPref.getStringSet(RIDE_KEY, new HashSet<String>());
 
+        for (String ride : savedRides) {
+            Log.i("Saved Ride:", ride);
+        }
+
         return savedRides;
     }
 

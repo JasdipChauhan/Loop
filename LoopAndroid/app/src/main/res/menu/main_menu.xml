@@ -14,4 +14,11 @@
         android:title="Logout"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/toggle_my_rides"
+        android:checkable="true"
+        android:title="My Rides"
+        android:orderInCategory="1"
+        app:showAsAction="never"/>
+
 </menu>

@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Fragments.RideDetailFragment;
@@ -93,6 +94,8 @@ public class RideDetailActivity extends AppCompatActivity implements OnMapReadyC
                                         .saveRide(rideKey);
                                 finish();
 
+                            } else {
+                                Toast.makeText(RideDetailActivity.this, "Ride is full", Toast.LENGTH_SHORT).show();
                             }
 
                         }

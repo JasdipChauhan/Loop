@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 public class RidesAdapter {
@@ -30,6 +31,7 @@ public class RidesAdapter {
     private DatabaseReference mReference;
     private int lastPosition = -1;
     private FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder> firebaseRecyclerAdapter;
+    private FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder> localRecyclerAdapter;
 
     public static RidesAdapter getInstance(Context mContext, DatabaseReference mReference) {
 
@@ -54,20 +56,7 @@ public class RidesAdapter {
             @Override
             protected void populateViewHolder(final RidesViewHolder holder, FirebaseRide model, int position) {
 
-                holder.cardLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLightest));
-                holder.usersName.setText(model.getDriver().getName());
-                holder.date.setText(model.getDate());
-                holder.pickup.setText(model.getPickup());
-                holder.dropoff.setText(model.getDropoff());
-                holder.pickupTime.setText(model.getTime());
-                holder.seats.setText(model.getSeatsLeft() + "/" + model.getSeatsSize());
-                holder.cost.setText(Double.toString(model.getPrice()));
-
-                Picasso.with(mContext).load(model.getDriver().getPhoto())
-                        .into(holder.userImage);
-
-
-                runEnterAnimation(holder.itemView, position);
+                fillViewHolder(holder, model, position);
             }
         };
     }
@@ -76,7 +65,55 @@ public class RidesAdapter {
         return firebaseRecyclerAdapter;
     }
 
+    public FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder> getLocalRecyclerAdapter(final Set<String> savedRides) {
+
+        localRecyclerAdapter = new FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder>(
+                FirebaseRide.class,
+                R.layout.ride_card,
+                RidesViewHolder.class,
+                mReference
+
+        ) {
+            @Override
+            protected void populateViewHolder(RidesViewHolder holder, FirebaseRide model, int position) {
+
+                String ref = getRef(position).getKey().toString();
+
+                if (!savedRides.contains(ref)) {
+                    holder.cardLayout.setVisibility(View.GONE);
+
+                    return;
+                }
+
+                fillViewHolder(holder, model, position);
+            }
+        };
+
+        return localRecyclerAdapter;
+    }
+
+    public void filterRides() {
+
+    }
+
     //Helper functions
+
+    private void fillViewHolder(RidesViewHolder holder, FirebaseRide model, int position) {
+        holder.cardLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLightest));
+        holder.usersName.setText(model.getDriver().getName());
+        holder.date.setText(model.getDate());
+        holder.pickup.setText(model.getPickup());
+        holder.dropoff.setText(model.getDropoff());
+        holder.pickupTime.setText(model.getTime());
+        holder.seats.setText(model.getSeatsLeft() + "/" + model.getSeatsSize());
+        holder.cost.setText(Double.toString(model.getPrice()));
+
+        Picasso.with(mContext).load(model.getDriver().getPhoto())
+                .into(holder.userImage);
+
+
+        runEnterAnimation(holder.itemView, position);
+    }
 
     private List<String> getRiderList(Map<String, String> riderMap) {
         List<String> riderList = new ArrayList<>();

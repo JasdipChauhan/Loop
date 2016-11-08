@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onError(FacebookException error) {
+                error.printStackTrace();
                 loginTV.setText("Error logging in");
 
             }

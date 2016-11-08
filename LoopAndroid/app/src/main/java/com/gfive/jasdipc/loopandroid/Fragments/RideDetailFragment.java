@@ -33,6 +33,7 @@ public class RideDetailFragment extends Fragment {
 
     private TextView rideDriversName;
     private TextView rideDate;
+    private TextView rideTime;
     private TextView ridePickup;
     private TextView rideDropoff;
     private TextView rideSeatsLeft;
@@ -69,6 +70,7 @@ public class RideDetailFragment extends Fragment {
         reserveButton = (Button) view.findViewById(R.id.reserve_button);
         rideDriversName = (TextView) view.findViewById(R.id.ride_drivers_name);
         rideDate = (TextView) view.findViewById(R.id.ride_date);
+        rideTime = (TextView) view.findViewById(R.id.ride_time);
         ridePickup = (TextView) view.findViewById(R.id.ride_pickup);
         rideDropoff = (TextView) view.findViewById(R.id.ride_dropoff);
         rideSeatsLeft =(TextView) view.findViewById(R.id.ride_seats_left);
@@ -76,6 +78,7 @@ public class RideDetailFragment extends Fragment {
 
         rideDriversName.setText(mRide.getDriver().getName());
         rideDate.setText(DateFormatter.getReadableDate(mRide.getDate()));
+        rideTime.setText(mRide.getTime());
         ridePickup.setText(mRide.getPickup());
         rideDropoff.setText(mRide.getDropoff());
         rideSeatsLeft.setText(Integer.toString(mRide.getSeatsLeft()));

@@ -5,22 +5,21 @@
     android:orientation="vertical"
     android:weightSum="1">
 
+                        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                            xmlns:map="http://schemas.android.com/apk/res-auto"
+                            xmlns:tools="http://schemas.android.com/tools"
+                            android:id="@+id/map"
+                            class="com.google.android.gms.maps.SupportMapFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.4"
+                            tools:context="com.gfive.jasdipc.loopandroid.RideDetailActivity" />
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/map"
-        class="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.4"
-        tools:context="com.gfive.jasdipc.loopandroid.RideDetailActivity" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.6"
-        android:id="@+id/detail_frame_layout"></FrameLayout>
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.6"
+                            android:id="@+id/detail_frame_layout"></FrameLayout>
 
 </LinearLayout>
 

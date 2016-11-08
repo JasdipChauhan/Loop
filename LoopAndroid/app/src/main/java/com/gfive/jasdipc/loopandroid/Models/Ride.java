@@ -1,12 +1,6 @@
 package com.gfive.jasdipc.loopandroid.Models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import com.gfive.jasdipc.loopandroid.Helpers.DateFormatter;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**

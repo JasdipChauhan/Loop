@@ -11,37 +11,6 @@
     android:background="@color/colorPrimaryLight"
     tools:context="com.gfive.jasdipc.loopandroid.Activities.RidesActivity">
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/add_ride_FAB"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@color/colorAccent"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:padding="16dp"-->
-        <!--android:src="@drawable/ic_done"/>-->
-
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/logout_FAB"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@color/colorAccent"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_above="@+id/refresh_ride_FAB"-->
-        <!--android:padding="16dp"-->
-        <!--android:src="@drawable/ic_done"-->
-        <!--android:onClick="logoutAction"/>-->
-
-
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/refresh_ride_FAB"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@color/colorAccent"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:src="@drawable/ic_autorenew"/>-->
-
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

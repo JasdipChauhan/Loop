@@ -107,7 +107,7 @@ public class RideDetailActivity extends AppCompatActivity implements OnMapReadyC
 //            updateRideObject.put("driver_phone_number", ride.getDriver().getPhoneNumber());
 //            updateRideObject.put("pickup", ride.getPickup());
 //            updateRideObject.put("dropoff", ride.getDropoff());
-//            updateRideObject.put("date", DateFormatter.formatToYYYYMMDD(ride.getDate()));
+//            updateRideObject.put("date", Formatter.formatToYYYYMMDD(ride.getDate()));
 //            updateRideObject.put("time", ride.getTime());
 //            updateRideObject.put("seats_left", ride.getPassengers() - 1);
 //            updateRideObject.put("price", ride.getCost());

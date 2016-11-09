@@ -112,9 +112,6 @@ public class RidesActivity extends AppCompatActivity {
             firebaseAdapter.notifyDataSetChanged();
         }
 
-
-
-
     }
 
     @Override

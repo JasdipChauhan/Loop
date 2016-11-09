@@ -92,7 +92,8 @@ public class RideDetailActivity extends AppCompatActivity implements OnMapReadyC
                             if (isSuccessful) {
                                 StorageManager.getInstance(RideDetailActivity.this)
                                         .saveRide(rideKey);
-                                finish();
+
+
 
                             } else {
                                 Toast.makeText(RideDetailActivity.this, "Ride is full", Toast.LENGTH_SHORT).show();
@@ -100,25 +101,6 @@ public class RideDetailActivity extends AppCompatActivity implements OnMapReadyC
 
                         }
                     });
-        }
-//
-//        int rideID = ride.getId();
-//
-        try {
-//            updateRideObject.put("driver_name", ride.getDriver().getName());
-//            updateRideObject.put("driver_email", ride.getDriver().getEmail());
-//            updateRideObject.put("driver_phone_number", ride.getDriver().getPhoneNumber());
-//            updateRideObject.put("pickup", ride.getPickup());
-//            updateRideObject.put("dropoff", ride.getDropoff());
-//            updateRideObject.put("date", Formatter.formatToYYYYMMDD(ride.getDate()));
-//            updateRideObject.put("time", ride.getTime());
-//            updateRideObject.put("seats_left", ride.getPassengers() - 1);
-//            updateRideObject.put("price", ride.getCost());
-
-            //JSONObject testing = new JSONObject("{\"driver_name\":\"Jasdip Chauhan\", \"driver_email\":\"jasdip.chauhan@gmail.com\", \"driver_phone_number\":\"6475273055\", \"pickup\": \"Markham\", \"dropoff\": \"Waterloo\",\"date\": \"2016-10-14\", \"time\": \"7:30\", \"seats_left\": 1, \"price\": \"10.50\"}");
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
     }
@@ -171,5 +153,6 @@ public class RideDetailActivity extends AppCompatActivity implements OnMapReadyC
     public void onFragmentInteraction(Uri uri) {
         Log.i("BUTTON CLICKED", "GOOOOOOD");
     }
+
 
 }

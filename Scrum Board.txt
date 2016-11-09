@@ -1,9 +1,7 @@
 TODO
 
-- save rides into local storage
 - migrate to fragments to allow for switching
 - current user profile view on navigation bar
-- incorporate tree node for riders in a ride
 - alert dialogs for viewing individual riders
 - android splash screen
 - organization on github for loop???
@@ -11,10 +9,10 @@ TODO
 
 MAYBE
 
-- upload facebook profile image 
 
 DONE
 
+- save rides into local storage
 - save user under array of riders
 - reserve ride and update backend
 - picasso loading profile picture into container

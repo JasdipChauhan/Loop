@@ -4,12 +4,9 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -35,36 +32,40 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RideDetailActivity extends AppCompatActivity implements OnMapReadyCallback, RideDetailFragment.OnFragmentInteractionListener {
+public class RideOverviewActivity extends AppCompatActivity implements OnMapReadyCallback, RideDetailFragment.OnFragmentInteractionListener {
 
     private GoogleMap mMap;
     private FirebaseRide ride;
     private String rideKey;
     private RideDetailFragment rideDetailFragment;
-    private Snackbar snackbarStatus;
-    private boolean didUserReserve = false;
-    private Intent returnIntent;
 
     private String pickup;
     private String dropoff;
+    private boolean isExistingRide;
 
     private final int MAP_PADDING = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        isExistingRide = intent.getBooleanExtra("existingRide", false);
+
         setContentView(R.layout.activity_ride_detail);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        Intent intent = getIntent();
-        ride = intent.getParcelableExtra("ride");
-        rideKey = intent.getStringExtra("rideKey");
+        ride = new FirebaseRide();
 
-        pickup = ride.getPickup();
-        dropoff = ride.getDropoff();
-        returnIntent = new Intent();
+        if (isExistingRide) {
+            ride = intent.getParcelableExtra("ride");
+            rideKey = intent.getStringExtra("rideKey");
+
+            pickup = ride.getPickup();
+            dropoff = ride.getDropoff();
+        }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -90,13 +91,13 @@ public class RideDetailActivity extends AppCompatActivity implements OnMapReadyC
                         public void response(boolean isSuccessful) {
 
                             if (isSuccessful) {
-                                StorageManager.getInstance(RideDetailActivity.this)
+                                StorageManager.getInstance(RideOverviewActivity.this)
                                         .saveRide(rideKey);
 
 
 
                             } else {
-                                Toast.makeText(RideDetailActivity.this, "Ride is full", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RideOverviewActivity.this, "Ride is full", Toast.LENGTH_SHORT).show();
                             }
 
                         }
@@ -118,7 +119,7 @@ public class RideDetailActivity extends AppCompatActivity implements OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        Geocoder geocoder = new Geocoder(RideDetailActivity.this);
+        Geocoder geocoder = new Geocoder(RideOverviewActivity.this);
         try {
             List<Address> pickupAddressList = geocoder.getFromLocationName(pickup, 1);
             List<Address> dropoffAddressList = geocoder.getFromLocationName(dropoff, 1);

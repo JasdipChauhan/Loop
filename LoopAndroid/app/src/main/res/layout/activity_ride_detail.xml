@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.4"
-        tools:context="com.gfive.jasdipc.loopandroid.RideDetailActivity" />
+        tools:context="com.gfive.jasdipc.loopandroid.RideOverviewActivity" />
 
      <FrameLayout
     android:layout_width="match_parent"

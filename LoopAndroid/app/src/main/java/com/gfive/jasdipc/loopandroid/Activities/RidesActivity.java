@@ -1,6 +1,5 @@
 package com.gfive.jasdipc.loopandroid.Activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +18,7 @@ import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
 import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
 import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
 import com.gfive.jasdipc.loopandroid.R;
-import com.gfive.jasdipc.loopandroid.RideDetailActivity;
+import com.gfive.jasdipc.loopandroid.RideOverviewActivity;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -68,11 +67,11 @@ public class RidesActivity extends AppCompatActivity {
 
                         String rideKey = firebaseAdapter.getRef(position).getKey();
 
-                        Intent rideDetailIntent = new Intent(mContext, RideDetailActivity.class);
+                        Intent rideDetailIntent = new Intent(mContext, RideOverviewActivity.class);
+                        rideDetailIntent.putExtra("existingRide", true);
                         rideDetailIntent.putExtra("ride", firebaseAdapter.getItem(position));
                         rideDetailIntent.putExtra("rideKey", rideKey);
-                        startActivityForResult(rideDetailIntent, RESERVE_RESULT);
-                        Log.i("POSITION", position + "");
+                        startActivity(rideDetailIntent);
                     }
 
                     @Override
@@ -127,19 +126,19 @@ public class RidesActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == RESERVE_RESULT) {
-            if (resultCode == Activity.RESULT_OK) {
-                boolean didReserve = data.getBooleanExtra("didReserve", false);
-
-                if (didReserve) {
-
-                }
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//
+//        if (requestCode == RESERVE_RESULT) {
+//            if (resultCode == Activity.RESULT_OK) {
+//                boolean didReserve = data.getBooleanExtra("didReserve", false);
+//
+//                if (didReserve) {
+//
+//                }
+//            }
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -153,7 +152,11 @@ public class RidesActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_add_ride:
 
-                startActivity(new Intent(RidesActivity.this, CreateRideActivity.class));
+
+                Intent rideDetailIntent = new Intent(mContext, RideOverviewActivity.class);
+                rideDetailIntent.putExtra("existingRide", false);
+                startActivity(rideDetailIntent);
+
                 break;
 
             case R.id.logout_menu:

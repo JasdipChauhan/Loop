@@ -106,10 +106,6 @@ public class CreateRideActivity extends AppCompatActivity implements ServerRespo
 
     //HELPER FUNCTIONS
     private void init() {
-        firstName = (TextInputEditText) findViewById(R.id.first_name_input);
-        lastName = (TextInputEditText) findViewById(R.id.last_name_input);
-        email = (TextInputEditText) findViewById(R.id.driver_email_input);
-        phoneNumber = (TextInputEditText) findViewById(R.id.driver_phone_input);
         pickup = (TextInputEditText) findViewById(R.id.pickup_input);
         dropoff = (TextInputEditText) findViewById(R.id.dropoff_input);
         datePickerTV = (TextView) findViewById(R.id.datePickerTV);

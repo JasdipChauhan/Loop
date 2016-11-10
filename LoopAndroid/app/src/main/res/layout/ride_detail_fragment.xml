@@ -277,16 +277,23 @@
                     android:textColor="@color/text"
                     android:id="@+id/number_of_seats_header"/>
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/passenger_center"/>
+
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider1"
-                    style="@style/rider_asset_style"/>
+                    style="@style/rider_asset_style"
+                    android:layout_toLeftOf="@id/passenger_center"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider2"
                     style="@style/rider_asset_style"
-                    android:layout_toRightOf="@id/rider1"/>
+                    android:layout_toRightOf="@id/passenger_center"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
@@ -304,13 +311,13 @@
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider5"
                     style="@style/rider_asset_style"
-                    android:layout_toLeftOf="@id/rider3"/>
+                    android:layout_toRightOf="@id/rider4"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider6"
                     style="@style/rider_asset_style"
-                    android:layout_toLeftOf="@id/rider5"/>
+                    android:layout_toLeftOf="@id/rider3"/>
 
             </RelativeLayout>
 
@@ -333,7 +340,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/reserve_button"
                     android:layout_toRightOf="@id/button_center"
-                    android:text="@string/reserve_ride_string"
+                    android:text="@string/book_ride_string"
                     android:textColor="@color/white"
                     android:onClick="reserveButtonClicked"
                     android:background="@drawable/bg"
@@ -348,7 +355,7 @@
                     android:text="@string/message_button"
                     android:textColor="@color/white"
                     android:onClick="messageButtonClicked"
-                    android:background="@drawable/bg1"
+                    android:background="@drawable/bg2"
                     android:layout_marginRight="12dp"
                     />
 

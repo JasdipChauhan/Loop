@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Loop</string>
     <string name="title_activity_ride_detail">Map</string>
-    <string name="reserve_ride_string">Reserve</string>
+    <string name="book_ride_string">Book</string>
 
     <string name="facebook_app_id">1756316771297730</string>
 

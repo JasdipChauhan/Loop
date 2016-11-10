@@ -10,6 +10,7 @@
     <color name="colorAccentShadow">#880E4F</color>
 
     <color name="text">@color/white</color>
+    <color name="dark_jungle">#202020</color>
 
     <!-- -->
 

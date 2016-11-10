@@ -1,8 +1,10 @@
 TODO
-
-- migrate to fragments to allow for switching
+	
+- styling (ON GOING)
+- filtering of filled rides 
+- migrate to fragments to allow for switching between tabs
 - current user profile view on navigation bar
-- alert dialogs for viewing individual riders
+- Riders screen (recycler view)
 - android splash screen
 - organization on github for loop???
 - loop website???

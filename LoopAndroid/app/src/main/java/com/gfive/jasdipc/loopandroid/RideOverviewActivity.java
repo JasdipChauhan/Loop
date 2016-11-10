@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -48,6 +49,7 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(getString(R.string.book_ride_title));
 
         Intent intent = getIntent();
         isExistingRide = intent.getBooleanExtra("existingRide", false);
@@ -104,6 +106,12 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
                     });
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.book_ride_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

@@ -29,12 +29,10 @@ public class RideDetailFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    private TextView rideDriversName;
     private TextView rideDate;
     private TextView rideTime;
     private TextView ridePickup;
     private TextView rideDropoff;
-    private TextView rideSeatsLeft;
     private TextView rideCost;
     private Button reserveButton;
 
@@ -66,20 +64,16 @@ public class RideDetailFragment extends Fragment {
         final View view = inflater.inflate(R.layout.ride_detail_fragment, container, false);
 
         reserveButton = (Button) view.findViewById(R.id.reserve_button);
-        rideDriversName = (TextView) view.findViewById(R.id.ride_drivers_name);
         rideDate = (TextView) view.findViewById(R.id.ride_date);
         rideTime = (TextView) view.findViewById(R.id.ride_time);
         ridePickup = (TextView) view.findViewById(R.id.ride_pickup);
         rideDropoff = (TextView) view.findViewById(R.id.ride_dropoff);
-        rideSeatsLeft =(TextView) view.findViewById(R.id.ride_seats_left);
-        rideCost = (TextView) view.findViewById(R.id.ride_cost);
+        rideCost = (TextView) view.findViewById(R.id.ride_price);
 
-        rideDriversName.setText(mRide.getDriver().getName());
         rideDate.setText(Formatter.getReadableDate(mRide.getDate()));
         rideTime.setText(Formatter.getReadableTime(mRide.getTime()));
         ridePickup.setText(mRide.getPickup());
         rideDropoff.setText(mRide.getDropoff());
-        rideSeatsLeft.setText(Integer.toString(mRide.getSeatsLeft()));
         rideCost.setText(Double.toString(mRide.getPrice()));
 
         return view;

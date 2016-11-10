@@ -17,6 +17,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/colorPrimaryLight</item>
+        <item name="android:padding">20dp</item>
 
     </style>
 
@@ -24,9 +25,9 @@
 
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">8dp</item>
-        <item name="android:textColor">@color/text</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:alpha">0.5</item>
+        <item name="android:paddingLeft">16dp</item>
 
     </style>
 
@@ -35,8 +36,8 @@
 
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">8dp</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:paddingLeft">16dp</item>
 
     </style>
 
@@ -50,12 +51,44 @@
 
     </style>
 
-    <style name="center_placeholder">
+    <style name="detail_asset">
 
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_centerVertical">true</item>
 
+    </style>
+
+    <style name="description_container" parent="detail_container">
+        <item name="android:padding">14dp</item>
+    </style>
+
+    <style name="description_header_item">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:alpha">0.5</item>
+        <item name="android:layout_marginStart">20dp</item>
+    </style>
+
+    <style name="description_field">
+        <item name="android:lines">2</item>
+        <item name="android:focusable">false</item>
+        <item name="android:text">DESCRIPTION</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/dark_jungle</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="rider_asset_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:src">@drawable/create_seat_unfilled</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
     </style>
 
 </resources>

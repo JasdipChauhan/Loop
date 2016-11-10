@@ -18,16 +18,30 @@
                 style="@style/detail_container"
                 >
 
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/asset_img"
+                    android:src="@drawable/asset"
+                    android:layout_centerVertical="true"
+                    />
+
+                <View
+                    android:id="@+id/date_center"
+                    style="@style/center_placeholder"/>
+
                 <TextView
                     android:text="DATE"
                     android:id="@+id/date_header"
+                    android:layout_toRightOf="@id/asset_img"
+                    android:layout_above="@id/date_center"
                     style="@style/detail_item_header"
                     />
 
                 <TextView
                     android:id="@+id/ride_date"
                     android:text="DATE"
-                    android:layout_below="@+id/date_header"
+                    android:layout_below="@+id/date_center"
                     android:layout_alignStart="@+id/date_header"
                     style="@style/detail_item"
                     />
@@ -41,16 +55,29 @@
                 style="@style/detail_container"
                 >
 
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/asset"
+                    android:layout_centerVertical="true"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:id="@+id/time_center"/>
+
                 <TextView
                     android:text="TIME"
                     android:id="@+id/time_header"
+                    android:layout_above="@id/time_center"
                     style="@style/detail_item_header"
                     />
 
                 <TextView
                     android:id="@+id/ride_time"
                     android:text="TIME"
-                    android:layout_below="@+id/time_header"
+                    android:layout_below="@+id/time_center"
                     android:layout_alignStart="@+id/time_header"
                     style="@style/detail_item"
                     />

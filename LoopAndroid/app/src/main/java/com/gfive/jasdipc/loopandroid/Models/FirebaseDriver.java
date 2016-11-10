@@ -17,7 +17,10 @@ public class FirebaseDriver implements Parcelable {
     //CONSTRUCTORS
 
     public FirebaseDriver() {
-
+        email = "";
+        name = "";
+        phoneNumber = "";
+        photo = "";
     }
 
     public FirebaseDriver(String email, String name, String phoneNumber, String photo) {

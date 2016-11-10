@@ -23,7 +23,14 @@ public class FirebaseRide implements Parcelable {
     //CONSTRUCTORS
 
     public FirebaseRide() {
-
+        date = "";
+        driver = new FirebaseDriver();
+        riders = new HashMap<>();
+        dropoff = "";
+        pickup = "";
+        price = 0;
+        seatsLeft = 0;
+        time = "";
     }
 
     public FirebaseRide(String date, FirebaseDriver driver, Map<String, String> riders, String dropoff, String pickup, double price, int seatsSize, int seatsLeft, String time) {

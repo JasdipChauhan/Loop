@@ -5,9 +5,16 @@
 
     <string name="facebook_app_id">1756316771297730</string>
 
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="book_ride_title">Book</string>
     <string name="message_button">Message</string>
+    <string name="date_edit_text">On the road today.</string>
+    <string name="time_edit_text">Leaving now.</string>
+    <string name="pickup_edit_text">Starts here.</string>
+    <string name="dropoff_edit_text">Ends here (but not really).</string>
+    <string name="car_edit_text">My gorgeous car.</string>
+    <string name="price_edit_text">Payment for my hardwork.</string>
+    <string name="edit_pickup_desc">Pick up your loopers here.</string>
+    <string name="dropoff_edit_desc">Drop off your loopers here.</string>
+    <string name="create_button_text">Create</string>
 </resources>

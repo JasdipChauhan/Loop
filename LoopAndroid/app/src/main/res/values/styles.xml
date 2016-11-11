@@ -74,7 +74,6 @@
     <style name="description_field">
         <item name="android:lines">2</item>
         <item name="android:focusable">false</item>
-        <item name="android:text">DESCRIPTION</item>
         <item name="android:inputType">textMultiLine</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@color/dark_jungle</item>

@@ -15,7 +15,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
-import com.gfive.jasdipc.loopandroid.Fragments.RideDetailFragment;
+import com.gfive.jasdipc.loopandroid.Fragments.ExistingRideFragment;
+import com.gfive.jasdipc.loopandroid.Fragments.NewRideFragment;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
@@ -33,12 +34,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RideOverviewActivity extends AppCompatActivity implements OnMapReadyCallback, RideDetailFragment.OnFragmentInteractionListener {
+public class RideOverviewActivity extends AppCompatActivity implements OnMapReadyCallback, ExistingRideFragment.OnFragmentInteractionListener, NewRideFragment.OnFragmentInteractionListener {
 
     private GoogleMap mMap;
     private FirebaseRide ride;
     private String rideKey;
-    private RideDetailFragment rideDetailFragment;
+
+    private ExistingRideFragment existingRideFragment;
+    private NewRideFragment newRideFragment;
 
     private String pickup;
     private String dropoff;
@@ -49,17 +52,25 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(getString(R.string.book_ride_title));
 
         Intent intent = getIntent();
         isExistingRide = intent.getBooleanExtra("existingRide", false);
 
-        setContentView(R.layout.activity_ride_detail);
+
+        setTitle(getString(R.string.book_ride_title));
+        setContentView(R.layout.activity_ride_overview);
+
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ride = new FirebaseRide();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
 
         if (isExistingRide) {
             ride = intent.getParcelableExtra("ride");
@@ -67,17 +78,16 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
 
             pickup = ride.getPickup();
             dropoff = ride.getDropoff();
+
+            existingRideFragment = ExistingRideFragment.newInstance(ride);
+            transaction.replace(R.id.ride_frame, existingRideFragment);
+        } else {
+
+            newRideFragment = NewRideFragment.newInstance();
+            transaction.replace(R.id.ride_frame, newRideFragment);
+
         }
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-        rideDetailFragment = RideDetailFragment.newInstance(ride);
-
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.detail_frame_layout, rideDetailFragment);
         transaction.commit();
     }
 

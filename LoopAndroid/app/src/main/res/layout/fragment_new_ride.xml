@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                style="@style/detail_container"
+                >
+
+                <ImageView
+                    android:src="@drawable/calendar"
+                    android:id="@+id/calendar_asset"
+                    style="@style/detail_asset"
+                    />
+
+                <TextView
+                    android:text="DATE"
+                    android:id="@+id/date_header"
+                    android:layout_alignTop="@+id/calendar_asset"
+                    android:layout_toRightOf="@id/calendar_asset"
+                    style="@style/detail_item_header"
+                    />
+
+                <TextView
+                    android:id="@+id/ride_date"
+                    android:text="DATE"
+                    android:layout_below="@+id/date_header"
+                    android:layout_alignStart="@+id/date_header"
+                    style="@style/detail_item"
+                    />
+
+            </RelativeLayout>
+
+            <View
+                style="@style/divider"/>
+
+            <RelativeLayout
+                style="@style/detail_container"
+                >
+
+                <ImageView
+                    android:src="@drawable/time"
+                    android:id="@+id/time_asset"
+                    style="@style/detail_asset"
+                    />
+
+                <TextView
+
+                    android:text="TIME"
+                    android:id="@+id/time_header"
+                    android:layout_alignTop="@+id/time_asset"
+                    android:layout_toRightOf="@id/time_asset"
+                    style="@style/detail_item_header"
+                    />
+
+                <TextView
+                    android:id="@+id/ride_time"
+                    android:text="TIME"
+                    android:layout_below="@+id/time_header"
+                    android:layout_alignStart="@+id/time_header"
+                    style="@style/detail_item"
+                    />
+
+            </RelativeLayout>
+
+            <View
+                style="@style/divider"/>
+
+
+            <RelativeLayout
+                style="@style/detail_container"
+                >
+
+                <ImageView
+                    android:src="@drawable/location"
+                    android:id="@+id/location_asset"
+                    style="@style/detail_asset"
+                    />
+
+                <TextView
+                    android:text="FROM"
+                    android:id="@+id/pickup_header"
+                    android:layout_alignTop="@+id/location_asset"
+                    android:layout_toRightOf="@id/location_asset"
+                    style="@style/detail_item_header"
+
+                    />
+
+                <TextView
+                    android:id="@+id/ride_pickup"
+                    android:text="PICKUP"
+                    android:layout_below="@+id/pickup_header"
+                    android:layout_alignStart="@+id/pickup_header"
+                    style="@style/detail_item"
+                    />
+
+            </RelativeLayout>
+
+            <View
+                style="@style/divider"/>
+
+            <RelativeLayout
+                style="@style/detail_container"
+                >
+
+                <ImageView
+                    android:src="@drawable/address"
+                    android:id="@+id/address_asset"
+                    style="@style/detail_asset"
+                    />
+
+                <TextView
+                    android:text="TO"
+                    android:id="@+id/dropoff_header"
+                    android:layout_alignTop="@+id/address_asset"
+                    android:layout_toRightOf="@id/address_asset"
+                    style="@style/detail_item_header"
+                    />
+
+                <TextView
+                    android:id="@+id/ride_dropoff"
+                    android:text="DROPOFF"
+                    android:layout_below="@+id/dropoff_header"
+                    android:layout_alignStart="@+id/dropoff_header"
+                    style="@style/detail_item"
+                    />
+
+            </RelativeLayout>
+
+            <View
+                style="@style/divider"/>
+
+            <RelativeLayout
+                style="@style/detail_container"
+                >
+
+                <ImageView
+                    android:src="@drawable/pantone"
+                    android:id="@+id/patone_asset"
+                    style="@style/detail_asset"
+                    />
+
+                <TextView
+                    android:text="COLOUR &amp; MODEL"
+                    android:id="@+id/car_header"
+                    android:layout_alignTop="@+id/patone_asset"
+                    android:layout_toRightOf="@id/patone_asset"
+                    style="@style/detail_item_header"
+                    />
+
+                <TextView
+                    android:id="@+id/ride_car"
+                    android:text="CAR"
+                    android:layout_below="@+id/car_header"
+                    android:layout_alignStart="@+id/car_header"
+                    style="@style/detail_item"
+                    />
+
+            </RelativeLayout>
+
+            <View
+                style="@style/divider"/>
+
+            <RelativeLayout
+                style="@style/detail_container"
+                >
+
+                <ImageView
+                    android:src="@drawable/price"
+                    android:id="@+id/price_asset"
+                    style="@style/detail_asset"
+                    />
+
+                <TextView
+                    android:text="PRICE"
+                    android:id="@+id/price_header"
+                    android:layout_alignTop="@+id/price_asset"
+                    android:layout_toRightOf="@id/price_asset"
+                    style="@style/detail_item_header"
+                    />
+
+                <TextView
+                    android:id="@+id/ride_price"
+                    android:text="PRICE"
+                    android:layout_below="@+id/price_header"
+                    android:layout_alignStart="@+id/price_header"
+                    style="@style/detail_item"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:text="CAD"
+                    android:textColor="@color/text"
+                    android:alpha="0.5"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/divider"/>
+
+            <RelativeLayout
+                style="@style/description_container">
+
+                <TextView
+                    android:text="PICKUP"
+                    android:id="@+id/pickup_description_header"
+                    style="@style/description_header_item"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/pickup_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/description_field"
+                    />
+
+            </RelativeLayout>
+
+            <View
+                style="@style/divider"/>
+
+            <RelativeLayout
+                style="@style/description_container">
+
+                <TextView
+                    android:text="DROPOFF"
+                    android:id="@+id/dropoff_description_header"
+                    style="@style/description_header_item"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/dropoff_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/description_field"
+                    />
+
+            </RelativeLayout>
+
+            <View
+                style="@style/divider"/>
+
+            <RelativeLayout
+                style="@style/detail_container"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="NUMBER OF SEATS"
+                    android:textColor="@color/text"
+                    android:id="@+id/number_of_seats_header"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/passenger_center"/>
+
+                <ImageView
+                    android:layout_below="@id/number_of_seats_header"
+                    android:id="@+id/rider1"
+                    style="@style/rider_asset_style"
+                    android:layout_toLeftOf="@id/passenger_center"/>
+
+                <ImageView
+                    android:layout_below="@id/number_of_seats_header"
+                    android:id="@+id/rider2"
+                    style="@style/rider_asset_style"
+                    android:layout_toRightOf="@id/passenger_center"/>
+
+                <ImageView
+                    android:layout_below="@id/number_of_seats_header"
+                    android:id="@+id/rider3"
+                    style="@style/rider_asset_style"
+                    android:layout_toLeftOf="@id/rider1"/>
+
+                <ImageView
+                    android:layout_below="@id/number_of_seats_header"
+                    android:id="@+id/rider4"
+                    style="@style/rider_asset_style"
+                    android:layout_toRightOf="@id/rider2"/>
+
+                <ImageView
+                    android:layout_below="@id/number_of_seats_header"
+                    android:id="@+id/rider5"
+                    style="@style/rider_asset_style"
+                    android:layout_toRightOf="@id/rider4"/>
+
+                <ImageView
+                    android:layout_below="@id/number_of_seats_header"
+                    android:id="@+id/rider6"
+                    style="@style/rider_asset_style"
+                    android:layout_toLeftOf="@id/rider3"/>
+
+            </RelativeLayout>
+
+            <View
+                style="@style/divider"/>
+
+            <RelativeLayout
+                style="@style/detail_container"
+                android:padding="12dp">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:id="@+id/button_center"
+                    android:layout_centerInParent="true"
+                    />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/reserve_button"
+                    android:layout_toRightOf="@id/button_center"
+                    android:text="@string/book_ride_string"
+                    android:textColor="@color/white"
+                    android:onClick="reserveButtonClicked"
+                    android:background="@drawable/bg"
+                    android:layout_marginLeft="12dp"
+                    />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/message_button"
+                    android:layout_toLeftOf="@id/button_center"
+                    android:text="@string/message_button"
+                    android:textColor="@color/white"
+                    android:onClick="messageButtonClicked"
+                    android:background="@drawable/bg2"
+                    android:layout_marginRight="12dp"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

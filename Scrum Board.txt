@@ -1,6 +1,8 @@
 TODO
 	
-- styling (ON GOING)
+- finish styling on ride detail screen
+- change functionality to port over ride creation to ride overview activity
+- backend refactor to account for car make/model, pickup and dropoff descriptions etc
 - filtering of filled rides 
 - migrate to fragments to allow for switching between tabs
 - current user profile view on navigation bar

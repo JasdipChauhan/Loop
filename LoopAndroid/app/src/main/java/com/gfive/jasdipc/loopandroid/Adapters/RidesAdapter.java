@@ -8,18 +8,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
-import com.gfive.jasdipc.loopandroid.Helpers.Formatter;
-import com.gfive.jasdipc.loopandroid.Interfaces.ServerLookup;
+import com.gfive.jasdipc.loopandroid.Helpers.FormatHelper;
 import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
-import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
 import com.google.firebase.database.DatabaseReference;
 import com.squareup.picasso.Picasso;
 
-import java.text.DateFormat;
-import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -100,10 +95,10 @@ public class RidesAdapter {
     private void fillViewHolder(RidesViewHolder holder, FirebaseRide model, int position) {
         holder.cardLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLightest));
         holder.usersName.setText(model.getDriver().getName());
-        holder.date.setText(Formatter.getReadableDate(model.getDate()));
+        holder.date.setText(FormatHelper.getReadableDate(model.getDate()));
         holder.pickup.setText(model.getPickup());
         holder.dropoff.setText(model.getDropoff());
-        holder.pickupTime.setText(Formatter.getReadableTime(model.getTime()));
+        holder.pickupTime.setText(FormatHelper.getReadableTime(model.getTime()));
         holder.seats.setText(model.getSeatsLeft() + "/" + model.getSeatsSize());
         holder.cost.setText(Double.toString(model.getPrice()));
 

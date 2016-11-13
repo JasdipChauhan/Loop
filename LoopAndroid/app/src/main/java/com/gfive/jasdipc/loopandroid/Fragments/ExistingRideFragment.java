@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.gfive.jasdipc.loopandroid.Helpers.Formatter;
+import com.gfive.jasdipc.loopandroid.Helpers.FormatHelper;
 import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
 import com.gfive.jasdipc.loopandroid.R;
 
@@ -70,8 +70,8 @@ public class ExistingRideFragment extends Fragment {
         rideDropoff = (TextView) view.findViewById(R.id.ride_dropoff);
         rideCost = (TextView) view.findViewById(R.id.ride_price);
 
-        rideDate.setText(Formatter.getReadableDate(mRide.getDate()));
-        rideTime.setText(Formatter.getReadableTime(mRide.getTime()));
+        rideDate.setText(FormatHelper.getReadableDate(mRide.getDate()));
+        rideTime.setText(FormatHelper.getReadableTime(mRide.getTime()));
         ridePickup.setText(mRide.getPickup());
         rideDropoff.setText(mRide.getDropoff());
         rideCost.setText(Double.toString(mRide.getPrice()));

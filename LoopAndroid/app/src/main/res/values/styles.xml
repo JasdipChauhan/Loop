@@ -41,7 +41,11 @@
 
     </style>
 
-    <style name="detail_item_editor" parent="detail_item">
+    <style name="detail_item_editor" >
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/textSecondary</item>
         <item name="android:textColorHint">@color/textSecondary</item>
     </style>
 
@@ -52,6 +56,8 @@
         <item name="android:background">@color/colorPrimaryLightest</item>
         <item name="android:paddingStart">12dp</item>
         <item name="android:paddingEnd">12dp</item>
+        <item name="android:src">@drawable/line</item>
+
 
     </style>
 
@@ -92,6 +98,17 @@
         <item name="android:src">@drawable/create_seat_unfilled</item>
         <item name="android:layout_marginLeft">2dp</item>
         <item name="android:layout_marginRight">2dp</item>
+    </style>
+
+    <style name="chevron">
+
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:src">@drawable/select</item>
+        <item name="android:padding">12dp</item>
+
     </style>
 
 </resources>

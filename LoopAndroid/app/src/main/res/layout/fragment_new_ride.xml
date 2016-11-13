@@ -17,6 +17,7 @@
             <RelativeLayout
                 style="@style/detail_container"
                 android:id="@+id/date_container"
+                android:onClick="dateClickedAction"
                 >
 
                 <ImageView
@@ -40,6 +41,9 @@
                     android:layout_alignStart="@+id/edit_date_header"
                     style="@style/detail_item"
                     />
+
+                <ImageView
+                    style="@style/chevron"/>
 
             </RelativeLayout>
 
@@ -74,6 +78,10 @@
                     style="@style/detail_item"
                     />
 
+                <ImageView
+                    style="@style/chevron"/>
+
+
             </RelativeLayout>
 
             <View
@@ -107,6 +115,9 @@
                     style="@style/detail_item"
                     />
 
+                <ImageView
+                    style="@style/chevron"/>
+
             </RelativeLayout>
 
             <View
@@ -138,6 +149,9 @@
                     android:layout_alignStart="@+id/dropoff_header"
                     style="@style/detail_item"
                     />
+
+                <ImageView
+                    style="@style/chevron"/>
 
             </RelativeLayout>
 
@@ -296,45 +310,45 @@
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
-                    android:id="@+id/rider1"
+                    android:id="@+id/create_rider1"
                     android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
                     android:layout_toLeftOf="@id/passenger_center"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
-                    android:id="@+id/rider2"
+                    android:id="@+id/create_rider2"
                     android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
                     android:layout_toRightOf="@id/passenger_center"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
-                    android:id="@+id/rider3"
+                    android:id="@+id/create_rider3"
                     android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
-                    android:layout_toLeftOf="@id/rider1"/>
+                    android:layout_toLeftOf="@id/create_rider1"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
-                    android:id="@+id/rider4"
+                    android:id="@+id/create_rider4"
                     android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
-                    android:layout_toRightOf="@id/rider2"/>
+                    android:layout_toRightOf="@id/create_rider2"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
-                    android:id="@+id/rider5"
+                    android:id="@+id/create_rider5"
                     android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
-                    android:layout_toRightOf="@id/rider4"/>
+                    android:layout_toRightOf="@id/create_rider4"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
-                    android:id="@+id/rider6"
+                    android:id="@+id/create_rider6"
                     android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
-                    android:layout_toLeftOf="@id/rider3"/>
+                    android:layout_toLeftOf="@id/create_rider3"/>
 
             </RelativeLayout>
 

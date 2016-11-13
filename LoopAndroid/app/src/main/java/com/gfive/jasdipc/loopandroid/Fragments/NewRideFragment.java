@@ -4,11 +4,13 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.gfive.jasdipc.loopandroid.R;
 
@@ -33,6 +35,9 @@ public class NewRideFragment extends Fragment {
     private RelativeLayout dropoffContainer;
     private RelativeLayout carContainer;
     private RelativeLayout priceContainer;
+
+    private TextView dateTV;
+    private TextView timeTV;
 
     private ImageView[] riders;
     private ImageView riderIMG1;
@@ -70,24 +75,47 @@ public class NewRideFragment extends Fragment {
         carContainer = (RelativeLayout) view.findViewById(R.id.car_container);
         priceContainer = (RelativeLayout) view.findViewById(R.id.price_container);
 
-        riderIMG1 = (ImageView) view.findViewById(R.id.rider1);
-        riderIMG2 = (ImageView) view.findViewById(R.id.rider2);
-        riderIMG3 = (ImageView) view.findViewById(R.id.rider3);
-        riderIMG4 = (ImageView) view.findViewById(R.id.rider4);
-        riderIMG5 = (ImageView) view.findViewById(R.id.rider5);
-        riderIMG6 = (ImageView) view.findViewById(R.id.rider6);
+        dateTV = (TextView) view.findViewById(R.id.edit_ride_date);
+        timeTV = (TextView) view.findViewById(R.id.edit_ride_time);
+
+        riderIMG1 = (ImageView) view.findViewById(R.id.create_rider1);
+        riderIMG2 = (ImageView) view.findViewById(R.id.create_rider2);
+        riderIMG3 = (ImageView) view.findViewById(R.id.create_rider3);
+        riderIMG4 = (ImageView) view.findViewById(R.id.create_rider4);
+        riderIMG5 = (ImageView) view.findViewById(R.id.create_rider5);
+        riderIMG6 = (ImageView) view.findViewById(R.id.create_rider6);
 
         riders = new ImageView[]{riderIMG1, riderIMG2, riderIMG3, riderIMG4, riderIMG5, riderIMG6};
 
-        return inflater.inflate(R.layout.fragment_new_ride, container, false);
+        dateContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DateDialog dateDialog = new DateDialog(dateTV);
+                dateDialog.show(getActivity().getFragmentManager(), "DateDialog");
+            }
+        });
+
+        timeContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimeDialog timeDialog = new TimeDialog(timeTV);
+                timeDialog.show(getActivity().getFragmentManager(), "TimeDialog");
+            }
+        });
+
+
+        return view;
     }
 
     public void handlePassengerClick(int passengerIndex) {
-
         for (int i = 0; i < passengerIndex; i++) {
-            riders[i].setImageResource(R.drawable.create_seat);
+            riders[i].setBackgroundResource(R.drawable.create_seat);
         }
+    }
 
+    public void handleDatePicked() {
+        DateDialog dateDialog = new DateDialog(dateTV);
+        dateDialog.show(getActivity().getFragmentManager(), "DateDialog");
     }
 
     // TODO: Rename method, update argument and hook method into UI event

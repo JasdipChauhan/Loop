@@ -8,7 +8,7 @@ import java.util.Date;
  * Created by JasdipC on 2016-10-08.
  */
 
-public class Formatter {
+public class FormatHelper {
 
     public static String getReadableDate(String dateString) {
 
@@ -41,6 +41,21 @@ public class Formatter {
         }
 
         return time24;
+    }
+
+    public static Date getDate(String dateStr) {
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date date = new Date();
+
+        try {
+            date = simpleDateFormat.parse(dateStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return date;
     }
 
 }

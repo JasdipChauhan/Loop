@@ -9,7 +9,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gfive.jasdipc.loopandroid.Helpers.FormatHelper;
+
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Formatter;
 
 /**
  * Created by JasdipC on 2016-10-19.
@@ -30,12 +34,18 @@ public class DateDialog extends DialogFragment implements android.app.DatePicker
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        return new DatePickerDialog(getActivity(), this, day, month, year);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, day, month, year);
+
+        //TODO: get rid of that stupid double header
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+
+        return datePickerDialog;
     }
 
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        datePickerTV.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
+        String readableDate = FormatHelper.getReadableDate(year + "-" + "-" + monthOfYear + "-" + dayOfMonth);
+        datePickerTV.setText(readableDate);
     }
 }

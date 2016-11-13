@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.TextView;
@@ -40,4 +41,6 @@ public class TimeDialog extends DialogFragment implements TimePickerDialog.OnTim
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         timeTV.setText(hourOfDay + ":" + minute);
     }
+
+
 }

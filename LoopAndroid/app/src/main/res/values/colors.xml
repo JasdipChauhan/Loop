@@ -10,12 +10,12 @@
     <color name="colorAccentShadow">#880E4F</color>
 
     <color name="text">@color/white</color>
+    <color name="textSecondary">#80FFFFFF</color>
     <color name="dark_jungle">#202020</color>
 
     <!-- -->
 
     <color name="textColor">#212121</color>
-    <color name="textSecondaryColor">#757575</color>
     <color name="dividerColor">#BDBDBD</color>
     <color name="moneyGreen">#216C2A</color>
     <!-- -->

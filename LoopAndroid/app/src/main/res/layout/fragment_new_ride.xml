@@ -16,6 +16,7 @@
 
             <RelativeLayout
                 style="@style/detail_container"
+                android:id="@+id/date_container"
                 >
 
                 <ImageView
@@ -47,6 +48,7 @@
 
             <RelativeLayout
                 style="@style/detail_container"
+                android:id="@+id/time_container"
                 >
 
                 <ImageView
@@ -79,6 +81,7 @@
 
             <RelativeLayout
                 style="@style/detail_container"
+                android:id="@+id/pickup_container"
                 >
 
                 <ImageView
@@ -111,6 +114,7 @@
 
             <RelativeLayout
                 style="@style/detail_container"
+                android:id="@+id/dropoff_container"
                 >
 
                 <ImageView
@@ -142,6 +146,7 @@
 
             <RelativeLayout
                 style="@style/detail_container"
+                android:id="@+id/car_container"
                 >
 
                 <ImageView
@@ -173,6 +178,7 @@
 
             <RelativeLayout
                 style="@style/detail_container"
+                android:id="@+id/price_container"
                 >
 
                 <ImageView
@@ -229,7 +235,9 @@
                     android:id="@+id/pickup_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/edit_pickup_desc"
+                    android:hint="@string/edit_pickup_desc"
+                    android:textColorHint="@color/textSecondary"
+                    android:focusable="true"
                     style="@style/description_field"
                     />
 
@@ -257,7 +265,9 @@
                     android:id="@+id/dropoff_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/dropoff_edit_desc"
+                    android:focusable="true"
+                    android:hint="@string/dropoff_edit_desc"
+                    android:textColorHint="@color/textSecondary"
                     style="@style/description_field"
                     />
 
@@ -287,36 +297,42 @@
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider1"
+                    android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
                     android:layout_toLeftOf="@id/passenger_center"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider2"
+                    android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
                     android:layout_toRightOf="@id/passenger_center"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider3"
+                    android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
                     android:layout_toLeftOf="@id/rider1"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider4"
+                    android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
                     android:layout_toRightOf="@id/rider2"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider5"
+                    android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
                     android:layout_toRightOf="@id/rider4"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider6"
+                    android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
                     android:layout_toLeftOf="@id/rider3"/>
 

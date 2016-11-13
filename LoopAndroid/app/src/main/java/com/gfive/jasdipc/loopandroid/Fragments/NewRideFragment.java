@@ -7,8 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.gfive.jasdipc.loopandroid.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +26,21 @@ import com.gfive.jasdipc.loopandroid.R;
 public class NewRideFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+
+    private RelativeLayout dateContainer;
+    private RelativeLayout timeContainer;
+    private RelativeLayout pickupContainer;
+    private RelativeLayout dropoffContainer;
+    private RelativeLayout carContainer;
+    private RelativeLayout priceContainer;
+
+    private ImageView[] riders;
+    private ImageView riderIMG1;
+    private ImageView riderIMG2;
+    private ImageView riderIMG3;
+    private ImageView riderIMG4;
+    private ImageView riderIMG5;
+    private ImageView riderIMG6;
 
     public NewRideFragment() {
         // Required empty public constructor
@@ -35,14 +55,39 @@ public class NewRideFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+        final View view = inflater.inflate(R.layout.fragment_new_ride, container, false);
+
+        dateContainer = (RelativeLayout) view.findViewById(R.id.date_container);
+        timeContainer = (RelativeLayout) view.findViewById(R.id.time_container);
+        pickupContainer = (RelativeLayout) view.findViewById(R.id.pickup_container);
+        dropoffContainer = (RelativeLayout) view.findViewById(R.id.dropoff_container);
+        carContainer = (RelativeLayout) view.findViewById(R.id.car_container);
+        priceContainer = (RelativeLayout) view.findViewById(R.id.price_container);
+
+        riderIMG1 = (ImageView) view.findViewById(R.id.rider1);
+        riderIMG2 = (ImageView) view.findViewById(R.id.rider2);
+        riderIMG3 = (ImageView) view.findViewById(R.id.rider3);
+        riderIMG4 = (ImageView) view.findViewById(R.id.rider4);
+        riderIMG5 = (ImageView) view.findViewById(R.id.rider5);
+        riderIMG6 = (ImageView) view.findViewById(R.id.rider6);
+
+        riders = new ImageView[]{riderIMG1, riderIMG2, riderIMG3, riderIMG4, riderIMG5, riderIMG6};
+
         return inflater.inflate(R.layout.fragment_new_ride, container, false);
+    }
+
+    public void handlePassengerClick(int passengerIndex) {
+
+        for (int i = 0; i < passengerIndex; i++) {
+            riders[i].setImageResource(R.drawable.create_seat);
+        }
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

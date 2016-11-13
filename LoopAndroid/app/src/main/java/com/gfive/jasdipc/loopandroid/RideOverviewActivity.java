@@ -118,6 +118,44 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
 
     }
 
+    public void imageFactoryAction(View view) {
+
+        int index;
+
+        switch (view.getId()) {
+
+            case R.id.rider1:
+                index = 0;
+                break;
+
+            case R.id.rider2:
+                index = 1;
+                break;
+
+            case R.id.rider3:
+                index = 2;
+                break;
+
+            case R.id.rider4:
+                index = 3;
+                break;
+
+            case R.id.rider5:
+                index = 4;
+                break;
+
+            case R.id.rider6:
+                index = 5;
+                break;
+
+            default:
+                index = 0;
+
+        }
+
+        newRideFragment.handlePassengerClick(index);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.book_ride_menu, menu);

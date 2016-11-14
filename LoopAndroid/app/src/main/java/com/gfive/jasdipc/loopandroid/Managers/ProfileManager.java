@@ -37,6 +37,10 @@ public class ProfileManager {
         firebaseUser = profile;
     }
 
+    public void setPhoneNumber(String phoneNumber) {
+        userProfile.phoneNumber = phoneNumber;
+    }
+
     public UserProfile getUserProfile() {
         return userProfile;
     }

@@ -231,7 +231,8 @@
                     android:hint="@string/price_edit_text"
                     android:layout_below="@+id/price_header"
                     android:layout_alignStart="@+id/price_header"
-                    style="@style/detail_item_editor"                    android:layout_marginStart="16dp"
+                    style="@style/detail_item_editor"
+                    android:layout_marginStart="16dp"
                     />
 
                 <TextView

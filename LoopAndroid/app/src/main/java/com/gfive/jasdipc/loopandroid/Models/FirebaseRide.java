@@ -10,14 +10,17 @@ import java.util.Map;
 
 public class FirebaseRide implements Parcelable {
 
+    private String car;
     private String date;
     private FirebaseDriver driver;
     private Map<String, String> riders = new HashMap<>();
     private String dropoff;
+    private String dropoffDescription;
     private String pickup;
+    private String pickupDescription;
     private double price;
-    private int seatsSize;
     private int seatsLeft;
+    private int seatsSize;
     private String time;
 
     //CONSTRUCTORS

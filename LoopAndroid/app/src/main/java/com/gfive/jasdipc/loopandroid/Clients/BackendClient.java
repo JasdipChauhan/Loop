@@ -101,12 +101,16 @@ public class BackendClient {
 
             driver.child("name").setValue(profile.name);
             driver.child("photo").setValue(profile.profilePictureURI.toString());
-            driver.child("email").setValue(jsonObject.getString("email").toString());
-            driver.child("phoneNumber").setValue(jsonObject.getString("phoneNumber").toString());
+            driver.child("email").setValue(profile.email);
+            driver.child("phoneNumber").setValue(profile.phoneNumber);
+
             ride.child("pickup").setValue(jsonObject.getString("pickup").toString());
+            ride.child("pickupDescription").setValue(jsonObject.getString("pickupDescription"));
             ride.child("dropoff").setValue(jsonObject.getString("dropoff").toString());
+            ride.child("dropoffDescription").setValue(jsonObject.getString("dropoffDescription"));
             ride.child("date").setValue(jsonObject.getString("date").toString());
             ride.child("time").setValue(jsonObject.getString("time").toString());
+            ride.child("car").setValue(jsonObject.getString("car").toString());
             ride.child("seatsSize").setValue(jsonObject.getInt("seats"));
             ride.child("seatsLeft").setValue(jsonObject.getInt("seats"));
             ride.child("price").setValue(jsonObject.getDouble("price"));

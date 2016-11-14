@@ -49,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 
-                String phoneNumber = mRegisterPhoneNumber.getText().toString().trim();
+                final String phoneNumber = mRegisterPhoneNumber.getText().toString().trim();
 
                 if (phoneNumber.length() == 10) {
 
@@ -60,6 +60,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 @Override
                                 public void response(boolean isSuccessful) {
                                     if (isSuccessful) {
+
+                                        ProfileManager.getInstance().setPhoneNumber(phoneNumber);
+
                                         Intent i = new Intent(RegisterActivity.this, RidesActivity.class);
                                         startActivity(i);
                                     }

@@ -1,31 +1,32 @@
 package com.gfive.jasdipc.loopandroid.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
+import com.gfive.jasdipc.loopandroid.Helpers.FormatHelper;
 import com.gfive.jasdipc.loopandroid.Interfaces.OnSpinnerSelection;
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
+import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
+import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.gfive.jasdipc.loopandroid.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link NewRideFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link NewRideFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class NewRideFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+import org.json.JSONObject;
+
+public class NewRideFragment extends Fragment implements AdapterView.OnItemSelectedListener, ServerResponse {
 
     private RelativeLayout dateContainer;
     private RelativeLayout timeContainer;
@@ -38,6 +39,10 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
     private TextView timeTV;
     private Spinner pickupSpinner;
     private Spinner dropoffSpinner;
+    private EditText ridePrice;
+    private EditText pickupDescription;
+    private EditText dropoffDescription;
+    private EditText rideCar;
 
     private ImageView[] riders;
     private ImageView riderIMG1;
@@ -49,7 +54,9 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
 
     private String pickupString;
     private String dropoffString;
-    private int passengerIndex = 0;
+    private int rideCapacity = 0;
+
+    private ProgressDialog uploadProgress;
 
     private OnSpinnerSelection spinnerCallback;
     private static final String SPINNER_CALLBACK_PARAM = "SPINNER_CALLBACK";
@@ -87,6 +94,10 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
         timeTV = (TextView) view.findViewById(R.id.edit_ride_time);
         pickupSpinner = (Spinner) view.findViewById(R.id.pickup_spinner);
         dropoffSpinner = (Spinner) view.findViewById(R.id.dropoff_spinner);
+        ridePrice = (EditText) view.findViewById(R.id.ride_price);
+        pickupDescription = (EditText) view.findViewById(R.id.pickup_description);
+        dropoffDescription = (EditText) view.findViewById(R.id.dropoff_description);
+        rideCar = (EditText) view.findViewById(R.id.ride_car);
 
         riderIMG1 = (ImageView) view.findViewById(R.id.create_rider1);
         riderIMG2 = (ImageView) view.findViewById(R.id.create_rider2);
@@ -133,13 +144,13 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
     //TODO: MAKE THIS MORE EFFICIENT
     public void handlePassengerClick(int passengerIndex) {
 
-        this.passengerIndex = passengerIndex;
+        rideCapacity = passengerIndex;
 
         for (ImageView riderIMG : riders) {
             riderIMG.setImageResource(R.drawable.create_seat_unfilled);
         }
 
-        for (int i = 0; i < passengerIndex; i++) {
+        for (int i = 0; i < rideCapacity; i++) {
             riders[i].setImageResource(R.drawable.create_seat);
         }
     }
@@ -150,8 +161,36 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
     }
 
     public void createRideAction () {
-        pickupString = pickupSpinner.getSelectedItem().toString().concat(", Ontario, Canada");
-        dropoffString = dropoffSpinner.getSelectedItem().toString().concat(", Ontario, Canada");
+
+        uploadProgress = new ProgressDialog(getActivity());
+
+        JSONObject rideJSONMap = new JSONObject();
+        UserProfile profile;
+
+        try {
+
+            profile = ProfileManager.getInstance().getUserProfile();
+
+            rideJSONMap.put("name", profile.name);
+            rideJSONMap.put("email", profile.email);
+            rideJSONMap.put("phoneNumber", profile.phoneNumber);
+            rideJSONMap.put("pickup", pickupString);
+            rideJSONMap.put("dropoff", dropoffString);
+            rideJSONMap.put("date", FormatHelper.getDate(dateTV.getText().toString()));
+            rideJSONMap.put("time", timeTV.getText().toString());
+            rideJSONMap.put("seats", rideCapacity);
+            rideJSONMap.put("car", rideCar.getText().toString().trim());
+            rideJSONMap.put("price", Double.parseDouble(ridePrice.getText().toString()));
+            rideJSONMap.put("pickupDescription", pickupDescription.getText().toString().trim());
+            rideJSONMap.put("dropoffDescription", dropoffDescription.getText().toString().trim());
+
+            UserProfile userProfile = ProfileManager.getInstance().getUserProfile();
+
+            BackendClient.getInstance().uploadRide((ServerResponse) this, userProfile, rideJSONMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -198,5 +237,14 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
     public void onDetach() {
         super.onDetach();
         spinnerCallback = null;
+    }
+
+    @Override
+    public void response(boolean isSuccessful) {
+        if (!isSuccessful) {
+            Log.e("ERROR", "UNSUCCESSFUL RIDE UPLOAD");
+        }
+
+        uploadProgress.dismiss();
     }
 }

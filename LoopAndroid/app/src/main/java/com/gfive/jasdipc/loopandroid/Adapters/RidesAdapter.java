@@ -95,10 +95,10 @@ public class RidesAdapter {
     private void fillViewHolder(RidesViewHolder holder, FirebaseRide model, int position) {
         holder.cardLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLightest));
         holder.usersName.setText(model.getDriver().getName());
-        holder.date.setText(FormatHelper.getReadableDate(model.getDate()));
+        holder.date.setText(model.getDate());
         holder.pickup.setText(model.getPickup());
         holder.dropoff.setText(model.getDropoff());
-        holder.pickupTime.setText(FormatHelper.getReadableTime(model.getTime()));
+        holder.pickupTime.setText(model.getTime());
         holder.seats.setText(model.getSeatsLeft() + "/" + model.getSeatsSize());
         holder.cost.setText(Double.toString(model.getPrice()));
 

@@ -327,7 +327,7 @@
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
-                    android:id="@+id/create_rider1"
+                    android:id="@+id/create_rider3"
                     android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
                     android:layout_toLeftOf="@id/passenger_center"/>
@@ -337,21 +337,21 @@
                     android:id="@+id/create_rider2"
                     android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
-                    android:layout_toRightOf="@id/passenger_center"/>
+                    android:layout_toLeftOf="@id/create_rider3"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
-                    android:id="@+id/create_rider3"
+                    android:id="@+id/create_rider1"
                     android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
-                    android:layout_toLeftOf="@id/create_rider1"/>
+                    android:layout_toLeftOf="@id/create_rider2"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/create_rider4"
                     android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
-                    android:layout_toRightOf="@id/create_rider2"/>
+                    android:layout_toRightOf="@id/passenger_center"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
@@ -365,7 +365,7 @@
                     android:id="@+id/create_rider6"
                     android:onClick="imageFactoryAction"
                     style="@style/rider_asset_style"
-                    android:layout_toLeftOf="@id/create_rider3"/>
+                    android:layout_toRightOf="@id/create_rider5"/>
 
             </RelativeLayout>
 

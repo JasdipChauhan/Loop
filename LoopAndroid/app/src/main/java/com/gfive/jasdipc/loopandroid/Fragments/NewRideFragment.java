@@ -49,6 +49,7 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
 
     private String pickupString;
     private String dropoffString;
+    private int passengerIndex = 0;
 
     private OnSpinnerSelection spinnerCallback;
     private static final String SPINNER_CALLBACK_PARAM = "SPINNER_CALLBACK";
@@ -128,9 +129,18 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
         return view;
     }
 
+
+    //TODO: MAKE THIS MORE EFFICIENT
     public void handlePassengerClick(int passengerIndex) {
+
+        this.passengerIndex = passengerIndex;
+
+        for (ImageView riderIMG : riders) {
+            riderIMG.setImageResource(R.drawable.create_seat_unfilled);
+        }
+
         for (int i = 0; i < passengerIndex; i++) {
-            riders[i].setBackgroundResource(R.drawable.create_seat);
+            riders[i].setImageResource(R.drawable.create_seat);
         }
     }
 

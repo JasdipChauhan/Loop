@@ -133,27 +133,27 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
         switch (view.getId()) {
 
             case R.id.create_rider1:
-                index = 0;
-                break;
-
-            case R.id.create_rider2:
                 index = 1;
                 break;
 
-            case R.id.create_rider3:
+            case R.id.create_rider2:
                 index = 2;
                 break;
 
-            case R.id.create_rider4:
+            case R.id.create_rider3:
                 index = 3;
                 break;
 
-            case R.id.create_rider5:
+            case R.id.create_rider4:
                 index = 4;
                 break;
 
-            case R.id.create_rider6:
+            case R.id.create_rider5:
                 index = 5;
+                break;
+
+            case R.id.create_rider6:
+                index = 6;
                 break;
 
             default:

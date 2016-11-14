@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Fragments.ExistingRideFragment;
 import com.gfive.jasdipc.loopandroid.Fragments.NewRideFragment;
+import com.gfive.jasdipc.loopandroid.Interfaces.OnSpinnerSelection;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
@@ -34,7 +35,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RideOverviewActivity extends AppCompatActivity implements OnMapReadyCallback, ExistingRideFragment.OnFragmentInteractionListener, NewRideFragment.OnFragmentInteractionListener {
+public class RideOverviewActivity extends AppCompatActivity implements OnMapReadyCallback, ExistingRideFragment.OnFragmentInteractionListener, OnSpinnerSelection {
 
     private GoogleMap mMap;
     private FirebaseRide ride;
@@ -46,6 +47,8 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
     private String pickup;
     private String dropoff;
     private boolean isExistingRide;
+
+    private List<Marker> markers;
 
     private final int MAP_PADDING = 100;
 
@@ -71,6 +74,7 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
         ride = new FirebaseRide();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
+        markers = new ArrayList<>();
 
         if (isExistingRide) {
             ride = intent.getParcelableExtra("ride");
@@ -182,7 +186,31 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        plotMap();
+    }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Log.i("BUTTON CLICKED", "GOOOOOOD");
+    }
+
+    @Override
+    public void onPickupSelected(String location) {
+        pickup = location;
+        markers.clear();
+        mMap.clear();
+        plotMap();
+        Log.i("pickupSelected", "selected");
+    }
+
+    @Override
+    public void onDropoffSelected(String location) {
+        dropoff = location;
+        plotMap();
+        Log.i("dropoff selected", "selected");
+    }
+
+    private void plotMap() {
         Geocoder geocoder = new Geocoder(RideOverviewActivity.this);
         try {
             List<Address> pickupAddressList = geocoder.getFromLocationName(pickup, 1);
@@ -197,7 +225,6 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
             Marker pickupMarker = mMap.addMarker(new MarkerOptions().position(pickupCoordinates).title("Pickup"));
             Marker dropoffMarker = mMap.addMarker(new MarkerOptions().position(dropoffCoordinates).title("Dropoff"));
 
-            List<Marker> markers = new ArrayList<>();
             markers.add(pickupMarker);
             markers.add(dropoffMarker);
 
@@ -213,10 +240,4 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
             e.printStackTrace();
         }
     }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-        Log.i("BUTTON CLICKED", "GOOOOOOD");
-    }
-
 }

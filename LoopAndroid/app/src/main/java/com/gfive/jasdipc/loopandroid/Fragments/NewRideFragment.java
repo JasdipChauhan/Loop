@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.gfive.jasdipc.loopandroid.Interfaces.OnSpinnerSelection;
 import com.gfive.jasdipc.loopandroid.R;
 
 /**
@@ -24,9 +25,7 @@ import com.gfive.jasdipc.loopandroid.R;
  * Use the {@link NewRideFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewRideFragment extends Fragment {
-
-    private OnFragmentInteractionListener mListener;
+public class NewRideFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private RelativeLayout dateContainer;
     private RelativeLayout timeContainer;
@@ -51,12 +50,16 @@ public class NewRideFragment extends Fragment {
     private String pickupString;
     private String dropoffString;
 
+    private OnSpinnerSelection spinnerCallback;
+    private static final String SPINNER_CALLBACK_PARAM = "SPINNER_CALLBACK";
+
     public NewRideFragment() {
         // Required empty public constructor
     }
 
     public static NewRideFragment newInstance() {
         NewRideFragment fragment = new NewRideFragment();
+
         return fragment;
     }
 
@@ -101,6 +104,9 @@ public class NewRideFragment extends Fragment {
         dropoffAdapter.setDropDownViewResource(R.layout.location_spinner_dropdown_item);
         dropoffSpinner.setAdapter(dropoffAdapter);
 
+        pickupSpinner.setOnItemSelectedListener(this);
+        dropoffSpinner.setOnItemSelectedListener(this);
+
         riders = new ImageView[]{riderIMG1, riderIMG2, riderIMG3, riderIMG4, riderIMG5, riderIMG6};
 
         dateContainer.setOnClickListener(new View.OnClickListener() {
@@ -136,21 +142,42 @@ public class NewRideFragment extends Fragment {
     public void createRideAction () {
         pickupString = pickupSpinner.getSelectedItem().toString().concat(", Ontario, Canada");
         dropoffString = dropoffSpinner.getSelectedItem().toString().concat(", Ontario, Canada");
-
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        pickupString = pickupSpinner.getItemAtPosition(position).toString().concat(", Ontario, Canada");
+        dropoffString = dropoffSpinner.getItemAtPosition(position).toString().concat(", Ontario, Canada");
+        spinnerCallback.onPickupSelected(pickupString);
+        spinnerCallback.onDropoffSelected(dropoffString);
+
+        switch (view.getId()) {
+
+            case R.id.pickup_spinner:
+                pickupString = parent.getItemAtPosition(position).toString().concat(", Ontario, Canada");
+                spinnerCallback.onPickupSelected(pickupString);
+                break;
+
+            case R.id.dropoff_spinner:
+                dropoffString = parent.getItemAtPosition(position).toString().concat(", Ontario, Canada");
+                spinnerCallback.onDropoffSelected(dropoffString);
+                break;
+
+            default:
         }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnSpinnerSelection) {
+            spinnerCallback = (OnSpinnerSelection) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -160,21 +187,6 @@ public class NewRideFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        spinnerCallback = null;
     }
 }

@@ -1,9 +1,6 @@
 TODO
 	
-- finish styling on ride detail screen
 - backend refactor to account for car make/model, pickup and dropoff descriptions etc
-- change functionality to port over ride creation to ride overview activity
-
 - Riders screen (recycler view) - need a backend refactor
 - filtering of filled rides 
 - migrate to fragments to allow for switching between tabs
@@ -11,6 +8,11 @@ TODO
 - android splash screen
 - organization on github for loop???
 - loop website???
+
+In Progress
+- finish styling on ride detail screen (For now)
+- change functionality to port over ride creation to ride overview activity
+- realtime map plotting
 
 MAYBE
 - incorporate tree node for riders in a ride

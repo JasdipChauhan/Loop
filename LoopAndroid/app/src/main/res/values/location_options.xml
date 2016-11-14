@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="location_array">
+        <item>Aurora</item>
+        <item>Brampton</item>
+        <item>Guelph</item>
+        <item>Hamilton</item>
+        <item>Kingston</item>
+        <item>Kitchener</item>
+        <item>London</item>
+        <item>Markham</item>
+        <item>Milton</item>
+        <item>Mississauga</item>
+        <item>New Market</item>
+        <item>North York</item>
+        <item>Oakville</item>
+        <item>Richmond Hill</item>
+        <item>Scarborough</item>
+        <item>Toronto (Downtown)</item>
+        <item>Vaughan</item>
+        <item>Waterloo</item>
+    </string-array>
+
+</resources>

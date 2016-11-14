@@ -118,6 +118,10 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
 
     }
 
+    public void createButtonClicked (View view) {
+        newRideFragment.createRideAction();
+    }
+
     public void imageFactoryAction(View view) {
 
         int index;

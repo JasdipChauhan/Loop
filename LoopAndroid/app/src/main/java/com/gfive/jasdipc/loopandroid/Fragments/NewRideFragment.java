@@ -4,18 +4,17 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.gfive.jasdipc.loopandroid.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +37,8 @@ public class NewRideFragment extends Fragment {
 
     private TextView dateTV;
     private TextView timeTV;
+    private Spinner pickupSpinner;
+    private Spinner dropoffSpinner;
 
     private ImageView[] riders;
     private ImageView riderIMG1;
@@ -46,6 +47,9 @@ public class NewRideFragment extends Fragment {
     private ImageView riderIMG4;
     private ImageView riderIMG5;
     private ImageView riderIMG6;
+
+    private String pickupString;
+    private String dropoffString;
 
     public NewRideFragment() {
         // Required empty public constructor
@@ -77,6 +81,8 @@ public class NewRideFragment extends Fragment {
 
         dateTV = (TextView) view.findViewById(R.id.edit_ride_date);
         timeTV = (TextView) view.findViewById(R.id.edit_ride_time);
+        pickupSpinner = (Spinner) view.findViewById(R.id.pickup_spinner);
+        dropoffSpinner = (Spinner) view.findViewById(R.id.dropoff_spinner);
 
         riderIMG1 = (ImageView) view.findViewById(R.id.create_rider1);
         riderIMG2 = (ImageView) view.findViewById(R.id.create_rider2);
@@ -84,6 +90,16 @@ public class NewRideFragment extends Fragment {
         riderIMG4 = (ImageView) view.findViewById(R.id.create_rider4);
         riderIMG5 = (ImageView) view.findViewById(R.id.create_rider5);
         riderIMG6 = (ImageView) view.findViewById(R.id.create_rider6);
+
+        ArrayAdapter<CharSequence> pickupAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.location_array, android.R.layout.simple_spinner_item);
+        pickupAdapter.setDropDownViewResource(R.layout.location_spinner_dropdown_item);
+        pickupSpinner.setAdapter(pickupAdapter);
+
+        ArrayAdapter<CharSequence> dropoffAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.location_array, android.R.layout.simple_spinner_item);
+        dropoffAdapter.setDropDownViewResource(R.layout.location_spinner_dropdown_item);
+        dropoffSpinner.setAdapter(dropoffAdapter);
 
         riders = new ImageView[]{riderIMG1, riderIMG2, riderIMG3, riderIMG4, riderIMG5, riderIMG6};
 
@@ -103,7 +119,6 @@ public class NewRideFragment extends Fragment {
             }
         });
 
-
         return view;
     }
 
@@ -116,6 +131,12 @@ public class NewRideFragment extends Fragment {
     public void handleDatePicked() {
         DateDialog dateDialog = new DateDialog(dateTV);
         dateDialog.show(getActivity().getFragmentManager(), "DateDialog");
+    }
+
+    public void createRideAction () {
+        pickupString = pickupSpinner.getSelectedItem().toString().concat(", Ontario, Canada");
+        dropoffString = dropoffSpinner.getSelectedItem().toString().concat(", Ontario, Canada");
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

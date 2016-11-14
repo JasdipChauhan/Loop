@@ -193,12 +193,13 @@
                     style="@style/detail_item_header"
                     />
 
-                <TextView
+                <EditText
                     android:id="@+id/ride_car"
-                    android:text="@string/car_edit_text"
+                    android:hint="@string/car_edit_text"
                     android:layout_below="@+id/car_header"
                     android:layout_alignStart="@+id/car_header"
-                    style="@style/detail_item"
+                    style="@style/detail_item_editor"
+                    android:layout_marginStart="16dp"
                     />
 
             </RelativeLayout>
@@ -225,12 +226,12 @@
                     style="@style/detail_item_header"
                     />
 
-                <TextView
+                <EditText
                     android:id="@+id/ride_price"
-                    android:text="@string/price_edit_text"
+                    android:hint="@string/price_edit_text"
                     android:layout_below="@+id/price_header"
                     android:layout_alignStart="@+id/price_header"
-                    style="@style/detail_item"
+                    style="@style/detail_item_editor"                    android:layout_marginStart="16dp"
                     />
 
                 <TextView

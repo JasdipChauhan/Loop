@@ -186,7 +186,7 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
 
             UserProfile userProfile = ProfileManager.getInstance().getUserProfile();
 
-            BackendClient.getInstance().uploadRide((ServerResponse) this, userProfile, rideJSONMap);
+            BackendClient.getInstance().uploadRide(this, userProfile, rideJSONMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -196,20 +196,15 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        pickupString = pickupSpinner.getItemAtPosition(position).toString().concat(", Ontario, Canada");
-        dropoffString = dropoffSpinner.getItemAtPosition(position).toString().concat(", Ontario, Canada");
-        spinnerCallback.onPickupSelected(pickupString);
-        spinnerCallback.onDropoffSelected(dropoffString);
-
-        switch (view.getId()) {
+        switch (parent.getId()) {
 
             case R.id.pickup_spinner:
-                pickupString = parent.getItemAtPosition(position).toString().concat(", Ontario, Canada");
+                pickupString = parent.getItemAtPosition(position).toString().trim();
                 spinnerCallback.onPickupSelected(pickupString);
                 break;
 
             case R.id.dropoff_spinner:
-                dropoffString = parent.getItemAtPosition(position).toString().concat(", Ontario, Canada");
+                dropoffString = parent.getItemAtPosition(position).toString().trim();
                 spinnerCallback.onDropoffSelected(dropoffString);
                 break;
 

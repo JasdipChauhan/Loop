@@ -48,7 +48,8 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
     private String dropoff;
     private boolean isExistingRide;
 
-    private List<Marker> markers;
+    private Marker pickupMarker;
+    private Marker dropoffMarker;
 
     private final int MAP_PADDING = 100;
 
@@ -73,8 +74,6 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
 
         ride = new FirebaseRide();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-        markers = new ArrayList<>();
 
         if (isExistingRide) {
             ride = intent.getParcelableExtra("ride");
@@ -196,8 +195,7 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
 
     @Override
     public void onPickupSelected(String location) {
-        pickup = location;
-        markers.clear();
+        pickup = location.concat(", Ontario, Canada");
         mMap.clear();
         plotMap();
         Log.i("pickupSelected", "selected");
@@ -205,7 +203,8 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
 
     @Override
     public void onDropoffSelected(String location) {
-        dropoff = location;
+        dropoff = location.concat(", Ontario, Canada");
+        mMap.clear();
         plotMap();
         Log.i("dropoff selected", "selected");
     }
@@ -222,17 +221,12 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
             LatLng pickupCoordinates = new LatLng(pickupAddress.getLatitude(), pickupAddress.getLongitude());
             LatLng dropoffCoordinates = new LatLng(dropoffAddress.getLatitude(), dropoffAddress.getLongitude());
 
-            Marker pickupMarker = mMap.addMarker(new MarkerOptions().position(pickupCoordinates).title("Pickup"));
-            Marker dropoffMarker = mMap.addMarker(new MarkerOptions().position(dropoffCoordinates).title("Dropoff"));
-
-            markers.add(pickupMarker);
-            markers.add(dropoffMarker);
+            pickupMarker = mMap.addMarker(new MarkerOptions().position(pickupCoordinates).title("Pickup"));
+            dropoffMarker = mMap.addMarker(new MarkerOptions().position(dropoffCoordinates).title("Dropoff"));
 
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
-
-            for (Marker marker : markers) {
-                builder.include(marker.getPosition());
-            }
+            builder.include(pickupMarker.getPosition());
+            builder.include(dropoffMarker.getPosition());
             LatLngBounds bounds = builder.build();
 
             mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, MAP_PADDING));

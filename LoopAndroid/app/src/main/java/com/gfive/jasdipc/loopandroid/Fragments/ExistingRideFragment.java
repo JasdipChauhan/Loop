@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gfive.jasdipc.loopandroid.Helpers.FormatHelper;
@@ -34,6 +35,10 @@ public class ExistingRideFragment extends Fragment {
     private TextView ridePickup;
     private TextView rideDropoff;
     private TextView rideCost;
+    private TextView rideCar;
+    private EditText pickupDescription;
+    private EditText dropoffDescription;
+
     private Button reserveButton;
 
     public ExistingRideFragment() {
@@ -69,12 +74,18 @@ public class ExistingRideFragment extends Fragment {
         ridePickup = (TextView) view.findViewById(R.id.ride_pickup);
         rideDropoff = (TextView) view.findViewById(R.id.ride_dropoff);
         rideCost = (TextView) view.findViewById(R.id.ride_price);
+        rideCar = (TextView) view.findViewById(R.id.ride_car);
+        pickupDescription = (EditText) view.findViewById(R.id.pickup_description);
+        dropoffDescription = (EditText) view.findViewById(R.id.dropoff_description);
 
         rideDate.setText(FormatHelper.getReadableDate(mRide.getDate()));
         rideTime.setText(FormatHelper.getReadableTime(mRide.getTime()));
         ridePickup.setText(mRide.getPickup());
         rideDropoff.setText(mRide.getDropoff());
         rideCost.setText(Double.toString(mRide.getPrice()));
+        rideCar.setText(mRide.getCar());
+        pickupDescription.setText(mRide.getPickupDescription());
+        dropoffDescription.setText(mRide.getDropoffDescription());
 
         return view;
     }

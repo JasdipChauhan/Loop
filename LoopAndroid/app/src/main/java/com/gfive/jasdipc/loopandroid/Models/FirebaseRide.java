@@ -34,21 +34,35 @@ public class FirebaseRide implements Parcelable {
         price = 0;
         seatsLeft = 0;
         time = "";
+        car = "";
+        dropoffDescription = "";
+        pickupDescription = "";
     }
 
-    public FirebaseRide(String date, FirebaseDriver driver, Map<String, String> riders, String dropoff, String pickup, double price, int seatsSize, int seatsLeft, String time) {
+    public FirebaseRide(String car, String date, FirebaseDriver driver, Map<String, String> riders, String dropoff, String dropoffDescription, String pickup, String pickupDescription, double price, int seatsLeft, int seatsSize, String time) {
+        this.car = car;
         this.date = date;
         this.driver = driver;
         this.riders = riders;
         this.dropoff = dropoff;
+        this.dropoffDescription = dropoffDescription;
         this.pickup = pickup;
+        this.pickupDescription = pickupDescription;
         this.price = price;
-        this.seatsSize = seatsSize;
         this.seatsLeft = seatsLeft;
+        this.seatsSize = seatsSize;
         this.time = time;
     }
 
-    //GETTER AND SETTERS
+//GETTER AND SETTERS
+
+    public String getCar() {
+        return car;
+    }
+
+    public void setCar(String car) {
+        this.car = car;
+    }
 
     public String getDate() {
         return date;
@@ -82,12 +96,28 @@ public class FirebaseRide implements Parcelable {
         this.dropoff = dropoff;
     }
 
+    public String getDropoffDescription() {
+        return dropoffDescription;
+    }
+
+    public void setDropoffDescription(String dropoffDescription) {
+        this.dropoffDescription = dropoffDescription;
+    }
+
     public String getPickup() {
         return pickup;
     }
 
     public void setPickup(String pickup) {
         this.pickup = pickup;
+    }
+
+    public String getPickupDescription() {
+        return pickupDescription;
+    }
+
+    public void setPickupDescription(String pickupDescription) {
+        this.pickupDescription = pickupDescription;
     }
 
     public double getPrice() {
@@ -98,20 +128,20 @@ public class FirebaseRide implements Parcelable {
         this.price = price;
     }
 
-    public int getSeatsSize() {
-        return seatsSize;
-    }
-
-    public void setSeatsSize(int seatsSize) {
-        this.seatsSize = seatsSize;
-    }
-
     public int getSeatsLeft() {
         return seatsLeft;
     }
 
     public void setSeatsLeft(int seatsLeft) {
         this.seatsLeft = seatsLeft;
+    }
+
+    public int getSeatsSize() {
+        return seatsSize;
+    }
+
+    public void setSeatsSize(int seatsSize) {
+        this.seatsSize = seatsSize;
     }
 
     public String getTime() {
@@ -126,7 +156,6 @@ public class FirebaseRide implements Parcelable {
         return CREATOR;
     }
 
-
     //Parcelable
 
     @Override
@@ -136,6 +165,7 @@ public class FirebaseRide implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.car);
         dest.writeString(this.date);
         dest.writeParcelable(this.driver, flags);
         dest.writeInt(this.riders.size());
@@ -144,14 +174,17 @@ public class FirebaseRide implements Parcelable {
             dest.writeString(entry.getValue());
         }
         dest.writeString(this.dropoff);
+        dest.writeString(this.dropoffDescription);
         dest.writeString(this.pickup);
+        dest.writeString(this.pickupDescription);
         dest.writeDouble(this.price);
-        dest.writeInt(this.seatsSize);
         dest.writeInt(this.seatsLeft);
+        dest.writeInt(this.seatsSize);
         dest.writeString(this.time);
     }
 
     protected FirebaseRide(Parcel in) {
+        this.car = in.readString();
         this.date = in.readString();
         this.driver = in.readParcelable(FirebaseDriver.class.getClassLoader());
         int ridersSize = in.readInt();
@@ -162,10 +195,12 @@ public class FirebaseRide implements Parcelable {
             this.riders.put(key, value);
         }
         this.dropoff = in.readString();
+        this.dropoffDescription = in.readString();
         this.pickup = in.readString();
+        this.pickupDescription = in.readString();
         this.price = in.readDouble();
-        this.seatsSize = in.readInt();
         this.seatsLeft = in.readInt();
+        this.seatsSize = in.readInt();
         this.time = in.readString();
     }
 

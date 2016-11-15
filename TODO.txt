@@ -1,24 +1,26 @@
 TODO
-	
-- backend refactor to account for car make/model, pickup and dropoff descriptions etc
-- Riders screen (recycler view) - need a backend refactor
+
 - filtering of filled rides 
-- migrate to fragments to allow for switching between tabs
+- migrate to fragments for all rides and my rides to allow for switching between tabs
 - current user profile view on navigation bar
 - android splash screen
 - organization on github for loop???
 - loop website???
 
-In Progress
-- finish styling on ride detail screen (For now)
-- change functionality to port over ride creation to ride overview activity
-- realtime map plotting
+IN PROGRESS
+- backend refactor for adding user object to ride object (relationships)
+- rides firebase adapter/recycler view
 
 MAYBE
 - incorporate tree node for riders in a ride
 
 DONE
 
+- existing ride information showcase
+- backend refactor to account for car make/model, pickup and dropoff descriptions etc
+- realtime map plotting
+- change functionality to port over ride creation to ride overview activity
+- finish styling on ride detail screen (For now)
 - save rides into local storage
 - save user under array of riders
 - reserve ride and update backend

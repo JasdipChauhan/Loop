@@ -45,7 +45,7 @@ public class DateDialog extends DialogFragment implements android.app.DatePicker
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        String readableDate = FormatHelper.getReadableDate(year + "-" + "-" + monthOfYear + "-" + dayOfMonth);
+        String readableDate = FormatHelper.getReadableDate(year + "-" + ++monthOfYear + "-" + dayOfMonth);
         datePickerTV.setText(readableDate);
     }
 }

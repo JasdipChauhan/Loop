@@ -239,7 +239,7 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
         if (!isSuccessful) {
             Log.e("ERROR", "UNSUCCESSFUL RIDE UPLOAD");
         }
-
         uploadProgress.dismiss();
+        getActivity().finish();
     }
 }

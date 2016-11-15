@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by JasdipC on 2016-10-29.
  */
 
-public class FirebaseDriver implements Parcelable {
+public class LoopUser implements Parcelable {
 
     private String email;
     private String name;
@@ -16,14 +16,14 @@ public class FirebaseDriver implements Parcelable {
 
     //CONSTRUCTORS
 
-    public FirebaseDriver() {
+    public LoopUser() {
         email = "";
         name = "";
         phoneNumber = "";
         photo = "";
     }
 
-    public FirebaseDriver(String email, String name, String phoneNumber, String photo) {
+    public LoopUser(String email, String name, String phoneNumber, String photo) {
         this.email = email;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -79,22 +79,22 @@ public class FirebaseDriver implements Parcelable {
         dest.writeString(this.photo);
     }
 
-    protected FirebaseDriver(Parcel in) {
+    protected LoopUser(Parcel in) {
         this.email = in.readString();
         this.name = in.readString();
         this.phoneNumber = in.readString();
         this.photo = in.readString();
     }
 
-    public static final Parcelable.Creator<FirebaseDriver> CREATOR = new Parcelable.Creator<FirebaseDriver>() {
+    public static final Parcelable.Creator<LoopUser> CREATOR = new Parcelable.Creator<LoopUser>() {
         @Override
-        public FirebaseDriver createFromParcel(Parcel source) {
-            return new FirebaseDriver(source);
+        public LoopUser createFromParcel(Parcel source) {
+            return new LoopUser(source);
         }
 
         @Override
-        public FirebaseDriver[] newArray(int size) {
-            return new FirebaseDriver[size];
+        public LoopUser[] newArray(int size) {
+            return new LoopUser[size];
         }
     };
 }

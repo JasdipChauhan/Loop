@@ -16,7 +16,7 @@ import com.gfive.jasdipc.loopandroid.LoginActivity;
 import com.gfive.jasdipc.loopandroid.Helpers.RecyclerItemClickListener;
 import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
 import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
-import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
+import com.gfive.jasdipc.loopandroid.Models.LoopRide;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.RideOverviewActivity;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
@@ -37,7 +37,7 @@ public class RidesActivity extends AppCompatActivity {
     public static int RESERVE_RESULT = 99;
 
     private RidesAdapter ridesAdapter;
-    private FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder> firebaseAdapter;
+    private FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> firebaseAdapter;
     private boolean isMyRides = false;
 
     //Android Lifecycle Methods

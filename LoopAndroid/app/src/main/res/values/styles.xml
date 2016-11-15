@@ -101,6 +101,10 @@
         <item name="android:layout_marginRight">2dp</item>
     </style>
 
+    <style name="rider_asset_show" parent="rider_asset_style">
+        <item name="android:visibility">invisible</item>
+    </style>
+
     <style name="chevron">
 
         <item name="android:layout_width">wrap_content</item>

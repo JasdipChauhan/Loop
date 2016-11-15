@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerLookup;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
+import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -56,6 +57,8 @@ public class BackendClient {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot.hasChild(user.id)) {
+                    String phoneNumber = dataSnapshot.child(user.id).child("phoneNumber").getValue().toString();
+                    ProfileManager.getInstance().setPhoneNumber(phoneNumber);
                     callback.response(true);
                 } else {
                     callback.response(false);
@@ -129,7 +132,7 @@ public class BackendClient {
         callback.response(onCreateSuccess);
     }
 
-    public void reserveRide(final String rideID, final String userID, final ServerResponse callback) {
+    public void reserveRide(final String rideID, final UserProfile user, final ServerResponse callback) {
 
         mRideDatabase.child(rideID).child("seatsLeft").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -151,7 +154,12 @@ public class BackendClient {
                 if (seatsLeft > 0 ) {
 
                     mRideDatabase.child(rideID).child("seatsLeft").setValue(seatsLeft);
-                    mRideDatabase.child(rideID).child("riders").push().setValue(userID);
+
+                    DatabaseReference riderRef = mRideDatabase.child(rideID).child("riders").child(user.id);
+                    riderRef.child("email").setValue(user.email);
+                    riderRef.child("name").setValue(user.name);
+                    riderRef.child("phoneNumber").setValue(user.phoneNumber);
+                    riderRef.child("photo").setValue(user.profilePictureURI.toString());
 
                     callback.response(true);
                 } else {

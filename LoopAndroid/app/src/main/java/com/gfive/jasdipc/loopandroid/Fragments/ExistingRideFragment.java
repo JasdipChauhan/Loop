@@ -9,10 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gfive.jasdipc.loopandroid.Helpers.FormatHelper;
-import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
+import com.gfive.jasdipc.loopandroid.Models.LoopRide;
 import com.gfive.jasdipc.loopandroid.R;
 
 /**
@@ -26,7 +27,7 @@ import com.gfive.jasdipc.loopandroid.R;
 public class ExistingRideFragment extends Fragment {
 
     private static final String RIDE_PARAM = "RIDE_KEY";
-    private FirebaseRide mRide;
+    private LoopRide mRide;
 
     private OnFragmentInteractionListener mListener;
 
@@ -39,13 +40,21 @@ public class ExistingRideFragment extends Fragment {
     private EditText pickupDescription;
     private EditText dropoffDescription;
 
+    private ImageView[] riders;
+    private ImageView riderIMG1;
+    private ImageView riderIMG2;
+    private ImageView riderIMG3;
+    private ImageView riderIMG4;
+    private ImageView riderIMG5;
+    private ImageView riderIMG6;
+
     private Button reserveButton;
 
     public ExistingRideFragment() {
         // Required empty public constructor
     }
 
-    public static ExistingRideFragment newInstance(FirebaseRide mRide) {
+    public static ExistingRideFragment newInstance(LoopRide mRide) {
         ExistingRideFragment fragment = new ExistingRideFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(RIDE_PARAM, mRide);
@@ -78,6 +87,14 @@ public class ExistingRideFragment extends Fragment {
         pickupDescription = (EditText) view.findViewById(R.id.pickup_description);
         dropoffDescription = (EditText) view.findViewById(R.id.dropoff_description);
 
+        riderIMG1 = (ImageView) view.findViewById(R.id.rider1);
+        riderIMG2 = (ImageView) view.findViewById(R.id.rider2);
+        riderIMG3 = (ImageView) view.findViewById(R.id.rider3);
+        riderIMG4 = (ImageView) view.findViewById(R.id.rider4);
+        riderIMG5 = (ImageView) view.findViewById(R.id.rider5);
+        riderIMG6 = (ImageView) view.findViewById(R.id.rider6);
+        riders = new ImageView[]{riderIMG1, riderIMG2, riderIMG3, riderIMG4, riderIMG5, riderIMG6};
+
         rideDate.setText(FormatHelper.getReadableDate(mRide.getDate()));
         rideTime.setText(FormatHelper.getReadableTime(mRide.getTime()));
         ridePickup.setText(mRide.getPickup());
@@ -86,6 +103,17 @@ public class ExistingRideFragment extends Fragment {
         rideCar.setText(mRide.getCar());
         pickupDescription.setText(mRide.getPickupDescription());
         dropoffDescription.setText(mRide.getDropoffDescription());
+
+        for (int i = 0; i < mRide.getSeatsSize(); i++) {
+
+            if (i < mRide.getSeatsLeft()) {
+                riders[i].setImageResource(R.drawable.create_seat_unfilled);
+            } else {
+                riders[i].setImageResource(R.drawable.create_seat);
+            }
+
+            riders[i].setVisibility(View.VISIBLE);
+        }
 
         return view;
     }

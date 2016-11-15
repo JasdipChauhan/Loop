@@ -286,37 +286,37 @@
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider1"
-                    style="@style/rider_asset_style"
+                    style="@style/rider_asset_show"
                     android:layout_toLeftOf="@id/passenger_center"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider2"
-                    style="@style/rider_asset_style"
+                    style="@style/rider_asset_show"
                     android:layout_toRightOf="@id/passenger_center"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider3"
-                    style="@style/rider_asset_style"
+                    style="@style/rider_asset_show"
                     android:layout_toLeftOf="@id/rider1"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider4"
-                    style="@style/rider_asset_style"
+                    style="@style/rider_asset_show"
                     android:layout_toRightOf="@id/rider2"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider5"
-                    style="@style/rider_asset_style"
+                    style="@style/rider_asset_show"
                     android:layout_toRightOf="@id/rider4"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider6"
-                    style="@style/rider_asset_style"
+                    style="@style/rider_asset_show"
                     android:layout_toLeftOf="@id/rider3"/>
 
             </RelativeLayout>

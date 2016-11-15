@@ -21,7 +21,7 @@ import com.gfive.jasdipc.loopandroid.Interfaces.OnSpinnerSelection;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
-import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
+import com.gfive.jasdipc.loopandroid.Models.LoopRide;
 import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -32,13 +32,12 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RideOverviewActivity extends AppCompatActivity implements OnMapReadyCallback, ExistingRideFragment.OnFragmentInteractionListener, OnSpinnerSelection {
 
     private GoogleMap mMap;
-    private FirebaseRide ride;
+    private LoopRide ride;
     private String rideKey;
 
     private ExistingRideFragment existingRideFragment;
@@ -72,7 +71,7 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        ride = new FirebaseRide();
+        ride = new LoopRide();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (isExistingRide) {
@@ -101,7 +100,8 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
 
             UserProfile currentUser = ProfileManager.getInstance().getUserProfile();
 
-            BackendClient.getInstance().reserveRide(rideKey, currentUser.id, new ServerResponse() {
+            //TODO: SINGLETON CALLED TWICE (THREAD SAFETY)
+            BackendClient.getInstance().reserveRide(rideKey, currentUser, new ServerResponse() {
                         @Override
                         public void response(boolean isSuccessful) {
 

@@ -8,8 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.gfive.jasdipc.loopandroid.Helpers.FormatHelper;
-import com.gfive.jasdipc.loopandroid.Models.FirebaseRide;
+import com.gfive.jasdipc.loopandroid.Models.LoopRide;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
 import com.google.firebase.database.DatabaseReference;
@@ -28,8 +27,8 @@ public class RidesAdapter {
     private Context mContext;
     private DatabaseReference mReference;
     private int lastPosition = -1;
-    private FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder> firebaseRecyclerAdapter;
-    private FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder> localRecyclerAdapter;
+    private FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> firebaseRecyclerAdapter;
+    private FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> localRecyclerAdapter;
 
     public static RidesAdapter getInstance(Context mContext, DatabaseReference mReference) {
 
@@ -44,35 +43,35 @@ public class RidesAdapter {
         this.mContext = mContext;
         this.mReference = mReference;
 
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder>(
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<LoopRide, RidesViewHolder>(
 
-                FirebaseRide.class,
+                LoopRide.class,
                 R.layout.ride_card,
                 RidesViewHolder.class,
                 mReference
         ) {
             @Override
-            protected void populateViewHolder(final RidesViewHolder holder, FirebaseRide model, int position) {
+            protected void populateViewHolder(final RidesViewHolder holder, LoopRide model, int position) {
                 fillViewHolder(holder, model, position);
             }
         };
     }
 
-    public FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder> getFirebaseRecyclerAdapter () {
+    public FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> getFirebaseRecyclerAdapter () {
         return firebaseRecyclerAdapter;
     }
 
-    public FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder> getLocalRecyclerAdapter(final Set<String> savedRides) {
+    public FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> getLocalRecyclerAdapter(final Set<String> savedRides) {
 
-        localRecyclerAdapter = new FirebaseRecyclerAdapter<FirebaseRide, RidesViewHolder>(
-                FirebaseRide.class,
+        localRecyclerAdapter = new FirebaseRecyclerAdapter<LoopRide, RidesViewHolder>(
+                LoopRide.class,
                 R.layout.ride_card,
                 RidesViewHolder.class,
                 mReference
 
         ) {
             @Override
-            protected void populateViewHolder(RidesViewHolder holder, FirebaseRide model, int position) {
+            protected void populateViewHolder(RidesViewHolder holder, LoopRide model, int position) {
 
                 //filter rides for the saved ones by the user
                 String ref = getRef(position).getKey().toString();
@@ -92,7 +91,7 @@ public class RidesAdapter {
     //Helper functions
 
 
-    private void fillViewHolder(RidesViewHolder holder, FirebaseRide model, int position) {
+    private void fillViewHolder(RidesViewHolder holder, LoopRide model, int position) {
         holder.cardLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLightest));
         holder.usersName.setText(model.getDriver().getName());
         holder.date.setText(model.getDate());

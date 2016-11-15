@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.gfive.jasdipc.loopandroid.Activities.RiderActivity;
 import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Fragments.ExistingRideFragment;
 import com.gfive.jasdipc.loopandroid.Fragments.NewRideFragment;
@@ -165,6 +166,12 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
 
     public void dateClickedAction(View view) {
         newRideFragment.handleDatePicked();
+    }
+
+    public void riderListAction (View view) {
+        Intent toRiders = new Intent(RideOverviewActivity.this, RiderActivity.class);
+        toRiders.putExtra("RIDE_KEY", rideKey);
+        startActivity(toRiders);
     }
 
     @Override

@@ -8,7 +8,6 @@ TODO
 - loop website???
 
 IN PROGRESS
-- backend refactor for adding user object to ride object (relationships)
 - rides firebase adapter/recycler view
 
 MAYBE
@@ -16,6 +15,7 @@ MAYBE
 
 DONE
 
+- backend refactor for adding user object to ride object (relationships)
 - existing ride information showcase
 - backend refactor to account for car make/model, pickup and dropoff descriptions etc
 - realtime map plotting

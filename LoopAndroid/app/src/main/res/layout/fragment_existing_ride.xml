@@ -267,6 +267,7 @@
 
             <RelativeLayout
                 style="@style/detail_container"
+                android:onClick="riderListAction"
                 android:padding="10dp">
 
                 <TextView

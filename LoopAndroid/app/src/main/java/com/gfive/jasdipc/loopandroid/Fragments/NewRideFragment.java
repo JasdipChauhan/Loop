@@ -4,15 +4,19 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -35,6 +39,7 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
     private RelativeLayout carContainer;
     private RelativeLayout priceContainer;
 
+    private ScrollView scrollView;
     private TextView dateTV;
     private TextView timeTV;
     private Spinner pickupSpinner;
@@ -43,6 +48,8 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
     private EditText pickupDescription;
     private EditText dropoffDescription;
     private EditText rideCar;
+    private Button createButton;
+    private TextView validatorTV;
 
     private ImageView[] riders;
     private ImageView riderIMG1;
@@ -52,8 +59,14 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
     private ImageView riderIMG5;
     private ImageView riderIMG6;
 
+    private String rideDateJSON;
+    private String rideTimeJSON;
     private String pickupString;
     private String dropoffString;
+    private String rideCarJSON;
+    private double ridePriceJSON;
+    private String pickupDesJSON;
+    private String dropoffDesJSON;
     private int rideCapacity = 0;
 
     private ProgressDialog uploadProgress;
@@ -90,6 +103,7 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
         carContainer = (RelativeLayout) view.findViewById(R.id.car_container);
         priceContainer = (RelativeLayout) view.findViewById(R.id.price_container);
 
+        scrollView = (ScrollView) view.findViewById(R.id.scroll_view);
         dateTV = (TextView) view.findViewById(R.id.edit_ride_date);
         timeTV = (TextView) view.findViewById(R.id.edit_ride_time);
         pickupSpinner = (Spinner) view.findViewById(R.id.pickup_spinner);
@@ -98,6 +112,8 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
         pickupDescription = (EditText) view.findViewById(R.id.pickup_description);
         dropoffDescription = (EditText) view.findViewById(R.id.dropoff_description);
         rideCar = (EditText) view.findViewById(R.id.ride_car);
+        createButton = (Button) view.findViewById(R.id.create_button);
+        validatorTV = (TextView) view.findViewById(R.id.field_validator);
 
         riderIMG1 = (ImageView) view.findViewById(R.id.create_rider1);
         riderIMG2 = (ImageView) view.findViewById(R.id.create_rider2);
@@ -145,6 +161,7 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
     public void handlePassengerClick(int passengerIndex) {
 
         rideCapacity = passengerIndex;
+        createButton.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.enabled_button_bg));
 
         for (ImageView riderIMG : riders) {
             riderIMG.setImageResource(R.drawable.create_seat_unfilled);
@@ -162,6 +179,12 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
 
     public void createRideAction () {
 
+        if (!checkFieldData()) {
+            validatorTV.setVisibility(View.VISIBLE);
+            scrollView.fullScroll(View.FOCUS_DOWN);
+            return;
+        }
+
         uploadProgress = new ProgressDialog(getActivity());
 
         JSONObject rideJSONMap = new JSONObject();
@@ -176,13 +199,13 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
             rideJSONMap.put("phoneNumber", profile.phoneNumber);
             rideJSONMap.put("pickup", pickupString);
             rideJSONMap.put("dropoff", dropoffString);
-            rideJSONMap.put("date", FormatHelper.getDate(dateTV.getText().toString()));
-            rideJSONMap.put("time", timeTV.getText().toString());
+            rideJSONMap.put("date", FormatHelper.getDate(rideDateJSON));
+            rideJSONMap.put("time", rideTimeJSON);
             rideJSONMap.put("seats", rideCapacity);
-            rideJSONMap.put("car", rideCar.getText().toString().trim());
-            rideJSONMap.put("price", Double.parseDouble(ridePrice.getText().toString()));
-            rideJSONMap.put("pickupDescription", pickupDescription.getText().toString().trim());
-            rideJSONMap.put("dropoffDescription", dropoffDescription.getText().toString().trim());
+            rideJSONMap.put("car", rideCarJSON);
+            rideJSONMap.put("price", ridePriceJSON);
+            rideJSONMap.put("pickupDescription", pickupDesJSON);
+            rideJSONMap.put("dropoffDescription", dropoffDesJSON);
 
             UserProfile userProfile = ProfileManager.getInstance().getUserProfile();
 
@@ -241,5 +264,53 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
         }
         uploadProgress.dismiss();
         getActivity().finish();
+    }
+
+    // MARK helper functions
+
+    private boolean checkFieldData() {
+
+        rideDateJSON = dateTV.getText().toString().trim();
+        if (rideDateJSON.equalsIgnoreCase(getString(R.string.date_edit_text))) {
+            return false;
+        }
+
+        rideTimeJSON = timeTV.getText().toString().trim();
+        if (rideTimeJSON.equalsIgnoreCase(getString(R.string.time_edit_text))) {
+            return false;
+        }
+
+        if (pickupString.equalsIgnoreCase(dropoffString)) {
+            return false;
+        }
+
+        rideCarJSON = rideCar.getText().toString().trim();
+        if (TextUtils.isEmpty(rideCarJSON)) {
+            return false;
+        }
+
+        try {
+            String priceStr = ridePrice.getText().toString().trim();
+            ridePriceJSON = Double.parseDouble(priceStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        pickupDesJSON = pickupDescription.getText().toString().trim();
+        if (TextUtils.isEmpty(pickupDesJSON)) {
+            return false;
+        }
+
+        dropoffDesJSON = dropoffDescription.getText().toString().trim();
+        if (TextUtils.isEmpty(dropoffDesJSON)) {
+            return false;
+        }
+
+        if (rideCapacity < 1 || rideCapacity > 6) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -7,7 +8,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:id="@+id/scroll_view">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,7 +112,7 @@
                 <Spinner
                     android:id="@+id/pickup_spinner"
                     android:layout_below="@+id/pickup_header"
-                    android:layout_alignStart="@+id/pickup_header"
+                    android:layout_alignLeft="@+id/pickup_header"
 
                     style="@style/spinners"
                 />
@@ -161,7 +163,7 @@
                 <Spinner
                     android:id="@+id/dropoff_spinner"
                     android:layout_below="@+id/dropoff_header"
-                    android:layout_alignStart="@+id/dropoff_header"
+                    android:layout_alignLeft="@+id/dropoff_header"
 
                     style="@style/spinners"
                     />
@@ -186,7 +188,7 @@
                     />
 
                 <TextView
-                    android:text="COLOUR &amp; MODEL"
+                    android:text="CAR COLOUR &amp; MODEL"
                     android:id="@+id/car_header"
                     android:layout_alignTop="@+id/patone_asset"
                     android:layout_toRightOf="@id/patone_asset"
@@ -198,8 +200,8 @@
                     android:hint="@string/car_edit_text"
                     android:layout_below="@+id/car_header"
                     android:layout_alignStart="@+id/car_header"
+                    android:layout_marginLeft="14dp"
                     style="@style/detail_item_editor"
-                    android:layout_marginStart="16dp"
                     />
 
             </RelativeLayout>
@@ -232,7 +234,7 @@
                     android:layout_below="@+id/price_header"
                     android:layout_alignStart="@+id/price_header"
                     style="@style/detail_item_editor"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="14dp"
                     />
 
                 <TextView
@@ -387,7 +389,19 @@
                     android:onClick="createButtonClicked"
                     android:background="@drawable/bg1"
                     android:layout_marginLeft="12dp"
+                    android:clickable="false"
                     />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/create_button"
+                    android:padding="12dp"
+                    android:id="@+id/field_validator"
+                    android:text="Disabled until all fields are filled."
+                    android:textColor="@color/textSecondary"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 

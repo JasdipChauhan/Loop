@@ -6,11 +6,16 @@ TODO
 - loop website???
 
 IN PROGRESS
-- bug fix for ride date
+- error checking
 - filtering of filled rides 
 - migrate to fragments for all rides and my rides to allow for switching between tabs
 
 MAYBE
+- refactor (directory management, delete obsolete code)
+
+BUGS
+- ride date input incorrect
+- double backend call for ride reservation
 
 DONE
 

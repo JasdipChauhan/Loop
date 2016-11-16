@@ -1,20 +1,20 @@
 TODO
 
-- filtering of filled rides 
-- migrate to fragments for all rides and my rides to allow for switching between tabs
 - current user profile view on navigation bar
 - android splash screen
 - organization on github for loop???
 - loop website???
 
 IN PROGRESS
-- rides firebase adapter/recycler view
+- bug fix for ride date
+- filtering of filled rides 
+- migrate to fragments for all rides and my rides to allow for switching between tabs
 
 MAYBE
-- incorporate tree node for riders in a ride
 
 DONE
 
+- rides firebase adapter/recycler view
 - backend refactor for adding user object to ride object (relationships)
 - existing ride information showcase
 - backend refactor to account for car make/model, pickup and dropoff descriptions etc

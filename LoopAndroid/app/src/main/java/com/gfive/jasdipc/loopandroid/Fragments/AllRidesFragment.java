@@ -4,11 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
+import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
 import com.gfive.jasdipc.loopandroid.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +26,9 @@ import com.gfive.jasdipc.loopandroid.R;
 public class AllRidesFragment extends Fragment  {
 
     private OnFragmentInteractionListener mListener;
+    private RecyclerView mAllRidesView;
+    private RidesAdapter mRidesAdapter;
+    private DatabaseReference mDatabaseReference;
 
     public AllRidesFragment() {
         // Required empty public constructor
@@ -35,6 +43,8 @@ public class AllRidesFragment extends Fragment  {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Ride");
+        mRidesAdapter = RidesAdapter.getInstance(getContext(), mDatabaseReference);
     }
 
     @Override
@@ -42,6 +52,12 @@ public class AllRidesFragment extends Fragment  {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_all_rides, container, false);
 
+        mAllRidesView = (RecyclerView) view.findViewById(R.id.all_rides_recycler_view);
+
+        WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(getContext());
+
+        mAllRidesView.setLayoutManager(wCLLM);
+        mAllRidesView.setAdapter(mRidesAdapter.getFirebaseRecyclerAdapter());
 
         return view;
     }

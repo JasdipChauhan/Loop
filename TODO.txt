@@ -1,11 +1,13 @@
 TODO
 
+- custom toolbar
 - current user profile view on navigation bar
 - android splash screen
 - organization on github for loop???
 - loop website???
 
 IN PROGRESS
+- tabs
 - error checking
 - filtering of filled rides 
 - migrate to fragments for all rides and my rides to allow for switching between tabs

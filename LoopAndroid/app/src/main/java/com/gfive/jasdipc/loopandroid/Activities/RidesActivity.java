@@ -2,6 +2,7 @@ package com.gfive.jasdipc.loopandroid.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.gfive.jasdipc.loopandroid.Adapters.FragmentAdapter;
 import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
 import com.gfive.jasdipc.loopandroid.LoginActivity;
 import com.gfive.jasdipc.loopandroid.Helpers.RecyclerItemClickListener;
@@ -40,6 +42,11 @@ public class RidesActivity extends AppCompatActivity {
     private FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> firebaseAdapter;
     private boolean isMyRides = false;
 
+
+
+
+    private ViewPager pager;
+    private FragmentAdapter fragmentAdapter;
     //Android Lifecycle Methods
 
     @Override
@@ -47,38 +54,41 @@ public class RidesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rides);
 
-        mContext = RidesActivity.this;
-
-        mRidesRecyclerView = (RecyclerView) findViewById(R.id.rides_recycler_view);
-        WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(mContext);
-        mRidesRecyclerView.setLayoutManager(wCLLM);
-        mFirebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Ride");
-
-        mRidesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
-                mContext, mRidesRecyclerView,
-                new RecyclerItemClickListener.OnItemClickListener() {
-
-                    @Override
-                    public void onItemClick(View view, int position) {
-
-                        if (firebaseAdapter == null) {
-                            return;
-                        }
-
-                        String rideKey = firebaseAdapter.getRef(position).getKey();
-
-                        Intent rideDetailIntent = new Intent(mContext, RideOverviewActivity.class);
-                        rideDetailIntent.putExtra("existingRide", true);
-                        rideDetailIntent.putExtra("ride", firebaseAdapter.getItem(position));
-                        rideDetailIntent.putExtra("rideKey", rideKey);
-                        startActivity(rideDetailIntent);
-                    }
-
-                    @Override
-                    public void onLongItemClick(View view, int position) {
-
-                    }
-                }));
+        pager = (ViewPager) findViewById(R.id.view_pager);
+        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
+        pager.setAdapter(fragmentAdapter);
+//        mContext = RidesActivity.this;
+//
+//        mRidesRecyclerView = (RecyclerView) findViewById(R.id.rides_recycler_view);
+//        WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(mContext);
+//        mRidesRecyclerView.setLayoutManager(wCLLM);
+//        mFirebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Ride");
+//
+//        mRidesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
+//                mContext, mRidesRecyclerView,
+//                new RecyclerItemClickListener.OnItemClickListener() {
+//
+//                    @Override
+//                    public void onItemClick(View view, int position) {
+//
+//                        if (firebaseAdapter == null) {
+//                            return;
+//                        }
+//
+//                        String rideKey = firebaseAdapter.getRef(position).getKey();
+//
+//                        Intent rideDetailIntent = new Intent(mContext, RideOverviewActivity.class);
+//                        rideDetailIntent.putExtra("existingRide", true);
+//                        rideDetailIntent.putExtra("ride", firebaseAdapter.getItem(position));
+//                        rideDetailIntent.putExtra("rideKey", rideKey);
+//                        startActivity(rideDetailIntent);
+//                    }
+//
+//                    @Override
+//                    public void onLongItemClick(View view, int position) {
+//
+//                    }
+//                }));
 
     }
 

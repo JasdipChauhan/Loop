@@ -2,6 +2,7 @@ package com.gfive.jasdipc.loopandroid.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.View;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.gfive.jasdipc.loopandroid.Adapters.FragmentAdapter;
 import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
+import com.gfive.jasdipc.loopandroid.Fragments.AllRidesFragment;
 import com.gfive.jasdipc.loopandroid.LoginActivity;
 import com.gfive.jasdipc.loopandroid.Helpers.RecyclerItemClickListener;
 import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
@@ -28,7 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Set;
 
-public class RidesActivity extends AppCompatActivity {
+public class RidesActivity extends AppCompatActivity implements AllRidesFragment.OnFragmentInteractionListener  {
 
     private RecyclerView mRidesRecyclerView;
     private DatabaseReference mFirebaseDatabase;
@@ -127,7 +129,7 @@ public class RidesActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        setAdapter();
+        //setAdapter();
     }
 
     @Override
@@ -198,4 +200,8 @@ public class RidesActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

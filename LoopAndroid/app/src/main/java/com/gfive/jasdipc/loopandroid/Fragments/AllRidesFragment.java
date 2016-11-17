@@ -18,7 +18,7 @@ import com.gfive.jasdipc.loopandroid.R;
  * Use the {@link AllRidesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AllRidesFragment extends Fragment {
+public class AllRidesFragment extends Fragment  {
 
     private OnFragmentInteractionListener mListener;
 

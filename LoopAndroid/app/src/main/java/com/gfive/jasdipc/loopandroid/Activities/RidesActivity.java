@@ -3,7 +3,9 @@ package com.gfive.jasdipc.loopandroid.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -49,6 +51,8 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
 
     private ViewPager pager;
     private FragmentAdapter fragmentAdapter;
+
+    private TabLayout tabLayout;
     //Android Lifecycle Methods
 
     @Override
@@ -56,9 +60,14 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rides);
 
-        pager = (ViewPager) findViewById(R.id.view_pager);
-        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
+        pager = (ViewPager) findViewById(R.id.rides_view_pager);
+        tabLayout = (TabLayout) findViewById(R.id.rides_tab_layout);
+
+        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), this);
         pager.setAdapter(fragmentAdapter);
+        tabLayout.setupWithViewPager(pager);
+        tabLayout.getTabAt(FragmentAdapter.ALL_RIDES).select();
+
 //        mContext = RidesActivity.this;
 //
 //        mRidesRecyclerView = (RecyclerView) findViewById(R.id.rides_recycler_view);

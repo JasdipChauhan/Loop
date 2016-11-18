@@ -1,13 +1,16 @@
 <resources>
+
+    <!--APPLICATION NAMES-->
     <string name="app_name">Loop</string>
     <string name="title_activity_ride_detail">Map</string>
-    <string name="book_ride_string">Book</string>
-
     <string name="facebook_app_id">1756316771297730</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="book_ride_string">Book</string>
+
     <string name="book_ride_title">Book</string>
     <string name="message_button">Message</string>
+
+    <!--SEE EXISTING RIDE STRINGS-->
     <string name="date_edit_text">On the road today.</string>
     <string name="time_edit_text">Leaving now.</string>
     <string name="pickup_edit_text">Starts here.</string>
@@ -17,4 +20,9 @@
     <string name="edit_pickup_desc">Pick up your loopers here.</string>
     <string name="dropoff_edit_desc">Drop off your loopers here.</string>
     <string name="create_button_text">Create</string>
+
+    <!--PAGE TITLES-->
+    <string name="my_rides_page_title">My Rides</string>
+    <string name="all_rides_page_title">All Rides</string>
+    <string name="driver_rides_page_title">Driver</string>
 </resources>

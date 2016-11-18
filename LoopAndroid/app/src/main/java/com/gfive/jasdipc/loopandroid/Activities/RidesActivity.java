@@ -172,9 +172,7 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
 
         switch (item.getItemId()) {
             case R.id.action_add_ride:
-
-
-                Intent rideDetailIntent = new Intent(mContext, RideOverviewActivity.class);
+                Intent rideDetailIntent = new Intent(RidesActivity.this, RideOverviewActivity.class);
                 rideDetailIntent.putExtra("existingRide", false);
                 startActivity(rideDetailIntent);
 

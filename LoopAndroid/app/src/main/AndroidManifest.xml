@@ -37,7 +37,6 @@
         <activity
             android:name=".RideOverviewActivity"
             android:label="@string/title_activity_ride_detail" />
-        <activity android:name=".Activities.CreateRideActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

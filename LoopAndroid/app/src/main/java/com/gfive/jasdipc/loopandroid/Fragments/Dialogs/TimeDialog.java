@@ -1,4 +1,4 @@
-package com.gfive.jasdipc.loopandroid.Fragments;
+package com.gfive.jasdipc.loopandroid.Fragments.Dialogs;
 
 import android.app.Dialog;
 import android.app.DialogFragment;

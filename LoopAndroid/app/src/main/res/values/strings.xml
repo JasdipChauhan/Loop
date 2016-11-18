@@ -25,4 +25,7 @@
     <string name="my_rides_page_title">My Rides</string>
     <string name="all_rides_page_title">All Rides</string>
     <string name="driver_rides_page_title">Driver</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

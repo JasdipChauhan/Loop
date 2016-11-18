@@ -5,14 +5,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.gfive.jasdipc.loopandroid.Fragments.AllRidesFragment;
+import com.gfive.jasdipc.loopandroid.Fragments.Tabs.AllRidesFragment;
+import com.gfive.jasdipc.loopandroid.Fragments.Tabs.MyRidesFragment;
 import com.gfive.jasdipc.loopandroid.R;
 
 /**
  * Created by JasdipC on 2016-11-16.
  */
 
-public class FragmentAdapter extends FragmentPagerAdapter {
+public class PagerAdapter extends FragmentPagerAdapter {
 
     final static private int NUM_TABS = 3;
 
@@ -22,7 +23,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
 
     private Context mContext;
 
-    public FragmentAdapter(FragmentManager fm, Context context) {
+    public PagerAdapter(FragmentManager fm, Context context) {
         super(fm);
 
         mContext = context;
@@ -39,7 +40,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
             case ALL_RIDES:
                 return AllRidesFragment.newInstance();
             case MY_RIDES:
-                return AllRidesFragment.newInstance();
+                return MyRidesFragment.newInstance();
 
             default:
 

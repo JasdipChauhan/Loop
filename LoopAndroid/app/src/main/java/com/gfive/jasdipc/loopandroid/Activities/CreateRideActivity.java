@@ -12,8 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
-import com.gfive.jasdipc.loopandroid.Fragments.DateDialog;
-import com.gfive.jasdipc.loopandroid.Fragments.TimeDialog;
+import com.gfive.jasdipc.loopandroid.Fragments.Dialogs.DateDialog;
+import com.gfive.jasdipc.loopandroid.Fragments.Dialogs.TimeDialog;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Models.UserProfile;

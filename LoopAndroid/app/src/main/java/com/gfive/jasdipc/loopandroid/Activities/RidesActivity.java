@@ -5,22 +5,19 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.gfive.jasdipc.loopandroid.Adapters.FragmentAdapter;
+import com.gfive.jasdipc.loopandroid.Adapters.PagerAdapter;
 import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
-import com.gfive.jasdipc.loopandroid.Fragments.AllRidesFragment;
+import com.gfive.jasdipc.loopandroid.Fragments.Tabs.AllRidesFragment;
+import com.gfive.jasdipc.loopandroid.Fragments.Tabs.MyRidesFragment;
 import com.gfive.jasdipc.loopandroid.LoginActivity;
-import com.gfive.jasdipc.loopandroid.Helpers.RecyclerItemClickListener;
-import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
 import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
 import com.gfive.jasdipc.loopandroid.Models.LoopRide;
 import com.gfive.jasdipc.loopandroid.R;
@@ -28,11 +25,10 @@ import com.gfive.jasdipc.loopandroid.RideOverviewActivity;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Set;
 
-public class RidesActivity extends AppCompatActivity implements AllRidesFragment.OnFragmentInteractionListener  {
+public class RidesActivity extends AppCompatActivity implements AllRidesFragment.OnFragmentInteractionListener, MyRidesFragment.OnFragmentInteractionListener {
 
     private RecyclerView mRidesRecyclerView;
     private DatabaseReference mFirebaseDatabase;
@@ -50,7 +46,7 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
 
 
     private ViewPager pager;
-    private FragmentAdapter fragmentAdapter;
+    private PagerAdapter pagerAdapter;
 
     private TabLayout tabLayout;
     //Android Lifecycle Methods
@@ -63,10 +59,10 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
         pager = (ViewPager) findViewById(R.id.rides_view_pager);
         tabLayout = (TabLayout) findViewById(R.id.rides_tab_layout);
 
-        fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), this);
-        pager.setAdapter(fragmentAdapter);
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager(), this);
+        pager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(pager);
-        tabLayout.getTabAt(FragmentAdapter.ALL_RIDES).select();
+        tabLayout.getTabAt(PagerAdapter.ALL_RIDES).select();
 
 //        mContext = RidesActivity.this;
 //
@@ -146,20 +142,6 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
         Log.i("onResume", "CALLED");
         super.onResume();
     }
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//
-//        if (requestCode == RESERVE_RESULT) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                boolean didReserve = data.getBooleanExtra("didReserve", false);
-//
-//                if (didReserve) {
-//
-//                }
-//            }
-//        }
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

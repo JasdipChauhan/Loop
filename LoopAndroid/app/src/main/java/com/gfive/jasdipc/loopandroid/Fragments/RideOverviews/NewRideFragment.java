@@ -1,4 +1,4 @@
-package com.gfive.jasdipc.loopandroid.Fragments;
+package com.gfive.jasdipc.loopandroid.Fragments.RideOverviews;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -21,6 +21,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
+import com.gfive.jasdipc.loopandroid.Fragments.Dialogs.DateDialog;
+import com.gfive.jasdipc.loopandroid.Fragments.Dialogs.TimeDialog;
 import com.gfive.jasdipc.loopandroid.Helpers.FormatHelper;
 import com.gfive.jasdipc.loopandroid.Interfaces.OnSpinnerSelection;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;

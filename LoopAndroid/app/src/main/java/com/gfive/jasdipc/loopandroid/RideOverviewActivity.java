@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 import com.gfive.jasdipc.loopandroid.Activities.RiderActivity;
 import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
-import com.gfive.jasdipc.loopandroid.Fragments.ExistingRideFragment;
-import com.gfive.jasdipc.loopandroid.Fragments.NewRideFragment;
+import com.gfive.jasdipc.loopandroid.Fragments.RideOverviews.ExistingRideFragment;
+import com.gfive.jasdipc.loopandroid.Fragments.RideOverviews.NewRideFragment;
 import com.gfive.jasdipc.loopandroid.Interfaces.OnSpinnerSelection;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;

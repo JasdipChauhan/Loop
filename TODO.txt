@@ -7,20 +7,22 @@ TODO
 - loop website???
 
 IN PROGRESS
-- tabs
-- error checking
+
 - filtering of filled rides 
-- migrate to fragments for all rides and my rides to allow for switching between tabs
 
 MAYBE
 - refactor (directory management, delete obsolete code)
 
 BUGS
+- driver fragment has some sort of top margin
 - ride date input incorrect
 - double backend call for ride reservation
 
 DONE
 
+- tabs
+- migrate to fragments for all rides and my rides to allow for switching between tabs
+- error checking
 - rides firebase adapter/recycler view
 - backend refactor for adding user object to ride object (relationships)
 - existing ride information showcase

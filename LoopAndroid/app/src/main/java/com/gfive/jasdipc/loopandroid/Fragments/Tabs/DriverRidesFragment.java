@@ -24,30 +24,24 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Set;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MyRidesFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MyRidesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class MyRidesFragment extends Fragment {
+public class DriverRidesFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
     private DatabaseReference mDatabaseReference;
-    private RecyclerView mMyRidesView;
+    private RecyclerView mDriverRidesView;
     private Set<String> mSavedRides;
     private RidesAdapter mRidesAdapter;
     private FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> firebaseRecyclerAdapter;
 
-    public MyRidesFragment() {
+    public DriverRidesFragment() {
         // Required empty public constructor
     }
 
-    public static MyRidesFragment newInstance() {
-        MyRidesFragment fragment = new MyRidesFragment();
+    // TODO: Rename and change types and number of parameters
+    public static DriverRidesFragment newInstance() {
+
+        DriverRidesFragment fragment = new DriverRidesFragment();
         return fragment;
     }
 
@@ -56,7 +50,7 @@ public class MyRidesFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Ride");
-        mSavedRides = StorageManager.getInstance(getContext()).getRiderRides();
+        mSavedRides = StorageManager.getInstance(getContext()).getDriverRides();
         mRidesAdapter = RidesAdapter.getInstance(getContext(), mDatabaseReference);
 
     }
@@ -65,17 +59,17 @@ public class MyRidesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_my_rides, container, false);
+        final View view = inflater.inflate(R.layout.fragment_driver_rides, container, false);
 
-        mMyRidesView = (RecyclerView) view.findViewById(R.id.my_rides_recycler_view);
+        mDriverRidesView = (RecyclerView) view.findViewById(R.id.driver_rides_recycler_view);
 
         WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(getContext());
         firebaseRecyclerAdapter = mRidesAdapter.getLocalRecyclerAdapter(mSavedRides);
 
-        mMyRidesView.setLayoutManager(wCLLM);
-        mMyRidesView.setAdapter(firebaseRecyclerAdapter);
+        mDriverRidesView.setLayoutManager(wCLLM);
+        mDriverRidesView.setAdapter(firebaseRecyclerAdapter);
 
-        mMyRidesView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mMyRidesView, new RecyclerItemClickListener.OnItemClickListener() {
+        mDriverRidesView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mDriverRidesView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
 

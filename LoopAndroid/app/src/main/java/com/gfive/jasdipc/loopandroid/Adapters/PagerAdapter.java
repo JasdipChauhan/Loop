@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.gfive.jasdipc.loopandroid.Fragments.Tabs.AllRidesFragment;
+import com.gfive.jasdipc.loopandroid.Fragments.Tabs.DriverRidesFragment;
 import com.gfive.jasdipc.loopandroid.Fragments.Tabs.MyRidesFragment;
 import com.gfive.jasdipc.loopandroid.R;
 
@@ -36,7 +37,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
         switch (position) {
 
             case DRIVER_RIDES:
-                return AllRidesFragment.newInstance();
+                return DriverRidesFragment.newInstance();
             case ALL_RIDES:
                 return AllRidesFragment.newInstance();
             case MY_RIDES:

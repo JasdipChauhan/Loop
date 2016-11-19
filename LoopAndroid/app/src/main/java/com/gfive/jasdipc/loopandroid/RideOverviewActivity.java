@@ -19,7 +19,7 @@ import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Fragments.RideOverviews.ExistingRideFragment;
 import com.gfive.jasdipc.loopandroid.Fragments.RideOverviews.NewRideFragment;
 import com.gfive.jasdipc.loopandroid.Interfaces.OnSpinnerSelection;
-import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
 import com.gfive.jasdipc.loopandroid.Models.LoopRide;
@@ -56,26 +56,25 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ride_overview);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Intent intent = getIntent();
         isExistingRide = intent.getBooleanExtra("existingRide", false);
-
-
-        setTitle(getString(R.string.book_ride_title));
-        setContentView(R.layout.activity_ride_overview);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ride = new LoopRide();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (isExistingRide) {
+            setTitle(getString(R.string.book_ride_title));
             ride = intent.getParcelableExtra("ride");
             rideKey = intent.getStringExtra("rideKey");
 
@@ -85,7 +84,7 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
             existingRideFragment = ExistingRideFragment.newInstance(ride);
             transaction.replace(R.id.ride_frame, existingRideFragment);
         } else {
-
+            setTitle(getString(R.string.create_ride_title));
             newRideFragment = NewRideFragment.newInstance();
             transaction.replace(R.id.ride_frame, newRideFragment);
 
@@ -102,13 +101,13 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
             UserProfile currentUser = ProfileManager.getInstance().getUserProfile();
 
             //TODO: SINGLETON CALLED TWICE (THREAD SAFETY)
-            BackendClient.getInstance().reserveRide(rideKey, currentUser, new ServerResponse() {
+            BackendClient.getInstance().reserveRide(rideKey, currentUser, new ServerAction() {
                         @Override
                         public void response(boolean isSuccessful) {
 
                             if (isSuccessful) {
                                 StorageManager.getInstance(RideOverviewActivity.this)
-                                        .saveRide(rideKey);
+                                        .saveRiderRides(rideKey);
 
 
 

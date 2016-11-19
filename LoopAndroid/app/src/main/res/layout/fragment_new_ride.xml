@@ -384,7 +384,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/create_button"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/create_button_text"
+                    android:text="@string/create_ride_button"
                     android:textColor="@color/white"
                     android:onClick="createButtonClicked"
                     android:background="@drawable/bg1"

@@ -16,6 +16,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.gfive.jasdipc.loopandroid.Adapters.PagerAdapter;
 import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
 import com.gfive.jasdipc.loopandroid.Fragments.Tabs.AllRidesFragment;
+import com.gfive.jasdipc.loopandroid.Fragments.Tabs.DriverRidesFragment;
 import com.gfive.jasdipc.loopandroid.Fragments.Tabs.MyRidesFragment;
 import com.gfive.jasdipc.loopandroid.LoginActivity;
 import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
@@ -28,7 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 
 import java.util.Set;
 
-public class RidesActivity extends AppCompatActivity implements AllRidesFragment.OnFragmentInteractionListener, MyRidesFragment.OnFragmentInteractionListener {
+public class RidesActivity extends AppCompatActivity implements AllRidesFragment.OnFragmentInteractionListener, MyRidesFragment.OnFragmentInteractionListener, DriverRidesFragment.OnFragmentInteractionListener {
 
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
@@ -41,6 +42,8 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rides);
 
+        getSupportActionBar().setElevation(0);
+
         pager = (ViewPager) findViewById(R.id.rides_view_pager);
         tabLayout = (TabLayout) findViewById(R.id.rides_tab_layout);
 
@@ -48,7 +51,6 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
         pager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(pager);
         tabLayout.getTabAt(PagerAdapter.ALL_RIDES).select();
-
     }
 
     private void handleLogout() {

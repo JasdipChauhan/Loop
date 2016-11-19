@@ -25,14 +25,16 @@ import com.gfive.jasdipc.loopandroid.Fragments.Dialogs.DateDialog;
 import com.gfive.jasdipc.loopandroid.Fragments.Dialogs.TimeDialog;
 import com.gfive.jasdipc.loopandroid.Helpers.FormatHelper;
 import com.gfive.jasdipc.loopandroid.Interfaces.OnSpinnerSelection;
-import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerPassback;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
+import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
 import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.gfive.jasdipc.loopandroid.R;
 
 import org.json.JSONObject;
 
-public class NewRideFragment extends Fragment implements AdapterView.OnItemSelectedListener, ServerResponse {
+public class NewRideFragment extends Fragment implements AdapterView.OnItemSelectedListener, ServerPassback {
 
     private RelativeLayout dateContainer;
     private RelativeLayout timeContainer;
@@ -211,7 +213,7 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
 
             UserProfile userProfile = ProfileManager.getInstance().getUserProfile();
 
-            BackendClient.getInstance().uploadRide(this, userProfile, rideJSONMap);
+            BackendClient.getInstance().uploadRide((ServerPassback) this, userProfile, rideJSONMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -260,10 +262,13 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
     }
 
     @Override
-    public void response(boolean isSuccessful) {
+    public void response(boolean isSuccessful, String responseData) {
         if (!isSuccessful) {
             Log.e("ERROR", "UNSUCCESSFUL RIDE UPLOAD");
         }
+
+        StorageManager.getInstance(getContext()).saveDriverRides(responseData);
+
         uploadProgress.dismiss();
         getActivity().finish();
     }

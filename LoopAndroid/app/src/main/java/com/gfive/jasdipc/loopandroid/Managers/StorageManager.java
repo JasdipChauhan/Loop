@@ -13,8 +13,11 @@ import java.util.Set;
 public class StorageManager {
 
     private static StorageManager storageManager;
+
     private static final String SHARED_PREFERENCES_NAME = "LOOP SHARED PREFERENCES";
-    private static final String RIDE_KEY = "RIDES";
+    private static final String DRIVER_KEY = "DRIVER_RIDES";
+    private static final String RIDER_KEY = "RIDER_RIDES";
+
     private Context mContext;
     private SharedPreferences mPref;
     private SharedPreferences.Editor mEditor;
@@ -34,10 +37,22 @@ public class StorageManager {
         mEditor = mPref.edit();
     }
 
+    //DRIVER RIDES
 
-    public Set<String> getSavedRides() {
+    public void saveDriverRides(String rideID) {
 
-        Set<String> savedRides = mPref.getStringSet(RIDE_KEY, new HashSet<String>());
+        Set<String> savedRides = getDriverRides();
+        savedRides.add(rideID);
+
+        mEditor.putStringSet(DRIVER_KEY, savedRides);
+        mEditor.commit();
+
+        Log.i("STORAGE MANAGER", "SAVED DRIVER RIDE: " + rideID);
+
+    }
+
+    public Set<String> getDriverRides() {
+        Set<String> savedRides = mPref.getStringSet(DRIVER_KEY, new HashSet<String>());
 
         for (String ride : savedRides) {
             Log.i("Saved Ride:", ride);
@@ -46,14 +61,28 @@ public class StorageManager {
         return savedRides;
     }
 
-    public void saveRide(String rideID) {
+    //RIDER RIDES
 
-        Set<String> savedRides = getSavedRides();
+    public void saveRiderRides(String rideID) {
+
+        Set<String> savedRides = getRiderRides();
         savedRides.add(rideID);
 
-        mEditor.putStringSet(RIDE_KEY, savedRides);
+        mEditor.putStringSet(RIDER_KEY, savedRides);
         mEditor.commit();
 
-        Log.i("STORAGE MANAGER", "RIDE SAVED");
+        Log.i("STORAGE MANAGER", "SAVED RIDER RIDE");
     }
+
+    public Set<String> getRiderRides() {
+
+        Set<String> savedRides = mPref.getStringSet(RIDER_KEY, new HashSet<String>());
+
+        for (String ride : savedRides) {
+            Log.i("Saved Ride:", ride);
+        }
+
+        return savedRides;
+    }
+
 }

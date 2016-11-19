@@ -30,21 +30,6 @@ import java.util.Set;
 
 public class RidesActivity extends AppCompatActivity implements AllRidesFragment.OnFragmentInteractionListener, MyRidesFragment.OnFragmentInteractionListener {
 
-    private RecyclerView mRidesRecyclerView;
-    private DatabaseReference mFirebaseDatabase;
-    private DatabaseReference mLocalDatabase;
-
-    private Context mContext;
-
-    public static int RESERVE_RESULT = 99;
-
-    private RidesAdapter ridesAdapter;
-    private FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> firebaseAdapter;
-    private boolean isMyRides = false;
-
-
-
-
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
 
@@ -64,41 +49,7 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
         tabLayout.setupWithViewPager(pager);
         tabLayout.getTabAt(PagerAdapter.ALL_RIDES).select();
 
-//        mContext = RidesActivity.this;
-//
-//        mRidesRecyclerView = (RecyclerView) findViewById(R.id.rides_recycler_view);
-//        WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(mContext);
-//        mRidesRecyclerView.setLayoutManager(wCLLM);
-//        mFirebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Ride");
-//
-//        mRidesRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
-//                mContext, mRidesRecyclerView,
-//                new RecyclerItemClickListener.OnItemClickListener() {
-//
-//                    @Override
-//                    public void onItemClick(View view, int position) {
-//
-//                        if (firebaseAdapter == null) {
-//                            return;
-//                        }
-//
-//                        String rideKey = firebaseAdapter.getRef(position).getKey();
-//
-//                        Intent rideDetailIntent = new Intent(mContext, RideOverviewActivity.class);
-//                        rideDetailIntent.putExtra("existingRide", true);
-//                        rideDetailIntent.putExtra("ride", firebaseAdapter.getItem(position));
-//                        rideDetailIntent.putExtra("rideKey", rideKey);
-//                        startActivity(rideDetailIntent);
-//                    }
-//
-//                    @Override
-//                    public void onLongItemClick(View view, int position) {
-//
-//                    }
-//                }));
-
     }
-
 
     private void handleLogout() {
         FirebaseAuth.getInstance().signOut();
@@ -108,33 +59,9 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
         startActivity(intent);
     }
 
-    private void setAdapter() {
-
-        if (isMyRides) {
-
-            Set<String> savedRides = StorageManager.getInstance(RidesActivity.this).getSavedRides();
-
-            ridesAdapter = RidesAdapter.getInstance(RidesActivity.this, mFirebaseDatabase);
-            firebaseAdapter = ridesAdapter.getLocalRecyclerAdapter(savedRides);
-            //mRidesRecyclerView.swapAdapter(firebaseAdapter, false);
-            mRidesRecyclerView.setAdapter(firebaseAdapter);
-            firebaseAdapter.notifyDataSetChanged();
-
-        } else {
-            ridesAdapter = RidesAdapter.getInstance(RidesActivity.this, mFirebaseDatabase);
-            firebaseAdapter = ridesAdapter.getFirebaseRecyclerAdapter();
-            //mRidesRecyclerView.swapAdapter(firebaseAdapter, false);
-            mRidesRecyclerView.setAdapter(firebaseAdapter);
-            firebaseAdapter.notifyDataSetChanged();
-        }
-
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
-
-        //setAdapter();
     }
 
     @Override
@@ -163,22 +90,6 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
             case R.id.logout_menu:
 
                 handleLogout();
-                break;
-
-            case R.id.toggle_my_rides:
-
-                if (item.isChecked()) {
-                    isMyRides = true;
-                    item.setChecked(true);
-                } else {
-                    isMyRides = false;
-                    item.setChecked(false);
-                }
-
-                item.setChecked(!item.isChecked());
-                isMyRides = item.isChecked();
-                setAdapter();
-
                 break;
 
             default:

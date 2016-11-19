@@ -1,10 +1,10 @@
 package com.gfive.jasdipc.loopandroid.Clients;
 
-import android.net.Uri;
 import android.util.Log;
 
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerLookup;
-import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerPassback;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,11 +18,6 @@ import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by jasdip on 2016-10-27.
@@ -50,7 +45,7 @@ public class BackendClient {
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
     }
 
-    public void doesUserExist(final UserProfile user, final ServerResponse callback) {
+    public void doesUserExist(final UserProfile user, final ServerAction callback) {
 
         mUserDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -76,7 +71,7 @@ public class BackendClient {
 
     }
 
-    public void registerUser(FirebaseUser user, String phoneNumber, final ServerResponse callback) {
+    public void registerUser(FirebaseUser user, String phoneNumber, final ServerAction callback) {
 
         try {
 
@@ -93,10 +88,11 @@ public class BackendClient {
         }
     }
 
-    public void uploadRide(ServerResponse callback, final UserProfile profile, JSONObject jsonObject) {
+    public void uploadRide(final ServerPassback callback, final UserProfile profile, JSONObject jsonObject) {
 
         boolean onCreateSuccess = true;
         DatabaseReference ride = mRideDatabase.push();
+        String rideKey = "";
 
         try {
 
@@ -118,6 +114,7 @@ public class BackendClient {
             ride.child("seatsLeft").setValue(jsonObject.getInt("seats"));
             ride.child("price").setValue(jsonObject.getDouble("price"));
 
+            rideKey = ride.getKey();
         } catch (JSONException e) {
 
             e.printStackTrace();
@@ -129,10 +126,10 @@ public class BackendClient {
             onCreateSuccess = false;
         }
 
-        callback.response(onCreateSuccess);
+        callback.response(onCreateSuccess, rideKey);
     }
 
-    public void reserveRide(final String rideID, final UserProfile user, final ServerResponse callback) {
+    public void reserveRide(final String rideID, final UserProfile user, final ServerAction callback) {
 
         mRideDatabase.child(rideID).child("seatsLeft").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

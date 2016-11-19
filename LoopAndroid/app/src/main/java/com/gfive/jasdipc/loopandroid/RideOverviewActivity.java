@@ -19,7 +19,7 @@ import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Fragments.RideOverviews.ExistingRideFragment;
 import com.gfive.jasdipc.loopandroid.Fragments.RideOverviews.NewRideFragment;
 import com.gfive.jasdipc.loopandroid.Interfaces.OnSpinnerSelection;
-import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
 import com.gfive.jasdipc.loopandroid.Models.LoopRide;
@@ -101,7 +101,7 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
             UserProfile currentUser = ProfileManager.getInstance().getUserProfile();
 
             //TODO: SINGLETON CALLED TWICE (THREAD SAFETY)
-            BackendClient.getInstance().reserveRide(rideKey, currentUser, new ServerResponse() {
+            BackendClient.getInstance().reserveRide(rideKey, currentUser, new ServerAction() {
                         @Override
                         public void response(boolean isSuccessful) {
 

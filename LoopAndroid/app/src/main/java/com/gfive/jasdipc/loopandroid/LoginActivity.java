@@ -1,7 +1,6 @@
 package com.gfive.jasdipc.loopandroid;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,14 +13,13 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.Profile;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.gfive.jasdipc.loopandroid.Activities.RegisterActivity;
 import com.gfive.jasdipc.loopandroid.Activities.RidesActivity;
 import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
-import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -126,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
 
         BackendClient.getInstance().doesUserExist(
                 ProfileManager.getInstance().getUserProfile(),
-                new ServerResponse() {
+                new ServerAction() {
                     @Override
                     public void response(boolean userExists) {
                         finish();

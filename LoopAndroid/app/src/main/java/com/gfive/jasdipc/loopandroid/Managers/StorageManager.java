@@ -47,7 +47,7 @@ public class StorageManager {
         mEditor.putStringSet(DRIVER_KEY, savedRides);
         mEditor.commit();
 
-        Log.i("STORAGE MANAGER", "SAVED DRIVER RIDE");
+        Log.i("STORAGE MANAGER", "SAVED DRIVER RIDE: " + rideID);
 
     }
 

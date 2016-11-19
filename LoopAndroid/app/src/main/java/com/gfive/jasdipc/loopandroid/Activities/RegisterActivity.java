@@ -11,12 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
-import com.gfive.jasdipc.loopandroid.Interfaces.ServerResponse;
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.gfive.jasdipc.loopandroid.R;
-import com.google.android.gms.vision.text.Text;
-import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -56,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
                     BackendClient.getInstance().registerUser(
                             ProfileManager.getInstance().getFirebaseUser(),
                             phoneNumber,
-                            new ServerResponse() {
+                            new ServerAction() {
                                 @Override
                                 public void response(boolean isSuccessful) {
                                     if (isSuccessful) {

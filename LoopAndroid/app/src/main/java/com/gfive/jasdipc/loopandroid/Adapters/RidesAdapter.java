@@ -95,8 +95,7 @@ public class RidesAdapter {
         holder.cardLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLightest));
         holder.usersName.setText(model.getDriver().getName());
         holder.date.setText(model.getDate());
-        holder.pickup.setText(model.getPickup());
-        holder.dropoff.setText(model.getDropoff());
+        holder.journey.setText(model.getPickup() + " to " + model.getDropoff());
         holder.pickupTime.setText(model.getTime());
         holder.seats.setText(model.getSeatsLeft() + "/" + model.getSeatsSize());
         holder.cost.setText(Double.toString(model.getPrice()));

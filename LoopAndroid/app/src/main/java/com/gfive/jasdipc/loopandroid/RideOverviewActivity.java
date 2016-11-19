@@ -168,6 +168,10 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
         newRideFragment.handleDatePicked();
     }
 
+    public void messageButtonClicked (View view) {
+        existingRideFragment.messageDriver(view);
+    }
+
     public void riderListAction (View view) {
         Intent toRiders = new Intent(RideOverviewActivity.this, RiderActivity.class);
         toRiders.putExtra("RIDE_KEY", rideKey);

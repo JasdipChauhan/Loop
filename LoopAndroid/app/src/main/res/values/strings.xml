@@ -22,9 +22,9 @@
     <string name="create_button_text">Create</string>
 
     <!--PAGE TITLES-->
-    <string name="my_rides_page_title">My Rides</string>
-    <string name="all_rides_page_title">All Rides</string>
-    <string name="driver_rides_page_title">Driver</string>
+    <string name="my_rides_page_title">RIDER</string>
+    <string name="all_rides_page_title">ALL</string>
+    <string name="driver_rides_page_title">DRIVER</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

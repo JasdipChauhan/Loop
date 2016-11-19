@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/action_add_ride"
-        android:icon="@mipmap/ic_add_white_24dp"
+        android:icon="@drawable/add"
         android:title="AddRideTitle"
         app:showAsAction="always"/>
 
@@ -13,12 +13,5 @@
         android:orderInCategory="100"
         android:title="Logout"
         app:showAsAction="never" />
-
-    <item
-        android:id="@+id/toggle_my_rides"
-        android:checkable="true"
-        android:title="My Rides"
-        android:orderInCategory="1"
-        app:showAsAction="never"/>
 
 </menu>

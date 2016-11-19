@@ -107,7 +107,7 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
 
                             if (isSuccessful) {
                                 StorageManager.getInstance(RideOverviewActivity.this)
-                                        .saveRide(rideKey);
+                                        .saveRiderRides(rideKey);
 
 
 

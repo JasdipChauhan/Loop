@@ -51,6 +51,22 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
         tabLayout.setupWithViewPager(pager);
         tabLayout.getTabAt(PagerAdapter.ALL_RIDES).select();
 
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void handleLogout() {

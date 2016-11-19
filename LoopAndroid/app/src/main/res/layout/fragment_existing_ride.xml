@@ -341,7 +341,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/reserve_button"
                     android:layout_toRightOf="@id/button_center"
-                    android:text="@string/book_ride_string"
+                    android:text="@string/book_ride_button"
                     android:textColor="@color/white"
                     android:onClick="reserveButtonClicked"
                     android:background="@drawable/bg"

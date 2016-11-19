@@ -56,26 +56,25 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ride_overview);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Intent intent = getIntent();
         isExistingRide = intent.getBooleanExtra("existingRide", false);
-
-
-        setTitle(getString(R.string.book_ride_title));
-        setContentView(R.layout.activity_ride_overview);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ride = new LoopRide();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         if (isExistingRide) {
+            setTitle(getString(R.string.book_ride_title));
             ride = intent.getParcelableExtra("ride");
             rideKey = intent.getStringExtra("rideKey");
 
@@ -85,7 +84,7 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
             existingRideFragment = ExistingRideFragment.newInstance(ride);
             transaction.replace(R.id.ride_frame, existingRideFragment);
         } else {
-
+            setTitle(getString(R.string.create_ride_title));
             newRideFragment = NewRideFragment.newInstance();
             transaction.replace(R.id.ride_frame, newRideFragment);
 

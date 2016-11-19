@@ -5,8 +5,7 @@
     <string name="title_activity_ride_detail">Map</string>
     <string name="facebook_app_id">1756316771297730</string>
 
-    <string name="book_ride_string">Book</string>
-
+    <string name="create_ride_title">Create</string>
     <string name="book_ride_title">Book</string>
     <string name="message_button">Message</string>
 
@@ -19,7 +18,8 @@
     <string name="price_edit_text">Payment for my hardwork.</string>
     <string name="edit_pickup_desc">Pick up your loopers here.</string>
     <string name="dropoff_edit_desc">Drop off your loopers here.</string>
-    <string name="create_button_text">Create</string>
+    <string name="create_ride_button">Create</string>
+    <string name="book_ride_button">Book</string>
 
     <!--PAGE TITLES-->
     <string name="my_rides_page_title">RIDER</string>

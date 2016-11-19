@@ -41,6 +41,8 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rides);
 
+        getSupportActionBar().setElevation(0);
+
         pager = (ViewPager) findViewById(R.id.rides_view_pager);
         tabLayout = (TabLayout) findViewById(R.id.rides_tab_layout);
 

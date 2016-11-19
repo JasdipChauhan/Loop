@@ -77,6 +77,17 @@ public class FormatHelper {
     public static String toReadableFormat(long dateLong) {
 
         Date date = new Date(dateLong);
-        return getReadableDate(date.toString());
+
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy");
+            String readableString = simpleDateFormat.format(date);
+
+            return readableString;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "";
     }
 }

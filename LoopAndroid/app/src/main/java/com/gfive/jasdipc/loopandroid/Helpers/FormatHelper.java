@@ -58,6 +58,25 @@ public class FormatHelper {
         return date;
     }
 
+    public static long toUploadFormat(String dateStr) {
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy");
 
+        long dateLong = 0;
+
+        try {
+            Date date = simpleDateFormat.parse(dateStr);
+            dateLong = date.getTime();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return dateLong;
+    }
+
+    public static String toReadableFormat(long dateLong) {
+
+        Date date = new Date(dateLong);
+        return getReadableDate(date.toString());
+    }
 }

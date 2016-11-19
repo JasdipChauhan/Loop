@@ -9,7 +9,7 @@ import java.util.Map;
 public class LoopRide implements Parcelable {
 
     private String car;
-    private String date;
+    private long date;
     private LoopUser driver;
     private Map<String, LoopUser> riders = new HashMap<>();
     private String dropoff;
@@ -24,7 +24,7 @@ public class LoopRide implements Parcelable {
     //CONSTRUCTORS
 
     public LoopRide() {
-        date = "";
+        date = 0;
         driver = new LoopUser();
         riders = new HashMap<>();
         dropoff = "";
@@ -37,7 +37,7 @@ public class LoopRide implements Parcelable {
         pickupDescription = "";
     }
 
-    public LoopRide(String car, String date, LoopUser driver, Map<String, LoopUser> riders, String dropoff, String dropoffDescription, String pickup, String pickupDescription, double price, int seatsLeft, int seatsSize, String time) {
+    public LoopRide(String car, long date, LoopUser driver, Map<String, LoopUser> riders, String dropoff, String dropoffDescription, String pickup, String pickupDescription, double price, int seatsLeft, int seatsSize, String time) {
         this.car = car;
         this.date = date;
         this.driver = driver;
@@ -62,11 +62,11 @@ public class LoopRide implements Parcelable {
         this.car = car;
     }
 
-    public String getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
@@ -165,7 +165,7 @@ public class LoopRide implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.car);
-        dest.writeString(this.date);
+        dest.writeLong(this.date);
         dest.writeParcelable(this.driver, flags);
         dest.writeInt(this.riders.size());
         for (Map.Entry<String, LoopUser> entry : this.riders.entrySet()) {
@@ -184,7 +184,7 @@ public class LoopRide implements Parcelable {
 
     protected LoopRide(Parcel in) {
         this.car = in.readString();
-        this.date = in.readString();
+        this.date = in.readLong();
         this.driver = in.readParcelable(LoopUser.class.getClassLoader());
         int ridersSize = in.readInt();
         this.riders = new HashMap<String, LoopUser>(ridersSize);

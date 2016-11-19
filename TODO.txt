@@ -1,5 +1,6 @@
 TODO
 
+- delete past ride dates
 - custom toolbar
 - current user profile view on navigation bar
 - android splash screen
@@ -15,11 +16,11 @@ MAYBE
 
 BUGS
 - driver fragment has some sort of top margin
-- ride date input incorrect
 - double backend call for ride reservation
 
 DONE
 
+- ride date input incorrect
 - tabs
 - migrate to fragments for all rides and my rides to allow for switching between tabs
 - error checking

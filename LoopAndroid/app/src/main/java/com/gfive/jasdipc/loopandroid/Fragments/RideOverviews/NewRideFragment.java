@@ -203,7 +203,7 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
             rideJSONMap.put("phoneNumber", profile.phoneNumber);
             rideJSONMap.put("pickup", pickupString);
             rideJSONMap.put("dropoff", dropoffString);
-            rideJSONMap.put("date", FormatHelper.getDate(rideDateJSON));
+            rideJSONMap.put("date", rideDateJSON);
             rideJSONMap.put("time", rideTimeJSON);
             rideJSONMap.put("seats", rideCapacity);
             rideJSONMap.put("car", rideCarJSON);
@@ -213,7 +213,7 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
 
             UserProfile userProfile = ProfileManager.getInstance().getUserProfile();
 
-            BackendClient.getInstance().uploadRide((ServerPassback) this, userProfile, rideJSONMap);
+            BackendClient.getInstance().uploadRide(this, userProfile, rideJSONMap);
         } catch (Exception e) {
             e.printStackTrace();
         }

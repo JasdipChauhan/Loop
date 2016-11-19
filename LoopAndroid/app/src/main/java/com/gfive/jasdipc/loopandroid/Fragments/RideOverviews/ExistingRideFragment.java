@@ -96,7 +96,7 @@ public class ExistingRideFragment extends Fragment {
         riderIMG6 = (ImageView) view.findViewById(R.id.rider6);
         riders = new ImageView[]{riderIMG1, riderIMG2, riderIMG3, riderIMG4, riderIMG5, riderIMG6};
 
-        rideDate.setText(FormatHelper.getReadableDate(mRide.getDate()));
+        rideDate.setText(FormatHelper.getReadableDate(FormatHelper.toReadableFormat(mRide.getDate())));
         rideTime.setText(FormatHelper.getReadableTime(mRide.getTime()));
         ridePickup.setText(mRide.getPickup());
         rideDropoff.setText(mRide.getDropoff());

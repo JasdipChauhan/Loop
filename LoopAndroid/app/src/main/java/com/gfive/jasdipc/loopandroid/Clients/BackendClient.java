@@ -2,6 +2,7 @@ package com.gfive.jasdipc.loopandroid.Clients;
 
 import android.util.Log;
 
+import com.gfive.jasdipc.loopandroid.Helpers.FormatHelper;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerLookup;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerPassback;
@@ -43,6 +44,22 @@ public class BackendClient {
         mStorage = FirebaseStorage.getInstance().getReference();
         mRideDatabase = FirebaseDatabase.getInstance().getReference().child("Ride");
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+    }
+
+    public void cleanDatabase() {
+
+        mRideDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void doesUserExist(final UserProfile user, final ServerAction callback) {
@@ -107,7 +124,7 @@ public class BackendClient {
             ride.child("pickupDescription").setValue(jsonObject.getString("pickupDescription"));
             ride.child("dropoff").setValue(jsonObject.getString("dropoff").toString());
             ride.child("dropoffDescription").setValue(jsonObject.getString("dropoffDescription"));
-            ride.child("date").setValue(jsonObject.getString("date").toString());
+            ride.child("date").setValue(FormatHelper.toUploadFormat(jsonObject.getString("date").toString()));
             ride.child("time").setValue(jsonObject.getString("time").toString());
             ride.child("car").setValue(jsonObject.getString("car").toString());
             ride.child("seatsSize").setValue(jsonObject.getInt("seats"));

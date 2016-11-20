@@ -25,6 +25,7 @@ import com.google.firebase.storage.StorageReference;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.Iterator;
 
 /**
@@ -55,7 +56,7 @@ public class BackendClient {
 
     public void cleanDatabase() {
 
-        Query query = mRideDatabase.orderByChild("date");
+        final Query query = mRideDatabase.orderByChild("date");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -64,8 +65,18 @@ public class BackendClient {
 
                 while (iterator.hasNext()) {
 
-                    LoopRide ride = iterator.next().getValue(LoopRide.class);
-                    Log.i("RIDE", ride.getDate()+ "");
+                    DataSnapshot rideSnapshot = iterator.next();
+
+                    LoopRide ride = rideSnapshot.getValue(LoopRide.class);
+                    Date rideDate = new Date(ride.getDate());
+                    Date rightNow = new Date();
+
+                    //we have come to the soonest ride that has not passed, so stop iterating
+                    if (rideDate.after(rightNow)) {
+                        break;
+                    } else {
+                        rideSnapshot.getRef().removeValue();
+                    }
                 }
 
             }

@@ -77,6 +77,7 @@ public class RidesAdapter {
             }
         };
 
+
         return localRecyclerAdapter;
     }
 

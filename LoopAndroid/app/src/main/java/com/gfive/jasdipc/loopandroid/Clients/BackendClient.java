@@ -192,12 +192,7 @@ public class BackendClient {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                UserProfile user = new UserProfile();
-
-                user.email = dataSnapshot.child("email").getValue(String.class);
-                user.name = dataSnapshot.child("name").getValue(String.class);
-                user.phoneNumber = dataSnapshot.child("phoneNumber").getValue(String.class);
-                user.profilePictureURI = dataSnapshot.child("photo").getValue(String.class);
+                LoopUser user = dataSnapshot.getValue(LoopUser.class);
 
                 callback.onLookup(user);
             }

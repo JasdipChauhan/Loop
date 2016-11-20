@@ -1,5 +1,6 @@
 package com.gfive.jasdipc.loopandroid.Interfaces;
 
+import com.gfive.jasdipc.loopandroid.Models.LoopUser;
 import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 
 /**
@@ -7,5 +8,5 @@ import com.gfive.jasdipc.loopandroid.Models.UserProfile;
  */
 
 public interface ServerLookup {
-    void onLookup(UserProfile userProfile);
+    void onLookup(LoopUser userProfile);
 }

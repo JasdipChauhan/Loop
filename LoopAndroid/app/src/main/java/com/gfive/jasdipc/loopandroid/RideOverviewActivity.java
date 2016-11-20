@@ -100,7 +100,6 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
 
             UserProfile currentUser = ProfileManager.getInstance().getUserProfile();
 
-            //TODO: SINGLETON CALLED TWICE (THREAD SAFETY)
             BackendClient.getInstance().reserveRide(rideKey, currentUser, new ServerAction() {
                         @Override
                         public void response(boolean isSuccessful) {
@@ -108,7 +107,6 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
                             if (isSuccessful) {
                                 StorageManager.getInstance(RideOverviewActivity.this)
                                         .saveRiderRides(rideKey);
-
 
 
                             } else {

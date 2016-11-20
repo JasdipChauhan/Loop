@@ -7,12 +7,16 @@ import com.gfive.jasdipc.loopandroid.Interfaces.ServerLookup;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerPassback;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
+import com.gfive.jasdipc.loopandroid.Models.LoopRide;
+import com.gfive.jasdipc.loopandroid.Models.LoopUser;
 import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -70,7 +74,7 @@ public class BackendClient {
 
                 if (dataSnapshot.hasChild(user.id)) {
                     String phoneNumber = dataSnapshot.child(user.id).child("phoneNumber").getValue().toString();
-                    ProfileManager.getInstance().setPhoneNumber(phoneNumber);
+                    ProfileManager.getInstance().setupLoopUser(phoneNumber);
                     callback.response(true);
                 } else {
                     callback.response(false);
@@ -93,10 +97,13 @@ public class BackendClient {
         try {
 
             DatabaseReference userRef = mUserDatabase.child(user.getUid());
-            userRef.child("name").setValue(user.getDisplayName());
-            userRef.child("email").setValue(user.getEmail());
-            userRef.child("phoneNumber").setValue(phoneNumber);
-            userRef.child("photo").setValue(user.getPhotoUrl().toString());
+
+            LoopUser loopUser = new LoopUser(user.getEmail(),
+                    user.getDisplayName(),
+                    phoneNumber,
+                    user.getPhotoUrl().toString());
+
+            userRef.setValue(loopUser);
 
             callback.response(true);
         } catch (Exception e) {
@@ -105,7 +112,7 @@ public class BackendClient {
         }
     }
 
-    public void uploadRide(final ServerPassback callback, final UserProfile profile, JSONObject jsonObject) {
+    public void uploadRide(final ServerPassback callback, final LoopRide loopRide) {
 
         boolean onCreateSuccess = true;
         DatabaseReference ride = mRideDatabase.push();
@@ -113,29 +120,8 @@ public class BackendClient {
 
         try {
 
-            DatabaseReference driver = ride.child("driver");
-
-            driver.child("name").setValue(profile.name);
-            driver.child("photo").setValue(profile.profilePictureURI.toString());
-            driver.child("email").setValue(profile.email);
-            driver.child("phoneNumber").setValue(profile.phoneNumber);
-
-            ride.child("pickup").setValue(jsonObject.getString("pickup").toString());
-            ride.child("pickupDescription").setValue(jsonObject.getString("pickupDescription"));
-            ride.child("dropoff").setValue(jsonObject.getString("dropoff").toString());
-            ride.child("dropoffDescription").setValue(jsonObject.getString("dropoffDescription"));
-            ride.child("date").setValue(FormatHelper.toUploadFormat(jsonObject.getString("date").toString()));
-            ride.child("time").setValue(jsonObject.getString("time").toString());
-            ride.child("car").setValue(jsonObject.getString("car").toString());
-            ride.child("seatsSize").setValue(jsonObject.getInt("seats"));
-            ride.child("seatsLeft").setValue(jsonObject.getInt("seats"));
-            ride.child("price").setValue(jsonObject.getDouble("price"));
-
+            ride.setValue(loopRide);
             rideKey = ride.getKey();
-        } catch (JSONException e) {
-
-            e.printStackTrace();
-            onCreateSuccess = false;
 
         } catch (Exception e) {
 
@@ -148,50 +134,39 @@ public class BackendClient {
 
     public void reserveRide(final String rideID, final UserProfile user, final ServerAction callback) {
 
-        mRideDatabase.child(rideID).child("seatsLeft").addListenerForSingleValueEvent(new ValueEventListener() {
+        mRideDatabase.child(rideID).runTransaction(new Transaction.Handler() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public Transaction.Result doTransaction(MutableData mutableData) {
 
-                int seatsLeft;
-                try {
-                    seatsLeft = dataSnapshot.getValue(Integer.class);
+                LoopRide ride = mutableData.getValue(LoopRide.class);
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (ride == null) {
+                    Log.e("BACKEND", "COULD NOT RETRIEVE RIDE");
                     callback.response(false);
-                    return;
+                    return Transaction.success(mutableData);
                 }
 
-                seatsLeft--;
-
-
-                if (seatsLeft > 0 ) {
-
-                    mRideDatabase.child(rideID).child("seatsLeft").setValue(seatsLeft);
-
-                    DatabaseReference riderRef = mRideDatabase.child(rideID).child("riders").child(user.id);
-                    riderRef.child("email").setValue(user.email);
-                    riderRef.child("name").setValue(user.name);
-                    riderRef.child("phoneNumber").setValue(user.phoneNumber);
-                    riderRef.child("photo").setValue(user.profilePictureURI.toString());
-
-                    callback.response(true);
-                } else {
-                    //mRideDatabase.child(rideID).removeValue();
+                if (ride.getSeatsLeft() < 1) {
+                    Log.e("BACKEND", "Ride has no seats left");
                     callback.response(false);
+                    return Transaction.success(mutableData);
                 }
 
-                callback.response(false);
+                int newSeats = ride.getSeatsLeft() - 1;
+                ride.setSeatsLeft(newSeats);
+
+                LoopUser loopUser = ProfileManager.getInstance().getLoopUser();
+                ride.getRiders().put(user.id, loopUser);
+
+                mutableData.setValue(ride);
+
+                callback.response(true);
+                return Transaction.success(mutableData);
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                databaseError.toException().printStackTrace();
-                Log.e("API CODE:", Integer.toString(databaseError.getCode()));
-                Log.e("API MESSAGE:", databaseError.getMessage());
-                Log.e("API DETAILS:", databaseError.getDetails());
-
-                callback.response(false);
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                Log.d("BACKEND UPLOAD", "postTransaction:onComplete:" + databaseError);
             }
         });
 

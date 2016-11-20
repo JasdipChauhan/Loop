@@ -1,5 +1,6 @@
 package com.gfive.jasdipc.loopandroid.Managers;
 
+import com.gfive.jasdipc.loopandroid.Models.LoopUser;
 import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -11,6 +12,7 @@ public class ProfileManager {
     private static ProfileManager profileManager;
     private UserProfile userProfile;
     private FirebaseUser firebaseUser;
+    private LoopUser loopUser;
 
     private final int PROFILE_PICTURE_HEIGHT = 200;
     private final int PROFILE_PICTURE_WIDTH = 200;
@@ -25,6 +27,7 @@ public class ProfileManager {
 
     private ProfileManager() {
         userProfile = new UserProfile();
+        loopUser = new LoopUser();
     }
 
     public void setLocalUser(FirebaseUser profile) {
@@ -35,10 +38,16 @@ public class ProfileManager {
         userProfile.profilePictureURI = profile.getPhotoUrl().toString();
 
         firebaseUser = profile;
+
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setupLoopUser(String phoneNumber) {
         userProfile.phoneNumber = phoneNumber;
+
+        loopUser.setName(userProfile.name);
+        loopUser.setEmail(userProfile.email);
+        loopUser.setPhoto(userProfile.profilePictureURI);
+        loopUser.setPhoneNumber(phoneNumber);
     }
 
     public UserProfile getUserProfile() {
@@ -46,4 +55,6 @@ public class ProfileManager {
     }
 
     public FirebaseUser getFirebaseUser() {return firebaseUser;}
+
+    public LoopUser getLoopUser() {return loopUser;}
 }

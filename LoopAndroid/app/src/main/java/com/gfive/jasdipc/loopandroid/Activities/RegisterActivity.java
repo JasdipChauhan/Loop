@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 public void response(boolean isSuccessful) {
                                     if (isSuccessful) {
 
-                                        ProfileManager.getInstance().setPhoneNumber(phoneNumber);
+                                        ProfileManager.getInstance().setupLoopUser(phoneNumber);
 
                                         Intent i = new Intent(RegisterActivity.this, RidesActivity.class);
                                         startActivity(i);

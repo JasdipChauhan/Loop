@@ -29,6 +29,8 @@ import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerPassback;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
+import com.gfive.jasdipc.loopandroid.Models.LoopRide;
+import com.gfive.jasdipc.loopandroid.Models.LoopUser;
 import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.gfive.jasdipc.loopandroid.R;
 
@@ -196,24 +198,22 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
 
         try {
 
-            profile = ProfileManager.getInstance().getUserProfile();
+            LoopUser loopUser = ProfileManager.getInstance().getLoopUser();
 
-            rideJSONMap.put("name", profile.name);
-            rideJSONMap.put("email", profile.email);
-            rideJSONMap.put("phoneNumber", profile.phoneNumber);
-            rideJSONMap.put("pickup", pickupString);
-            rideJSONMap.put("dropoff", dropoffString);
-            rideJSONMap.put("date", rideDateJSON);
-            rideJSONMap.put("time", rideTimeJSON);
-            rideJSONMap.put("seats", rideCapacity);
-            rideJSONMap.put("car", rideCarJSON);
-            rideJSONMap.put("price", ridePriceJSON);
-            rideJSONMap.put("pickupDescription", pickupDesJSON);
-            rideJSONMap.put("dropoffDescription", dropoffDesJSON);
+            LoopRide loopRide = new LoopRide();
+            loopRide.setPickup(pickupString);
+            loopRide.setDropoff(dropoffString);
+            loopRide.setDate(FormatHelper.toUploadFormat(rideDateJSON));
+            loopRide.setTime(rideTimeJSON);
+            loopRide.setSeatsSize(rideCapacity);
+            loopRide.setSeatsLeft(rideCapacity);
+            loopRide.setCar(rideCarJSON);
+            loopRide.setPrice(ridePriceJSON);
+            loopRide.setPickupDescription(pickupDesJSON);
+            loopRide.setDropoffDescription(dropoffDesJSON);
+            loopRide.setDriver(loopUser);
 
-            UserProfile userProfile = ProfileManager.getInstance().getUserProfile();
-
-            BackendClient.getInstance().uploadRide(this, userProfile, rideJSONMap);
+            BackendClient.getInstance().uploadRide(this, loopRide);
         } catch (Exception e) {
             e.printStackTrace();
         }

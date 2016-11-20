@@ -15,10 +15,10 @@ MAYBE
 
 BUGS
 - driver fragment has some sort of top margin
-- double backend call for ride reservation
 
 DONE
 
+- double backend call for ride reservation (fixed using transactions)
 - refactor (directory management, delete obsolete code)
 - don't make adapters a singleton pattern
 - ride date input incorrect

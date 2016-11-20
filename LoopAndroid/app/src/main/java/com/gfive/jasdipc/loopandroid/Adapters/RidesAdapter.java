@@ -31,16 +31,7 @@ public class RidesAdapter {
     private FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> firebaseRecyclerAdapter;
     private FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> localRecyclerAdapter;
 
-    public static RidesAdapter getInstance(Context mContext, DatabaseReference mReference) {
-
-        if (ridesAdapter == null) {
-            ridesAdapter = new RidesAdapter(mContext, mReference);
-        }
-
-        return ridesAdapter;
-    }
-
-    private RidesAdapter(final Context mContext, DatabaseReference mReference) {
+    public RidesAdapter(final Context mContext, DatabaseReference mReference) {
         this.mContext = mContext;
         this.mReference = mReference;
 

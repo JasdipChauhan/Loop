@@ -57,7 +57,7 @@ public class MyRidesFragment extends Fragment {
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Ride");
         mSavedRides = StorageManager.getInstance(getContext()).getRiderRides();
-        mRidesAdapter = RidesAdapter.getInstance(getContext(), mDatabaseReference);
+        mRidesAdapter = new RidesAdapter(getContext(), mDatabaseReference);
 
     }
 

@@ -52,7 +52,7 @@ public class AllRidesFragment extends Fragment  {
         super.onCreate(savedInstanceState);
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Ride");
-        mRidesAdapter = RidesAdapter.getInstance(getContext(), mDatabaseReference);
+        mRidesAdapter = new RidesAdapter(getContext(), mDatabaseReference);
     }
 
     @Override

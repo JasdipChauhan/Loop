@@ -12,7 +12,6 @@ IN PROGRESS
 - filtering of filled rides 
 
 MAYBE
-- refactor (directory management, delete obsolete code)
 
 BUGS
 - driver fragment has some sort of top margin
@@ -20,6 +19,8 @@ BUGS
 
 DONE
 
+- refactor (directory management, delete obsolete code)
+- don't make adapters a singleton pattern
 - ride date input incorrect
 - tabs
 - migrate to fragments for all rides and my rides to allow for switching between tabs

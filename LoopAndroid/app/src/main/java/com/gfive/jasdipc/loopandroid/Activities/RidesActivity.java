@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.gfive.jasdipc.loopandroid.Adapters.PagerAdapter;
 import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
+import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Fragments.Tabs.AllRidesFragment;
 import com.gfive.jasdipc.loopandroid.Fragments.Tabs.DriverRidesFragment;
 import com.gfive.jasdipc.loopandroid.Fragments.Tabs.MyRidesFragment;
@@ -41,6 +42,8 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rides);
+
+        BackendClient.getInstance().cleanDatabase();
 
         getSupportActionBar().setElevation(0);
 

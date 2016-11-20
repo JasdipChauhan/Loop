@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -23,6 +24,8 @@ import com.google.firebase.storage.StorageReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Iterator;
 
 /**
  * Created by jasdip on 2016-10-27.
@@ -52,16 +55,24 @@ public class BackendClient {
 
     public void cleanDatabase() {
 
-        mRideDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query query = mRideDatabase.orderByChild("date");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
+
+                while (iterator.hasNext()) {
+
+                    LoopRide ride = iterator.next().getValue(LoopRide.class);
+                    Log.i("RIDE", ride.getDate()+ "");
+                }
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                databaseError.toException().printStackTrace();
             }
         });
     }

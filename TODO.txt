@@ -1,6 +1,5 @@
 TODO
 
-- delete past ride dates
 - custom toolbar
 - current user profile view on navigation bar
 - android splash screen
@@ -8,7 +7,8 @@ TODO
 - loop website???
 
 IN PROGRESS
-
+- incorporating time into backend date var
+- banner showing ride dates for grouping
 - filtering of filled rides 
 
 MAYBE
@@ -18,6 +18,8 @@ BUGS
 
 DONE
 
+- delete past ride dates
+- filtering of soonest rides 
 - double backend call for ride reservation (fixed using transactions)
 - refactor (directory management, delete obsolete code)
 - don't make adapters a singleton pattern

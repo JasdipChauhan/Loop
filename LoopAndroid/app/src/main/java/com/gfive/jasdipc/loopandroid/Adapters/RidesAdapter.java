@@ -13,6 +13,7 @@ import com.gfive.jasdipc.loopandroid.Models.LoopRide;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -35,12 +36,14 @@ public class RidesAdapter {
         this.mContext = mContext;
         this.mReference = mReference;
 
+        final Query query = mReference.orderByChild("date");
+
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<LoopRide, RidesViewHolder>(
 
                 LoopRide.class,
                 R.layout.ride_card,
                 RidesViewHolder.class,
-                mReference
+                query
         ) {
             @Override
             protected void populateViewHolder(final RidesViewHolder holder, LoopRide model, int position) {
@@ -55,11 +58,13 @@ public class RidesAdapter {
 
     public FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> getLocalRecyclerAdapter(final Set<String> savedRides) {
 
+        final Query query = mReference.orderByChild("date");
+
         localRecyclerAdapter = new FirebaseRecyclerAdapter<LoopRide, RidesViewHolder>(
                 LoopRide.class,
                 R.layout.ride_card,
                 RidesViewHolder.class,
-                mReference
+                query
 
         ) {
             @Override

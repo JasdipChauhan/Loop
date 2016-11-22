@@ -8,12 +8,12 @@ TODO
 
 IN PROGRESS
 - incorporating time into backend date var
-- banner showing ride dates for grouping
-- filtering of filled rides 
 
 MAYBE
+- banner showing ride dates for grouping
 
 BUGS
+- date adds an extra day to long variable
 - driver fragment has some sort of top margin
 
 DONE

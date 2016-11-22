@@ -193,9 +193,6 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
 
         uploadProgress = new ProgressDialog(getActivity());
 
-        JSONObject rideJSONMap = new JSONObject();
-        UserProfile profile;
-
         try {
 
             LoopUser loopUser = ProfileManager.getInstance().getLoopUser();
@@ -203,7 +200,7 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
             LoopRide loopRide = new LoopRide();
             loopRide.setPickup(pickupString);
             loopRide.setDropoff(dropoffString);
-            loopRide.setDate(FormatHelper.toUploadFormat(rideDateJSON));
+            loopRide.setDate(FormatHelper.toUploadFormat(rideDateJSON, rideTimeJSON));
             loopRide.setTime(rideTimeJSON);
             loopRide.setSeatsSize(rideCapacity);
             loopRide.setSeatsLeft(rideCapacity);

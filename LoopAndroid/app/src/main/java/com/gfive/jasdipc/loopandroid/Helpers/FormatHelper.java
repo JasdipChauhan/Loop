@@ -10,6 +10,8 @@ import java.util.Date;
 
 public class FormatHelper {
 
+    public static final long HOUR = 3600*1000; // in milli-seconds.
+
     public static String getReadableDate(String dateString) {
 
         try {
@@ -58,7 +60,7 @@ public class FormatHelper {
         return date;
     }
 
-    public static long toUploadFormat(String dateStr) {
+    public static long toUploadFormat(String dateStr, String readableTime) {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy");
 
@@ -71,7 +73,7 @@ public class FormatHelper {
             e.printStackTrace();
         }
 
-        return dateLong;
+        return addTimeToDate(dateLong, readableTime);
     }
 
     public static String toReadableFormat(long dateLong) {
@@ -89,5 +91,35 @@ public class FormatHelper {
         }
 
         return "";
+    }
+
+    private static long addTimeToDate(long date, String readableTime) {
+
+        SimpleDateFormat time12Format = new SimpleDateFormat("hh:mm a");
+
+        try {
+            Date timeDate = time12Format.parse(readableTime);
+            long timeLong = timeDate.getTime();
+            date += timeLong;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return date;
+    }
+
+    private static Date getUploadTime(String readableTime) {
+
+        SimpleDateFormat sdf12 = new SimpleDateFormat("hh:mm a");
+
+        try {
+            return sdf12.parse(readableTime);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new Date();
     }
 }

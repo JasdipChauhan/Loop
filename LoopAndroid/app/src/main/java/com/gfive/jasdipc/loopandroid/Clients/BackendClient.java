@@ -62,8 +62,9 @@ public class BackendClient {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
+                boolean noMoreDeadlines = false;
 
-                while (iterator.hasNext()) {
+                while (iterator.hasNext() && !noMoreDeadlines) {
 
                     DataSnapshot rideSnapshot = iterator.next();
 
@@ -71,10 +72,11 @@ public class BackendClient {
                     Date rideDate = new Date(ride.getDate());
                     Date rightNow = new Date();
 
-                    //we have come to the soonest ride that has not passed, so stop iterating
                     if (rideDate.after(rightNow)) {
-                        break;
+                        //we have come to the soonest ride that has not passed, so stop iterating
+                        noMoreDeadlines = true;
                     } else {
+                        //could be more rides that have a past deadline so iterate again
                         rideSnapshot.getRef().removeValue();
                     }
                 }

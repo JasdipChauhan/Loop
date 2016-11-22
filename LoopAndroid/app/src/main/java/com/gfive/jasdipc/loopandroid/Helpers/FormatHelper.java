@@ -2,7 +2,9 @@ package com.gfive.jasdipc.loopandroid.Helpers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by JasdipC on 2016-10-08.
@@ -10,7 +12,11 @@ import java.util.Date;
 
 public class FormatHelper {
 
-    public static final long HOUR = 3600*1000; // in milli-seconds.
+    public static final long MINUTE_MILLI = TimeUnit.MILLISECONDS.convert(1, TimeUnit.MINUTES);
+    public static final long HOUR_MILLI = TimeUnit.MILLISECONDS.convert(1, TimeUnit.HOURS);
+    public static final long DAY_MILLI = TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS);
+
+    //public static final long HOUR_MILLI = 3600*1000; // in milli-seconds.
 
     public static String getReadableDate(String dateString) {
 
@@ -98,9 +104,14 @@ public class FormatHelper {
         SimpleDateFormat time12Format = new SimpleDateFormat("hh:mm a");
 
         try {
+
             Date timeDate = time12Format.parse(readableTime);
-            long timeLong = timeDate.getTime();
-            date += timeLong;
+            long timeLong = 0;
+
+            timeLong += timeDate.getHours() * HOUR_MILLI;
+            timeLong += timeDate.getMinutes() * MINUTE_MILLI;
+
+            date = date + timeLong;
 
         } catch (Exception e) {
             e.printStackTrace();

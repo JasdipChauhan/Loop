@@ -13,11 +13,11 @@ MAYBE
 - banner showing ride dates for grouping
 
 BUGS
-- date adds an extra day to long variable
 - driver fragment has some sort of top margin
 
 DONE
 
+- date adds an extra day to long variable
 - delete past ride dates
 - filtering of soonest rides 
 - double backend call for ride reservation (fixed using transactions)

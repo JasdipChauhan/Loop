@@ -7,7 +7,7 @@ TODO
 - loop website???
 
 IN PROGRESS
-- incorporating time into backend date var
+- add rides to user profile on firebase db
 
 MAYBE
 - banner showing ride dates for grouping
@@ -17,6 +17,7 @@ BUGS
 
 DONE
 
+- incorporating time into backend date var
 - date adds an extra day to long variable
 - delete past ride dates
 - filtering of soonest rides 

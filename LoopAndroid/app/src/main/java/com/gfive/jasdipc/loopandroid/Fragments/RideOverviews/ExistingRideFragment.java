@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -76,6 +79,8 @@ public class ExistingRideFragment extends Fragment {
             mRide = getArguments().getParcelable(RIDE_PARAM);
             mRideKey = getArguments().getString(RIDE_KEY_PARAM);
         }
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -168,5 +173,27 @@ public class ExistingRideFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_book_ride:
+                reserveButton.callOnClick();
+                break;
+            default:
+                break;
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.book_ride_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

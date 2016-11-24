@@ -8,6 +8,9 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -93,7 +96,7 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -316,5 +319,26 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
         }
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_create_ride:
+                createButton.callOnClick();
+                break;
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.create_ride_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

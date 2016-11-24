@@ -82,7 +82,7 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
             pickup = ride.getPickup();
             dropoff = ride.getDropoff();
 
-            existingRideFragment = ExistingRideFragment.newInstance(ride);
+            existingRideFragment = ExistingRideFragment.newInstance(ride, rideKey);
             transaction.replace(R.id.ride_frame, existingRideFragment);
         } else {
             setTitle(getString(R.string.create_ride_title));
@@ -189,6 +189,8 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
         getMenuInflater().inflate(R.menu.book_ride_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

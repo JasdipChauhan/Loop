@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gfive.jasdipc.loopandroid.Helpers.FormatHelper;
+import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
 import com.gfive.jasdipc.loopandroid.Models.LoopRide;
 import com.gfive.jasdipc.loopandroid.R;
 
@@ -27,8 +29,10 @@ import com.gfive.jasdipc.loopandroid.R;
  */
 public class ExistingRideFragment extends Fragment {
 
-    private static final String RIDE_PARAM = "RIDE_KEY";
+    private static final String RIDE_PARAM = "RIDE";
+    private static final String RIDE_KEY_PARAM = "RIDE_KEY";
     private LoopRide mRide;
+    private String mRideKey;
 
     private OnFragmentInteractionListener mListener;
 
@@ -55,10 +59,11 @@ public class ExistingRideFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static ExistingRideFragment newInstance(LoopRide mRide) {
+    public static ExistingRideFragment newInstance(LoopRide mRide, String mRideKey) {
         ExistingRideFragment fragment = new ExistingRideFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(RIDE_PARAM, mRide);
+        bundle.putString(RIDE_KEY_PARAM, mRideKey);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -69,6 +74,7 @@ public class ExistingRideFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mRide = getArguments().getParcelable(RIDE_PARAM);
+            mRideKey = getArguments().getString(RIDE_KEY_PARAM);
         }
     }
 
@@ -114,6 +120,11 @@ public class ExistingRideFragment extends Fragment {
             }
 
             riders[i].setVisibility(View.VISIBLE);
+        }
+
+        if (StorageManager.getInstance(getContext()).isAlreadySaved(mRideKey)) {
+            reserveButton.setText("Booked");
+            reserveButton.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.created_bg));
         }
 
         return view;

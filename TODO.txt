@@ -7,10 +7,11 @@ TODO
 - loop website???
 
 IN PROGRESS
-- add rides to user profile on firebase db
+- rides activity/card styling
 
 MAYBE
 - banner showing ride dates for grouping
+- add rides to user profile on firebase db 
 
 BUGS
 - driver fragment has some sort of top margin

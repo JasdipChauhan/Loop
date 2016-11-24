@@ -13,6 +13,10 @@
     <color name="textSecondary">#80FFFFFF</color>
     <color name="dark_jungle">#202020</color>
 
+    <!-- RIDES CARD -->
+    <color name="my_ride_color">@color/colorAccentShadow</color>
+
+
     <!-- -->
 
     <color name="textColor">#212121</color>

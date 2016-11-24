@@ -85,4 +85,15 @@ public class StorageManager {
         return savedRides;
     }
 
+    public boolean isAlreadySaved(String rideID) {
+
+        Set<String> savedRides = mPref.getStringSet(RIDER_KEY, new HashSet<String>());
+        if (savedRides.contains(rideID)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 }

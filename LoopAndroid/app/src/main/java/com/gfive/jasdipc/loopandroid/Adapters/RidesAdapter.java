@@ -74,7 +74,7 @@ public class RidesAdapter {
                 String ref = getRef(position).getKey().toString();
                 if (!savedRides.contains(ref)) {
                     holder.cardLayout.setVisibility(View.GONE);
-
+                    holder.cost.setVisibility(View.GONE);
                     return;
                 }
 

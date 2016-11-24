@@ -5,6 +5,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -105,12 +106,20 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
                         public void response(boolean isSuccessful) {
 
                             if (isSuccessful) {
+
+                                if (StorageManager.getInstance(RideOverviewActivity.this).isAlreadySaved(rideKey)) {
+                                    Snackbar.make(findViewById(R.id.ride_overview_layout), R.string.already_booked_snackbar, Snackbar.LENGTH_SHORT).show();
+                                    return;
+                                }
+
                                 StorageManager.getInstance(RideOverviewActivity.this)
                                         .saveRiderRides(rideKey);
 
+                                Snackbar.make(findViewById(R.id.ride_overview_layout), R.string.book_ride_success, Snackbar.LENGTH_SHORT).show();
+
 
                             } else {
-                                Toast.makeText(RideOverviewActivity.this, "Ride is full", Toast.LENGTH_SHORT).show();
+                                Snackbar.make(findViewById(R.id.ride_overview_layout), R.string.full_ride_snackbar, Snackbar.LENGTH_SHORT).show();
                             }
 
                         }

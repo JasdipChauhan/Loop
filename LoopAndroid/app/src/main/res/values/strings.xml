@@ -26,6 +26,8 @@
     <string name="all_rides_page_title">ALL</string>
     <string name="driver_rides_page_title">DRIVER</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--RIDE OVERVIEW FEEDBACK SNACKBARS-->
+    <string name="already_booked_snackbar">You have already booked this ride</string>
+    <string name="full_ride_snackbar">Ride is full</string>
+    <string name="book_ride_success">Successfully booked ride!</string>
 </resources>

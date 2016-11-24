@@ -180,9 +180,11 @@ public class BackendClient {
                 ride.setSeatsLeft(newSeats);
 
                 LoopUser loopUser = ProfileManager.getInstance().getLoopUser();
-                ride.getRiders().put(user.id, loopUser);
 
-                mutableData.setValue(ride);
+                if (!ride.getRiders().containsKey(user.id)) {
+                    ride.getRiders().put(user.id, loopUser);
+                    mutableData.setValue(ride);
+                }
 
                 callback.response(true);
                 return Transaction.success(mutableData);

@@ -132,12 +132,12 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
         riderIMG6 = (ImageView) view.findViewById(R.id.create_rider6);
 
         ArrayAdapter<CharSequence> pickupAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.location_array, android.R.layout.simple_spinner_item);
+                R.array.location_array, R.layout.spinner_item);
         pickupAdapter.setDropDownViewResource(R.layout.location_spinner_dropdown_item);
         pickupSpinner.setAdapter(pickupAdapter);
 
         ArrayAdapter<CharSequence> dropoffAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.location_array, android.R.layout.simple_spinner_item);
+                R.array.location_array, R.layout.spinner_item);
         dropoffAdapter.setDropDownViewResource(R.layout.location_spinner_dropdown_item);
         dropoffSpinner.setAdapter(dropoffAdapter);
 

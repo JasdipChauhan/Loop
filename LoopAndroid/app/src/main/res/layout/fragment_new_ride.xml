@@ -83,7 +83,6 @@
                 <ImageView
                     style="@style/chevron"/>
 
-
             </RelativeLayout>
 
             <View
@@ -117,6 +116,10 @@
                     style="@style/spinners"
                 />
 
+
+                <ImageView
+                    style="@style/chevron"/>
+
                 <!--<TextView-->
                     <!--android:id="@+id/ride_pickup"-->
                     <!--android:text="@string/pickup_edit_text"-->
@@ -142,6 +145,7 @@
                     android:src="@drawable/address"
                     android:id="@+id/address_asset"
                     style="@style/detail_asset"
+                    android:padding="4dp"
                     />
 
                 <TextView
@@ -164,12 +168,11 @@
                     android:id="@+id/dropoff_spinner"
                     android:layout_below="@+id/dropoff_header"
                     android:layout_alignLeft="@+id/dropoff_header"
-
                     style="@style/spinners"
                     />
 
-                <!--<ImageView-->
-                    <!--style="@style/chevron"/>-->
+                <ImageView
+                    style="@style/chevron"/>
 
             </RelativeLayout>
 

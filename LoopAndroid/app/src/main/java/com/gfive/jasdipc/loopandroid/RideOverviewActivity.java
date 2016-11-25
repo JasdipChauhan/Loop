@@ -7,13 +7,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.gfive.jasdipc.loopandroid.Activities.RiderActivity;
 import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
@@ -29,10 +29,13 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.List;
 
@@ -79,12 +82,13 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
             ride = intent.getParcelableExtra("ride");
             rideKey = intent.getStringExtra("rideKey");
 
-            pickup = ride.getPickup();
-            dropoff = ride.getDropoff();
+            pickup = ride.getPickup().concat(", Ontario, Canada");
+            dropoff = ride.getDropoff().concat(", Ontario, Canada");
 
             existingRideFragment = ExistingRideFragment.newInstance(ride, rideKey);
             transaction.replace(R.id.ride_frame, existingRideFragment);
         } else {
+
             setTitle(getString(R.string.create_ride_title));
             newRideFragment = NewRideFragment.newInstance();
             transaction.replace(R.id.ride_frame, newRideFragment);
@@ -214,22 +218,19 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
 
     @Override
     public void onPickupSelected(String location) {
-        pickup = location.concat(", Ontario, Canada");
         mMap.clear();
         plotMap();
-        Log.i("pickupSelected", "selected");
     }
 
     @Override
     public void onDropoffSelected(String location) {
-        dropoff = location.concat(", Ontario, Canada");
         mMap.clear();
         plotMap();
-        Log.i("dropoff selected", "selected");
     }
 
     private void plotMap() {
         Geocoder geocoder = new Geocoder(RideOverviewActivity.this);
+
         try {
             List<Address> pickupAddressList = geocoder.getFromLocationName(pickup, 1);
             List<Address> dropoffAddressList = geocoder.getFromLocationName(dropoff, 1);
@@ -240,8 +241,24 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
             LatLng pickupCoordinates = new LatLng(pickupAddress.getLatitude(), pickupAddress.getLongitude());
             LatLng dropoffCoordinates = new LatLng(dropoffAddress.getLatitude(), dropoffAddress.getLongitude());
 
-            pickupMarker = mMap.addMarker(new MarkerOptions().position(pickupCoordinates).title("Pickup"));
-            dropoffMarker = mMap.addMarker(new MarkerOptions().position(dropoffCoordinates).title("Dropoff"));
+            BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromResource(R.drawable.map_pin);
+
+            pickupMarker = mMap.addMarker(new MarkerOptions()
+                    .position(pickupCoordinates)
+                    .title("Pickup")
+                    .icon(markerIcon));
+
+            dropoffMarker = mMap.addMarker(new MarkerOptions()
+                    .position(dropoffCoordinates)
+                    .title("Dropoff")
+                    .icon(markerIcon));
+
+
+            mMap.addPolyline(new PolylineOptions()
+                    .add(pickupMarker.getPosition(), dropoffMarker.getPosition())
+                    .width(5)
+                    .color(ContextCompat.getColor(this, R.color.colorAccentShadow))
+                    .geodesic(true));
 
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             builder.include(pickupMarker.getPosition());

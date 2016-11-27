@@ -9,7 +9,6 @@ import com.gfive.jasdipc.loopandroid.Interfaces.ServerPassback;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Models.LoopRide;
 import com.gfive.jasdipc.loopandroid.Models.LoopUser;
-import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -90,14 +89,14 @@ public class BackendClient {
         });
     }
 
-    public void doesUserExist(final UserProfile user, final ServerAction callback) {
+    public void doesUserExist(final FirebaseUser user, final ServerAction callback) {
 
         mUserDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if (dataSnapshot.hasChild(user.id)) {
-                    String phoneNumber = dataSnapshot.child(user.id).child("phoneNumber").getValue().toString();
+                if (dataSnapshot.hasChild(user.getUid())) {
+                    String phoneNumber = dataSnapshot.child(user.getUid()).child("phoneNumber").getValue().toString();
                     ProfileManager.getInstance().setupLoopUser(phoneNumber);
                     callback.response(true);
                 } else {
@@ -158,7 +157,7 @@ public class BackendClient {
         callback.response(onCreateSuccess, rideKey);
     }
 
-    public void reserveRide(final String rideID, final UserProfile user, final ServerAction callback) {
+    public void reserveRide(final String rideID, final LoopUser user, final ServerAction callback) {
 
         mRideDatabase.child(rideID).runTransaction(new Transaction.Handler() {
             @Override
@@ -183,8 +182,8 @@ public class BackendClient {
 
                 LoopUser loopUser = ProfileManager.getInstance().getLoopUser();
 
-                if (!ride.getRiders().containsKey(user.id)) {
-                    ride.getRiders().put(user.id, loopUser);
+                if (!ride.getRiders().containsKey(user.getUuid())) {
+                    ride.getRiders().put(user.getUuid(), loopUser);
                     mutableData.setValue(ride);
                 }
 

@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
         ProfileManager.getInstance().setLocalUser(user);
 
         BackendClient.getInstance().doesUserExist(
-                ProfileManager.getInstance().getUserProfile(),
+                user,
                 new ServerAction() {
                     @Override
                     public void response(boolean userExists) {

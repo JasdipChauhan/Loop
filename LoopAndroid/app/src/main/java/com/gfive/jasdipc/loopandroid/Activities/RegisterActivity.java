@@ -13,8 +13,8 @@ import android.widget.Toast;
 import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
-import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.gfive.jasdipc.loopandroid.R;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -36,12 +36,12 @@ public class RegisterActivity extends AppCompatActivity {
         mRegisterPhoneNumber = (EditText) findViewById(R.id.register_phone_number);
         mRegisterButton = (Button) findViewById(R.id.register_button);
 
-        UserProfile currentUser = ProfileManager.getInstance().getUserProfile();
+        FirebaseUser currentUser = ProfileManager.getInstance().getFirebaseUser();
 
-        Picasso.with(RegisterActivity.this).load(currentUser.profilePictureURI)
+        Picasso.with(RegisterActivity.this).load(currentUser.getPhotoUrl().toString())
                 .into(mRegisterImage);
-        mRegisterName.setText(currentUser.name);
-        mRegisterEmail.setText(currentUser.email);
+        mRegisterName.setText(currentUser.getDisplayName());
+        mRegisterEmail.setText(currentUser.getEmail());
 
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override

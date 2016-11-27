@@ -1,7 +1,6 @@
 package com.gfive.jasdipc.loopandroid.Managers;
 
 import com.gfive.jasdipc.loopandroid.Models.LoopUser;
-import com.gfive.jasdipc.loopandroid.Models.UserProfile;
 import com.google.firebase.auth.FirebaseUser;
 
 /**
@@ -10,7 +9,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class ProfileManager {
 
     private static ProfileManager profileManager;
-    private UserProfile userProfile;
     private FirebaseUser firebaseUser;
     private LoopUser loopUser;
 
@@ -26,33 +24,20 @@ public class ProfileManager {
     }
 
     private ProfileManager() {
-        userProfile = new UserProfile();
         loopUser = new LoopUser();
     }
 
     public void setLocalUser(FirebaseUser profile) {
-
-        userProfile.id = profile.getUid();
-        userProfile.name = profile.getDisplayName();
-        userProfile.email = profile.getEmail();
-        userProfile.profilePictureURI = profile.getPhotoUrl().toString();
-
         firebaseUser = profile;
-
     }
 
     public void setupLoopUser(String phoneNumber) {
-        userProfile.phoneNumber = phoneNumber;
 
-        loopUser.setUuid(userProfile.id);
-        loopUser.setName(userProfile.name);
-        loopUser.setEmail(userProfile.email);
-        loopUser.setPhoto(userProfile.profilePictureURI);
+        loopUser.setUuid(firebaseUser.getUid());
+        loopUser.setName(firebaseUser.getDisplayName());
+        loopUser.setEmail(firebaseUser.getEmail());
+        loopUser.setPhoto(firebaseUser.getPhotoUrl().toString());
         loopUser.setPhoneNumber(phoneNumber);
-    }
-
-    public UserProfile getUserProfile() {
-        return userProfile;
     }
 
     public FirebaseUser getFirebaseUser() {return firebaseUser;}

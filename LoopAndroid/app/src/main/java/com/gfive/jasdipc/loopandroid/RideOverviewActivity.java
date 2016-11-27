@@ -24,7 +24,7 @@ import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
 import com.gfive.jasdipc.loopandroid.Models.LoopRide;
-import com.gfive.jasdipc.loopandroid.Models.UserProfile;
+import com.gfive.jasdipc.loopandroid.Models.LoopUser;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -103,7 +103,7 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
 
         if (!TextUtils.isEmpty(rideKey)) {
 
-            UserProfile currentUser = ProfileManager.getInstance().getUserProfile();
+            LoopUser currentUser = ProfileManager.getInstance().getLoopUser();
 
             BackendClient.getInstance().reserveRide(rideKey, currentUser, new ServerAction() {
                         @Override

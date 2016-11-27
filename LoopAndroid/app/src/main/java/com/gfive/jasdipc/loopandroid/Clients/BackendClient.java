@@ -122,7 +122,9 @@ public class BackendClient {
 
             DatabaseReference userRef = mUserDatabase.child(user.getUid());
 
-            LoopUser loopUser = new LoopUser(user.getEmail(),
+            LoopUser loopUser = new LoopUser(
+                    user.getUid(),
+                    user.getEmail(),
                     user.getDisplayName(),
                     phoneNumber,
                     user.getPhotoUrl().toString());
@@ -195,6 +197,10 @@ public class BackendClient {
                 Log.d("BACKEND UPLOAD", "postTransaction:onComplete:" + databaseError);
             }
         });
+
+    }
+
+    public void isMyRide(String rideID) {
 
     }
 

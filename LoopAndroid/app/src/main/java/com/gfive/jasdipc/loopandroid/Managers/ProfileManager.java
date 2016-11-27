@@ -44,6 +44,7 @@ public class ProfileManager {
     public void setupLoopUser(String phoneNumber) {
         userProfile.phoneNumber = phoneNumber;
 
+        loopUser.setUuid(userProfile.id);
         loopUser.setName(userProfile.name);
         loopUser.setEmail(userProfile.email);
         loopUser.setPhoto(userProfile.profilePictureURI);

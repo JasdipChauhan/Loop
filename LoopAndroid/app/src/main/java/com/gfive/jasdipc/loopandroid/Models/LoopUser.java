@@ -9,6 +9,7 @@ import android.os.Parcelable;
 
 public class LoopUser implements Parcelable {
 
+    private String uuid;
     private String email;
     private String name;
     private String phoneNumber;
@@ -17,13 +18,15 @@ public class LoopUser implements Parcelable {
     //CONSTRUCTORS
 
     public LoopUser() {
+        uuid = "";
         email = "";
         name = "";
         phoneNumber = "";
         photo = "";
     }
 
-    public LoopUser(String email, String name, String phoneNumber, String photo) {
+    public LoopUser(String uuid, String email, String name, String phoneNumber, String photo) {
+        this.uuid = uuid;
         this.email = email;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -31,6 +34,14 @@ public class LoopUser implements Parcelable {
     }
 
     //GETTER AND SETTERS
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getEmail() {
         return email;
@@ -64,6 +75,10 @@ public class LoopUser implements Parcelable {
         this.photo = photo;
     }
 
+    public static Creator<LoopUser> getCREATOR() {
+        return CREATOR;
+    }
+
     //Parcelable
 
     @Override
@@ -73,6 +88,7 @@ public class LoopUser implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.uuid);
         dest.writeString(this.email);
         dest.writeString(this.name);
         dest.writeString(this.phoneNumber);
@@ -80,13 +96,14 @@ public class LoopUser implements Parcelable {
     }
 
     protected LoopUser(Parcel in) {
+        this.uuid = in.readString();
         this.email = in.readString();
         this.name = in.readString();
         this.phoneNumber = in.readString();
         this.photo = in.readString();
     }
 
-    public static final Parcelable.Creator<LoopUser> CREATOR = new Parcelable.Creator<LoopUser>() {
+    public static final Creator<LoopUser> CREATOR = new Creator<LoopUser>() {
         @Override
         public LoopUser createFromParcel(Parcel source) {
             return new LoopUser(source);

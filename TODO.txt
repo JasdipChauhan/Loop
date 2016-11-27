@@ -7,6 +7,8 @@ TODO
 - loop website???
 
 IN PROGRESS
+- drivers cannot sign up to be their own riders
+- on showing number of passengers
 - rides activity/card styling
 
 MAYBE
@@ -14,7 +16,7 @@ MAYBE
 - add rides to user profile on firebase db 
 
 BUGS
-- driver fragment has some sort of top margin
+- driver fragment has some sort of top margin (cannot replicate)
 
 DONE
 

@@ -1,5 +1,6 @@
 package com.gfive.jasdipc.loopandroid.Fragments.RideOverviews;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -23,6 +24,7 @@ import com.gfive.jasdipc.loopandroid.Activities.RiderActivity;
 import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Helpers.FormatHelper;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerPassback;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
 import com.gfive.jasdipc.loopandroid.Models.LoopRide;
@@ -115,7 +117,7 @@ public class ExistingRideFragment extends Fragment {
         riderIMG6 = (ImageView) view.findViewById(R.id.rider6);
         riders = new ImageView[]{riderIMG1, riderIMG2, riderIMG3, riderIMG4, riderIMG5, riderIMG6};
 
-        rideDate.setText(FormatHelper.getReadableDate(FormatHelper.toReadableFormat(mRide.getDate())));
+        rideDate.setText(FormatHelper.toReadableFormat(mRide.getDate()));
         rideTime.setText(FormatHelper.getReadableTime(mRide.getTime()));
         ridePickup.setText(mRide.getPickup());
         rideDropoff.setText(mRide.getDropoff());
@@ -136,8 +138,7 @@ public class ExistingRideFragment extends Fragment {
         }
 
         if (StorageManager.getInstance(getContext()).isAlreadySaved(mRideKey)) {
-            reserveButton.setText("Booked");
-            reserveButton.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.created_bg));
+            setRideToBooked();
         }
 
         return view;
@@ -155,17 +156,19 @@ public class ExistingRideFragment extends Fragment {
                     if (isSuccessful) {
 
                         if (StorageManager.getInstance(getContext()).isAlreadySaved(mRideKey)) {
-                            Snackbar.make(getView().findViewById(R.id.ride_overview_layout), R.string.already_booked_snackbar, Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(getView().findViewById(R.id.scroll_view), R.string.already_booked_snackbar, Snackbar.LENGTH_SHORT).show();
                             return;
                         }
 
                         StorageManager.getInstance(getContext())
                                 .saveRiderRides(mRideKey);
 
-                        Snackbar.make(getView().findViewById(R.id.ride_overview_layout), R.string.book_ride_success, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(getView().findViewById(R.id.scroll_view), R.string.book_ride_success, Snackbar.LENGTH_SHORT).show();
+
+                        setRideToBooked();
 
                     } else {
-                        Snackbar.make(getView().findViewById(R.id.ride_overview_layout), R.string.book_ride_failure, Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(getView().findViewById(R.id.scroll_view), R.string.book_ride_failure, Snackbar.LENGTH_SHORT).show();
                     }
 
                 }
@@ -241,4 +244,45 @@ public class ExistingRideFragment extends Fragment {
         inflater.inflate(R.menu.book_ride_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+    //MARK: HELPER FUNCTIONS
+
+    public void setRideToBooked() {
+
+        Activity parentActivity = getActivity();
+
+        parentActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                reserveButton.setText("Booked");
+                reserveButton.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.created_bg));
+
+                BackendClient.getInstance().checkRidesLeft(mRideKey, new ServerPassback() {
+                    @Override
+                    public void response(boolean isSuccessful, String seatsLeftServer) {
+                        if (!isSuccessful) {
+                            return;
+                        }
+
+                        int seatsLeft = Integer.parseInt(seatsLeftServer);
+
+                        for (int i = 0; i < mRide.getSeatsSize(); i++) {
+
+                            if (i < seatsLeft) {
+                                riders[i].setImageResource(R.drawable.create_seat_unfilled);
+                            } else {
+                                riders[i].setImageResource(R.drawable.create_seat);
+                            }
+
+                            riders[i].setVisibility(View.VISIBLE);
+                        }
+
+                    }
+                });
+
+            }
+        });
+    }
+
 }

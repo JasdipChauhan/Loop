@@ -251,6 +251,24 @@ public class BackendClient {
     //        });
     //    }
 
+    public void checkRidesLeft(final String rideID, final ServerPassback callback) {
+
+        mRideDatabase.child(rideID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int ridesLeft = dataSnapshot.child("seatsLeft").getValue(Integer.class);
+                callback.response(true, Integer.toString(ridesLeft));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                databaseError.toException().printStackTrace();
+                Log.e("BACKEND CLIENT", "COULD NOT RETRIEVE # of seats left");
+                callback.response(false, Integer.toString(0));
+            }
+        });
+
+    }
 
     public void userLookup(String riderID, final ServerLookup callback) {
 

@@ -98,103 +98,13 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
         transaction.commit();
     }
 
-    public void reserveButtonClicked (View view) {
-        Log.i("button clicked", "button clicked");
-
-        if (!TextUtils.isEmpty(rideKey)) {
-
-            LoopUser currentUser = ProfileManager.getInstance().getLoopUser();
-
-            BackendClient.getInstance().reserveRide(rideKey, currentUser, new ServerAction() {
-                        @Override
-                        public void response(boolean isSuccessful) {
-
-                            if (isSuccessful) {
-
-                                if (StorageManager.getInstance(RideOverviewActivity.this).isAlreadySaved(rideKey)) {
-                                    Snackbar.make(findViewById(R.id.ride_overview_layout), R.string.already_booked_snackbar, Snackbar.LENGTH_SHORT).show();
-                                    return;
-                                }
-
-                                StorageManager.getInstance(RideOverviewActivity.this)
-                                        .saveRiderRides(rideKey);
-
-                                Snackbar.make(findViewById(R.id.ride_overview_layout), R.string.book_ride_success, Snackbar.LENGTH_SHORT).show();
-
-
-                            } else {
-                                Snackbar.make(findViewById(R.id.ride_overview_layout), R.string.book_ride_failure, Snackbar.LENGTH_SHORT).show();
-                            }
-
-                        }
-                    });
-        }
-
-    }
-
-    public void createButtonClicked (View view) {
-        newRideFragment.createRideAction();
-    }
-
-    public void imageFactoryAction(View view) {
-
-        int index;
-
-        switch (view.getId()) {
-
-            case R.id.create_rider1:
-                index = 1;
-                break;
-
-            case R.id.create_rider2:
-                index = 2;
-                break;
-
-            case R.id.create_rider3:
-                index = 3;
-                break;
-
-            case R.id.create_rider4:
-                index = 4;
-                break;
-
-            case R.id.create_rider5:
-                index = 5;
-                break;
-
-            case R.id.create_rider6:
-                index = 6;
-                break;
-
-            default:
-                index = 0;
-
-        }
-
-        newRideFragment.handlePassengerClick(index);
-    }
-
-    public void dateClickedAction(View view) {
-        newRideFragment.handleDatePicked();
-    }
-
-    public void messageButtonClicked (View view) {
-        existingRideFragment.messageDriver(view);
-    }
-
-    public void riderListAction (View view) {
-        Intent toRiders = new Intent(RideOverviewActivity.this, RiderActivity.class);
-        toRiders.putExtra("RIDE_KEY", rideKey);
-        startActivity(toRiders);
-    }
+    //Mark: Activity delegate methods
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.book_ride_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -204,6 +114,8 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
 
         return super.onOptionsItemSelected(item);
     }
+
+    //Mark: Map methods
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -269,5 +181,67 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    //Mark: EXISTING RIDE FRAGMENT interactions
+
+    public void reserveButtonClicked (View view) {
+        existingRideFragment.reserveRide(view);
+    }
+
+    public void riderListAction (View view) {
+        existingRideFragment.showRiders(view);
+    }
+
+    //Mark: NEW RIDE FRAGMENT interactions
+
+    public void createButtonClicked (View view) {
+        newRideFragment.createRideAction();
+    }
+
+    public void imageFactoryAction(View view) {
+
+        int index;
+
+        switch (view.getId()) {
+
+            case R.id.create_rider1:
+                index = 1;
+                break;
+
+            case R.id.create_rider2:
+                index = 2;
+                break;
+
+            case R.id.create_rider3:
+                index = 3;
+                break;
+
+            case R.id.create_rider4:
+                index = 4;
+                break;
+
+            case R.id.create_rider5:
+                index = 5;
+                break;
+
+            case R.id.create_rider6:
+                index = 6;
+                break;
+
+            default:
+                index = 0;
+
+        }
+
+        newRideFragment.handlePassengerClick(index);
+    }
+
+    public void dateClickedAction(View view) {
+        newRideFragment.handleDatePicked();
+    }
+
+    public void messageButtonClicked (View view) {
+        existingRideFragment.messageDriver(view);
     }
 }

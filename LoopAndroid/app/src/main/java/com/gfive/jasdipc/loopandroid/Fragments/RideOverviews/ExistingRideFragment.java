@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,10 +19,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gfive.jasdipc.loopandroid.Activities.RiderActivity;
+import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Helpers.FormatHelper;
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
+import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
 import com.gfive.jasdipc.loopandroid.Models.LoopRide;
+import com.gfive.jasdipc.loopandroid.Models.LoopUser;
 import com.gfive.jasdipc.loopandroid.R;
+import com.gfive.jasdipc.loopandroid.RideOverviewActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -135,12 +143,49 @@ public class ExistingRideFragment extends Fragment {
         return view;
     }
 
+    public void reserveRide(View view) {
+        if (!TextUtils.isEmpty(mRideKey)) {
+
+            LoopUser currentUser = ProfileManager.getInstance().getLoopUser();
+
+            BackendClient.getInstance().reserveRide(mRideKey, currentUser, new ServerAction() {
+                @Override
+                public void response(boolean isSuccessful) {
+
+                    if (isSuccessful) {
+
+                        if (StorageManager.getInstance(getContext()).isAlreadySaved(mRideKey)) {
+                            Snackbar.make(getView().findViewById(R.id.ride_overview_layout), R.string.already_booked_snackbar, Snackbar.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        StorageManager.getInstance(getContext())
+                                .saveRiderRides(mRideKey);
+
+                        Snackbar.make(getView().findViewById(R.id.ride_overview_layout), R.string.book_ride_success, Snackbar.LENGTH_SHORT).show();
+
+                    } else {
+                        Snackbar.make(getView().findViewById(R.id.ride_overview_layout), R.string.book_ride_failure, Snackbar.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+        }
+
+    }
+
     public void messageDriver(View view) {
 
         Uri smsURI = Uri.fromParts("sms", mRide.getDriver().getPhoneNumber(), null);
         Intent smsIntent = new Intent(Intent.ACTION_VIEW, smsURI);
 
         startActivity(smsIntent);
+    }
+
+    public void showRiders(View view) {
+        Intent toRiders = new Intent(getContext(), RiderActivity.class);
+        toRiders.putExtra("RIDE_KEY", mRideKey);
+        startActivity(toRiders);
     }
 
     @Override

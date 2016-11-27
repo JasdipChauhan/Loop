@@ -123,7 +123,7 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
 
 
                             } else {
-                                Snackbar.make(findViewById(R.id.ride_overview_layout), R.string.full_ride_snackbar, Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(findViewById(R.id.ride_overview_layout), R.string.book_ride_failure, Snackbar.LENGTH_SHORT).show();
                             }
 
                         }

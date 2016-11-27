@@ -7,7 +7,6 @@ TODO
 - loop website???
 
 IN PROGRESS
-- drivers cannot sign up to be their own riders
 - on showing number of passengers
 - rides activity/card styling
 
@@ -20,6 +19,8 @@ BUGS
 
 DONE
 
+- drivers cannot sign up to be their own riders
+- removing userprofile model and migrations
 - incorporating time into backend date var
 - date adds an extra day to long variable
 - delete past ride dates

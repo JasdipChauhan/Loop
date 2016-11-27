@@ -28,6 +28,6 @@
 
     <!--RIDE OVERVIEW FEEDBACK SNACKBARS-->
     <string name="already_booked_snackbar">You have already booked this ride</string>
-    <string name="full_ride_snackbar">Ride is full</string>
+    <string name="book_ride_failure">Could not book your ride...</string>
     <string name="book_ride_success">Successfully booked ride!</string>
 </resources>

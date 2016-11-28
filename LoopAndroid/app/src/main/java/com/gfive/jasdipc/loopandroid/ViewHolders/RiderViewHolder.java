@@ -13,15 +13,16 @@ import com.gfive.jasdipc.loopandroid.R;
 
 public class RiderViewHolder extends RecyclerView.ViewHolder{
 
+    public TextView riderCount;
     public ImageView ridersImage;
     public TextView ridersName;
     public TextView ridersEmail;
     public TextView ridersPhone;
 
-
     public RiderViewHolder(View itemView) {
         super(itemView);
 
+        riderCount = (TextView) itemView.findViewById(R.id.rider_counter);
         ridersImage = (ImageView) itemView.findViewById(R.id.riders_image);
         ridersName = (TextView) itemView.findViewById(R.id.riders_name);
         ridersEmail = (TextView) itemView.findViewById(R.id.riders_email);

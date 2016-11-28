@@ -30,4 +30,8 @@
     <string name="already_booked_snackbar">You have already booked this ride</string>
     <string name="book_ride_failure">Could not book your ride, please try again...</string>
     <string name="book_ride_success">Successfully booked ride!</string>
+
+
+    <!--LOOPERS OF RIDE-->
+    <string name="message_driver">Message</string>
 </resources>

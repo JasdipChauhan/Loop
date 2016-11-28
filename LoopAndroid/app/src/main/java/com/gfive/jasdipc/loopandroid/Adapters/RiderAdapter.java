@@ -38,11 +38,13 @@ public class RiderAdapter {
             @Override
             protected void populateViewHolder(RiderViewHolder viewHolder, LoopUser model, int position) {
 
+                int count = position + 1;
+                viewHolder.riderCount.setText(Integer.toString(count));
                 viewHolder.ridersName.setText(model.getName());
                 viewHolder.ridersEmail.setText(model.getEmail());
                 viewHolder.ridersPhone.setText(model.getPhoneNumber());
 
-                Picasso.with(mContext).load(model.getPhoto()).into(viewHolder.ridersImage);
+                //Picasso.with(mContext).load(model.getPhoto()).into(viewHolder.ridersImage);
             }
         };
     }

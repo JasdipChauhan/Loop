@@ -268,7 +268,6 @@
 
             <RelativeLayout
                 style="@style/detail_container"
-                android:onClick="riderListAction"
                 android:gravity="center_horizontal"
                 android:padding="10dp">
 
@@ -289,6 +288,7 @@
                 android:orientation="horizontal"
                 android:gravity="center_horizontal"
                 android:background="@color/colorPrimaryLight"
+                android:onClick="riderListAction"
                 android:id="@+id/rider_list_view"
                 android:paddingBottom="8dp"
                 >

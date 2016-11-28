@@ -102,7 +102,7 @@
     </style>
 
     <style name="rider_asset_show" parent="rider_asset_style">
-        <item name="android:visibility">invisible</item>
+        <item name="android:visibility">visible</item>
     </style>
 
     <style name="chevron">

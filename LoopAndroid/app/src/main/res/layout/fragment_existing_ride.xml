@@ -269,6 +269,7 @@
             <RelativeLayout
                 style="@style/detail_container"
                 android:onClick="riderListAction"
+                android:gravity="center_horizontal"
                 android:padding="10dp">
 
                 <TextView
@@ -279,49 +280,50 @@
                     android:textColor="@color/text"
                     android:id="@+id/number_of_seats_header"/>
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_centerHorizontal="true"
-                    android:id="@+id/passenger_center"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:background="@color/colorPrimaryLight"
+                android:id="@+id/rider_list_view"
+                android:paddingBottom="8dp"
+                >
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider1"
-                    style="@style/rider_asset_show"
-                    android:layout_toLeftOf="@id/passenger_center"/>
+                    style="@style/rider_asset_show" />
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider2"
-                    style="@style/rider_asset_show"
-                    android:layout_toRightOf="@id/passenger_center"/>
+                    style="@style/rider_asset_show"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider3"
-                    style="@style/rider_asset_show"
-                    android:layout_toLeftOf="@id/rider1"/>
+                    style="@style/rider_asset_show" />
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider4"
-                    style="@style/rider_asset_show"
-                    android:layout_toRightOf="@id/rider2"/>
+                    style="@style/rider_asset_show"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider5"
-                    style="@style/rider_asset_show"
-                    android:layout_toRightOf="@id/rider4"/>
+                    style="@style/rider_asset_show"/>
 
                 <ImageView
                     android:layout_below="@id/number_of_seats_header"
                     android:id="@+id/rider6"
-                    style="@style/rider_asset_show"
-                    android:layout_toLeftOf="@id/rider3"/>
+                    style="@style/rider_asset_show"/>
 
-            </RelativeLayout>
+            </LinearLayout>
 
             <View
                 style="@style/divider"/>

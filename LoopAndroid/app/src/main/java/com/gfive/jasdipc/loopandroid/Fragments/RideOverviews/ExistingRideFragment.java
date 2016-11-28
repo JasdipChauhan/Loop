@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gfive.jasdipc.loopandroid.Activities.RiderActivity;
@@ -58,6 +60,7 @@ public class ExistingRideFragment extends Fragment {
     private EditText pickupDescription;
     private EditText dropoffDescription;
 
+    private LinearLayout riderListView;
     private ImageView[] riders;
     private ImageView riderIMG1;
     private ImageView riderIMG2;
@@ -109,6 +112,7 @@ public class ExistingRideFragment extends Fragment {
         pickupDescription = (EditText) view.findViewById(R.id.pickup_description);
         dropoffDescription = (EditText) view.findViewById(R.id.dropoff_description);
 
+        riderListView = (LinearLayout) view.findViewById(R.id.rider_list_view);
         riderIMG1 = (ImageView) view.findViewById(R.id.rider1);
         riderIMG2 = (ImageView) view.findViewById(R.id.rider2);
         riderIMG3 = (ImageView) view.findViewById(R.id.rider3);
@@ -126,16 +130,8 @@ public class ExistingRideFragment extends Fragment {
         pickupDescription.setText(mRide.getPickupDescription());
         dropoffDescription.setText(mRide.getDropoffDescription());
 
-        for (int i = 0; i < mRide.getSeatsSize(); i++) {
-
-            if (i < mRide.getSeatsLeft()) {
-                riders[i].setImageResource(R.drawable.create_seat_unfilled);
-            } else {
-                riders[i].setImageResource(R.drawable.create_seat);
-            }
-
-            riders[i].setVisibility(View.VISIBLE);
-        }
+        initializeRideSlots();
+        fillRideSlots(mRide.getSeatsLeft());
 
         if (StorageManager.getInstance(getContext()).isAlreadySaved(mRideKey)) {
             setRideToBooked();
@@ -266,23 +262,37 @@ public class ExistingRideFragment extends Fragment {
                         }
 
                         int seatsLeft = Integer.parseInt(seatsLeftServer);
-
-                        for (int i = 0; i < mRide.getSeatsSize(); i++) {
-
-                            if (i < seatsLeft) {
-                                riders[i].setImageResource(R.drawable.create_seat_unfilled);
-                            } else {
-                                riders[i].setImageResource(R.drawable.create_seat);
-                            }
-
-                            riders[i].setVisibility(View.VISIBLE);
-                        }
-
+                        fillRideSlots(seatsLeft);
                     }
                 });
 
             }
         });
+    }
+
+    private void initializeRideSlots() {
+        for (int i = 0; i < 6; i++) {
+            if (!(i < mRide.getSeatsSize())) {
+                riderListView.removeView(riders[i]);
+            }
+        }
+    }
+
+    private void fillRideSlots(int seatsLeft) {
+
+        for (int i = 0; i < mRide.getSeatsSize(); i++) {
+
+            int seatsFilled = mRide.getSeatsSize() - seatsLeft;
+
+            if (i < seatsFilled) {
+                riders[i].setImageResource(R.drawable.create_seat);
+            } else {
+                riders[i].setImageResource(R.drawable.create_seat_unfilled);
+            }
+
+            riders[i].setVisibility(View.VISIBLE);
+        }
+
     }
 
 }

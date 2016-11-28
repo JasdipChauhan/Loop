@@ -7,7 +7,7 @@ TODO
 - loop website???
 
 IN PROGRESS
-- on showing number of passengers
+- STYLING STYLING STYLING
 - rides activity/card styling
 
 MAYBE
@@ -15,10 +15,11 @@ MAYBE
 - add rides to user profile on firebase db 
 
 BUGS
-- driver fragment has some sort of top margin (cannot replicate)
 
 DONE
 
+- on showing number of passengers
+- driver fragment has some sort of top margin (cannot replicate)
 - drivers cannot sign up to be their own riders
 - removing userprofile model and migrations
 - incorporating time into backend date var

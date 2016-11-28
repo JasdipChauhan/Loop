@@ -13,11 +13,13 @@ IN PROGRESS
 MAYBE
 - banner showing ride dates for grouping
 - add rides to user profile on firebase db 
+- rider screen has placeholder cards
 
 BUGS
 
 DONE
 
+- rider cards/screen is done
 - on showing number of passengers
 - driver fragment has some sort of top margin (cannot replicate)
 - drivers cannot sign up to be their own riders

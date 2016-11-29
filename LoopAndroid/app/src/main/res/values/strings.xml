@@ -32,6 +32,11 @@
     <string name="book_ride_success">Successfully booked ride!</string>
 
 
-    <!--LOOPERS OF RIDE-->
+    <!--riiders OF RIDE-->
     <string name="message_driver">Message</string>
+
+    <!--driver of RIDE-->
+    <string name="driver_card_time">TIME</string>
+    <string name="driver_card_riiders">RIIDERS</string>
+
 </resources>

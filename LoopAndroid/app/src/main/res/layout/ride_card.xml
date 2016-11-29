@@ -13,7 +13,8 @@
             app:cardUseCompatPadding="true"
             app:cardElevation="4dp"
             app:cardCornerRadius="4dp"
-            android:minHeight="0dp">
+            android:minHeight="0dp"
+            android:background="@color/colorPrimary">
 
             <!--TOP DATE VIEW-->
 
@@ -21,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/ride_card_layout"
-                android:background="@color/colorPrimaryLight"
+                android:background="@color/colorPrimary"
                 >
 
                 <RelativeLayout

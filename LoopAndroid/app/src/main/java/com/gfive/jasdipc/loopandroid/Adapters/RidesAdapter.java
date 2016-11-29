@@ -8,9 +8,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Helpers.FormatHelper;
+import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
+import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Models.LoopRide;
 import com.gfive.jasdipc.loopandroid.R;
+import com.gfive.jasdipc.loopandroid.ViewHolders.DriverViewHolder;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
@@ -29,8 +33,10 @@ public class RidesAdapter {
     private Context mContext;
     private DatabaseReference mReference;
     private int lastPosition = -1;
+
     private FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> firebaseRecyclerAdapter;
     private FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> localRecyclerAdapter;
+    private FirebaseRecyclerAdapter<LoopRide, DriverViewHolder> driverRecyclerAdapter;
 
     public RidesAdapter(final Context mContext, DatabaseReference mReference) {
         this.mContext = mContext;
@@ -54,6 +60,43 @@ public class RidesAdapter {
 
     public FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> getFirebaseRecyclerAdapter () {
         return firebaseRecyclerAdapter;
+    }
+
+    public FirebaseRecyclerAdapter<LoopRide, DriverViewHolder> getDriverRecyclerAdapter(final Set<String> driverRideIDs) {
+
+        driverRecyclerAdapter = new FirebaseRecyclerAdapter<LoopRide, DriverViewHolder>(
+                LoopRide.class,
+                R.layout.driver_card,
+                DriverViewHolder.class,
+                mReference
+        ) {
+            @Override
+            protected void populateViewHolder(final DriverViewHolder viewHolder, final LoopRide model, int position) {
+
+                String ref = getRef(position).getKey().toString();
+
+                if (!driverRideIDs.contains(ref)) {
+                    viewHolder.driverCard.setVisibility(View.GONE);
+                    return;
+                }
+
+                String filledSpots = Integer.toString(model.getSeatsSize() - model.getSeatsLeft());
+                String journeyTextString = model.getPickup().concat(" to ").concat(model.getDropoff());
+                String capacityTextString = filledSpots + "/" + model.getSeatsSize() + " Filled";
+
+                viewHolder.dateText.setText(FormatHelper.toReadableFormat(model.getDate()));
+                viewHolder.timeText.setText(model.getTime());
+                viewHolder.journeyText.setText(journeyTextString);
+                viewHolder.capacityText.setText(capacityTextString);
+                viewHolder.costView.setText("$" + model.getPrice());
+                viewHolder.riderText.setText(filledSpots + " riiders");
+
+            }
+        };
+
+
+        return driverRecyclerAdapter;
+
     }
 
     public FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> getLocalRecyclerAdapter(final Set<String> savedRides) {

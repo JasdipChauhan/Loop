@@ -3,6 +3,7 @@ package com.gfive.jasdipc.loopandroid.Clients;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.gfive.jasdipc.loopandroid.Helpers.FormatHelper;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerLookup;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
@@ -10,6 +11,7 @@ import com.gfive.jasdipc.loopandroid.Interfaces.ServerPassback;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Models.LoopRide;
 import com.gfive.jasdipc.loopandroid.Models.LoopUser;
+import com.gfive.jasdipc.loopandroid.ViewHolders.DriverViewHolder;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -268,6 +270,31 @@ public class BackendClient {
             }
         });
 
+    }
+
+    public void checkIfDriver(final String ref, final String currentUsersID, final ServerAction callback) {
+
+        mRideDatabase.child(ref).child("driver").child("uuid").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                String driversID = dataSnapshot.getValue(String.class);
+
+                if (driversID.equals(currentUsersID)) {
+                    callback.response(true);
+                } else {
+                    callback.response(false);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                databaseError.toException().printStackTrace();
+                callback.response(false);
+            }
+        });
     }
 
     public void userLookup(String riderID, final ServerLookup callback) {

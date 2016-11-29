@@ -9,7 +9,7 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:id="@+id/card_view"
+        android:id="@+id/driver_card_view"
         android:minHeight="0dp">
 
         <TextView
@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/driver_cost_tv"
             android:background="@drawable/combined_shape"
+            android:padding="10dp"
             android:text="$$$"
             android:gravity="center"
             android:layout_gravity="end"
@@ -29,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/ride_card_layout"
-            android:background="@color/colorPrimaryLight"
+            android:background="@color/colorPrimary"
             >
 
             <RelativeLayout

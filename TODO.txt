@@ -8,7 +8,9 @@ TODO
 
 IN PROGRESS
 - STYLING STYLING STYLING
-- rides activity/card styling
+- driver card styling
+- all rides card styling
+- my rides card styling
 
 MAYBE
 - banner showing ride dates for grouping

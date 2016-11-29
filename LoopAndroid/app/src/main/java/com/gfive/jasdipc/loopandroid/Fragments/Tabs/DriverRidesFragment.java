@@ -18,6 +18,7 @@ import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
 import com.gfive.jasdipc.loopandroid.Models.LoopRide;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.RideOverviewActivity;
+import com.gfive.jasdipc.loopandroid.ViewHolders.DriverViewHolder;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -32,7 +33,7 @@ public class DriverRidesFragment extends Fragment {
     private RecyclerView mDriverRidesView;
     private Set<String> mSavedRides;
     private RidesAdapter mRidesAdapter;
-    private FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> firebaseRecyclerAdapter;
+    private FirebaseRecyclerAdapter<LoopRide, DriverViewHolder> driverAdapter;
 
     public DriverRidesFragment() {
         // Required empty public constructor
@@ -64,20 +65,20 @@ public class DriverRidesFragment extends Fragment {
         mDriverRidesView = (RecyclerView) view.findViewById(R.id.driver_rides_recycler_view);
 
         WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(getContext());
-        firebaseRecyclerAdapter = mRidesAdapter.getLocalRecyclerAdapter(mSavedRides);
+        driverAdapter = mRidesAdapter.getDriverRecyclerAdapter(StorageManager.getInstance(getContext()).getDriverRides());
 
         mDriverRidesView.setLayoutManager(wCLLM);
-        mDriverRidesView.setAdapter(firebaseRecyclerAdapter);
+        mDriverRidesView.setAdapter(driverAdapter);
 
         mDriverRidesView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mDriverRidesView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
 
-                String rideKey = firebaseRecyclerAdapter.getRef(position).getKey();
+                String rideKey = driverAdapter.getRef(position).getKey();
 
                 Intent rideDetailIntent = new Intent(getContext(), RideOverviewActivity.class);
                 rideDetailIntent.putExtra("existingRide", true);
-                rideDetailIntent.putExtra("ride", firebaseRecyclerAdapter.getItem(position));
+                rideDetailIntent.putExtra("ride", driverAdapter.getItem(position));
                 rideDetailIntent.putExtra("rideKey", rideKey);
                 startActivity(rideDetailIntent);
 

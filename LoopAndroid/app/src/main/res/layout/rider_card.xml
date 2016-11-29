@@ -26,7 +26,7 @@
 
             android:layout_height="match_parent"
 
-            android:background="@color/colorPrimaryLight"
+            android:background="@color/colorPrimary"
 
             android:id="@+id/profile_rider_area">
 

@@ -116,6 +116,7 @@ public class RidesAdapter {
                 //filter rides for the saved ones by the user
                 String ref = getRef(position).getKey().toString();
                 if (!savedRides.contains(ref)) {
+
                     holder.cardLayout.setVisibility(View.GONE);
                     holder.cost.setVisibility(View.GONE);
                     return;
@@ -133,7 +134,6 @@ public class RidesAdapter {
 
 
     private void fillViewHolder(RidesViewHolder holder, LoopRide model, int position) {
-        holder.cardLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorPrimaryLightest));
         holder.usersName.setText(model.getDriver().getName());
         holder.date.setText(FormatHelper.toReadableFormat(model.getDate()));
         holder.journey.setText(model.getPickup() + " to " + model.getDropoff());

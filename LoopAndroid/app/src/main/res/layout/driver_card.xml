@@ -12,24 +12,11 @@
         android:id="@+id/driver_card_view"
         android:minHeight="0dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/driver_cost_tv"
-            android:background="@drawable/combined_shape"
-            android:padding="10dp"
-            android:text="$$$"
-            android:gravity="center"
-            android:layout_gravity="end"
-            android:textColor="@color/text"
-            android:elevation="5dp"/>
-
         <!--TOP DATE VIEW-->
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/ride_card_layout"
             android:background="@color/colorPrimary"
             >
 
@@ -64,6 +51,19 @@
                     android:layout_marginLeft="8dp"/>
 
             </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/driver_cost_tv"
+                android:background="@drawable/combined_shape"
+                android:padding="10dp"
+                android:text="$$$"
+                android:gravity="center"
+                android:textColor="@color/text"
+                android:elevation="5dp"
+                android:layout_below="@id/date_view"
+                android:layout_alignParentRight="true"/>
 
             <LinearLayout
                 android:layout_width="100dp"

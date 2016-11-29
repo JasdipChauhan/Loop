@@ -118,7 +118,7 @@ public class RidesAdapter {
                 if (!savedRides.contains(ref)) {
 
                     holder.cardLayout.setVisibility(View.GONE);
-                    holder.cost.setVisibility(View.GONE);
+                    holder.cardLayout.setClickable(false);
                     return;
                 }
 
@@ -139,7 +139,7 @@ public class RidesAdapter {
         holder.journey.setText(model.getPickup() + " to " + model.getDropoff());
         holder.pickupTime.setText(model.getTime());
         holder.seats.setText(model.getSeatsLeft() + "/" + model.getSeatsSize());
-        holder.cost.setText(Double.toString(model.getPrice()));
+        holder.cost.setText("$".concat(Double.toString(model.getPrice())));
 
         Picasso.with(mContext).load(model.getDriver().getPhoto())
                 .into(holder.userImage);

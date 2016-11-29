@@ -133,7 +133,7 @@
                     android:textColor="@color/text"
                     android:drawablePadding="6dp"
                     android:gravity="center"
-                    android:drawableLeft="@drawable/time"
+                    android:drawableLeft="@drawable/time5"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="8dp"
                     />

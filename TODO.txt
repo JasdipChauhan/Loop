@@ -8,9 +8,8 @@ TODO
 
 IN PROGRESS
 - STYLING STYLING STYLING
-- driver card styling
-- all rides card styling
-- my rides card styling
+- all rides card styling - update the view on the left if it is their ride or not
+- my rides card styling - ^
 
 MAYBE
 - banner showing ride dates for grouping
@@ -21,6 +20,7 @@ BUGS
 
 DONE
 
+- driver card styling
 - rider cards/screen is done
 - on showing number of passengers
 - driver fragment has some sort of top margin (cannot replicate)

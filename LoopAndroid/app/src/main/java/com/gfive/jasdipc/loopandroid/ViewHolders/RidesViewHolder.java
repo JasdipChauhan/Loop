@@ -1,5 +1,6 @@
 package com.gfive.jasdipc.loopandroid.ViewHolders;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,7 +11,7 @@ import com.gfive.jasdipc.loopandroid.R;
 
 public class RidesViewHolder extends RecyclerView.ViewHolder {
 
-    public RelativeLayout cardLayout;
+    public CardView cardView;
     public TextView date;
     public ImageView userImage;
     public TextView usersName;
@@ -22,7 +23,7 @@ public class RidesViewHolder extends RecyclerView.ViewHolder {
     public RidesViewHolder(View view) {
         super(view);
 
-        cardLayout = (RelativeLayout) view.findViewById(R.id.ride_card_layout);
+        cardView = (CardView) view.findViewById(R.id.card_view);
         date = (TextView) view.findViewById(R.id.date_tv);
         userImage = (ImageView) view.findViewById(R.id.users_image);
         usersName = (TextView) view.findViewById(R.id.users_fullname_tv);

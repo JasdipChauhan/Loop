@@ -116,9 +116,7 @@ public class RidesAdapter {
                 //filter rides for the saved ones by the user
                 String ref = getRef(position).getKey().toString();
                 if (!savedRides.contains(ref)) {
-
-                    holder.cardLayout.setVisibility(View.GONE);
-                    holder.cardLayout.setClickable(false);
+                    holder.cardView.setVisibility(View.GONE);
                     return;
                 }
 
@@ -131,7 +129,6 @@ public class RidesAdapter {
     }
 
     //Helper functions
-
 
     private void fillViewHolder(RidesViewHolder holder, LoopRide model, int position) {
         holder.usersName.setText(model.getDriver().getName());
@@ -163,7 +160,6 @@ public class RidesAdapter {
 
         return riderList;
     }
-
 
     //Animations
 

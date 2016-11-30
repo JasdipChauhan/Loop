@@ -1,54 +1,51 @@
 package com.gfive.jasdipc.loopandroid.Activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.gfive.jasdipc.loopandroid.Adapters.PagerAdapter;
-import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
-import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Fragments.Tabs.AllRidesFragment;
 import com.gfive.jasdipc.loopandroid.Fragments.Tabs.DriverRidesFragment;
 import com.gfive.jasdipc.loopandroid.Fragments.Tabs.MyRidesFragment;
 import com.gfive.jasdipc.loopandroid.LoginActivity;
-import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
-import com.gfive.jasdipc.loopandroid.Models.LoopRide;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.RideOverviewActivity;
-import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 
-import java.util.Set;
-
-public class RidesActivity extends AppCompatActivity implements AllRidesFragment.OnFragmentInteractionListener, MyRidesFragment.OnFragmentInteractionListener, DriverRidesFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener, AllRidesFragment.OnFragmentInteractionListener, MyRidesFragment.OnFragmentInteractionListener, DriverRidesFragment.OnFragmentInteractionListener {
 
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
 
     private TabLayout tabLayout;
-    //Android Lifecycle Methods
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rides);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        BackendClient.getInstance().cleanDatabase();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-
-        getSupportActionBar().setElevation(0);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         pager = (ViewPager) findViewById(R.id.rides_view_pager);
         tabLayout = (TabLayout) findViewById(R.id.rides_tab_layout);
@@ -57,25 +54,25 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
         pager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(pager);
         tabLayout.getTabAt(PagerAdapter.ALL_RIDES).select();
+
     }
 
     private void handleLogout() {
         FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(RidesActivity.this, LoginActivity.class);
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         finish();
         startActivity(intent);
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        Log.i("onResume", "CALLED");
-        super.onResume();
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -84,12 +81,13 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
         return super.onCreateOptionsMenu(menu);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
             case R.id.action_add_ride:
-                Intent rideDetailIntent = new Intent(RidesActivity.this, RideOverviewActivity.class);
+                Intent rideDetailIntent = new Intent(MainActivity.this, RideOverviewActivity.class);
                 rideDetailIntent.putExtra("existingRide", false);
                 startActivity(rideDetailIntent);
 
@@ -106,6 +104,17 @@ public class RidesActivity extends AppCompatActivity implements AllRidesFragment
 
         return super.onOptionsItemSelected(item);
 
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     @Override

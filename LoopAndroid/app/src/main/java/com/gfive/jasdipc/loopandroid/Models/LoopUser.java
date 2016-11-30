@@ -79,6 +79,8 @@ public class LoopUser implements Parcelable {
         return CREATOR;
     }
 
+    //HELPER METHODS
+
     //Parcelable
 
     @Override

@@ -41,6 +41,9 @@ public class RidesAdapter {
     public RidesAdapter(final Context mContext, DatabaseReference mReference) {
         this.mContext = mContext;
         this.mReference = mReference;
+    }
+
+    public FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> getAllRidesAdapter(final Set<String> savedRides) {
 
         final Query query = mReference.orderByChild("date");
 
@@ -53,16 +56,15 @@ public class RidesAdapter {
         ) {
             @Override
             protected void populateViewHolder(final RidesViewHolder holder, LoopRide model, int position) {
-                fillViewHolder(holder, model, position);
+                String ref = getRef(position).getKey().toString();
+                fillViewHolder(holder, model, position, ref, savedRides);
             }
         };
-    }
 
-    public FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> getFirebaseRecyclerAdapter () {
         return firebaseRecyclerAdapter;
     }
 
-    public FirebaseRecyclerAdapter<LoopRide, DriverViewHolder> getDriverRecyclerAdapter(final Set<String> driverRideIDs) {
+    public FirebaseRecyclerAdapter<LoopRide, DriverViewHolder> getDriverRidesAdapter(final Set<String> driverRideIDs) {
 
         driverRecyclerAdapter = new FirebaseRecyclerAdapter<LoopRide, DriverViewHolder>(
                 LoopRide.class,
@@ -99,7 +101,7 @@ public class RidesAdapter {
 
     }
 
-    public FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> getLocalRecyclerAdapter(final Set<String> savedRides) {
+    public FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> getRiderRidesAdapter(final Set<String> savedRides) {
 
         final Query query = mReference.orderByChild("date");
 
@@ -120,7 +122,7 @@ public class RidesAdapter {
                     return;
                 }
 
-                fillViewHolder(holder, model, position);
+                fillViewHolder(holder, model, position, ref, savedRides);
             }
         };
 
@@ -130,16 +132,21 @@ public class RidesAdapter {
 
     //Helper functions
 
-    private void fillViewHolder(RidesViewHolder holder, LoopRide model, int position) {
-        holder.usersName.setText(model.getDriver().getName());
+    private void fillViewHolder(RidesViewHolder holder, LoopRide model, int position, String rideKey, Set<String> myRides) {
+
+        holder.usersName.setText(FormatHelper.shortHandName(model.getDriver().getName()));
         holder.date.setText(FormatHelper.toReadableFormat(model.getDate()));
         holder.journey.setText(model.getPickup() + " to " + model.getDropoff());
         holder.pickupTime.setText(model.getTime());
         holder.seats.setText(model.getSeatsLeft() + "/" + model.getSeatsSize());
         holder.cost.setText("$".concat(Double.toString(model.getPrice())));
 
-        Picasso.with(mContext).load(model.getDriver().getPhoto())
-                .into(holder.userImage);
+        if (myRides.contains(rideKey)) {
+            holder.myRideView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccent));
+        }
+
+
+        //Picasso.with(mContext).load(model.getDriver().getPhoto()).into(holder.userImage);
 
 
         runEnterAnimation(holder.itemView, position);

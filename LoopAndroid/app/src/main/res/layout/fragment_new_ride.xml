@@ -237,6 +237,7 @@
                     android:layout_below="@+id/price_header"
                     android:layout_alignStart="@+id/price_header"
                     style="@style/detail_item_editor"
+                    android:inputType="number"
                     android:layout_marginLeft="14dp"
                     />
 

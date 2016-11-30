@@ -19,11 +19,13 @@ public class RidesViewHolder extends RecyclerView.ViewHolder {
     public TextView pickupTime;
     public TextView seats;
     public TextView cost;
+    public View myRideView;
 
     public RidesViewHolder(View view) {
         super(view);
 
         cardView = (CardView) view.findViewById(R.id.card_view);
+        myRideView = view.findViewById(R.id.my_ride_view);
         date = (TextView) view.findViewById(R.id.date_tv);
         userImage = (ImageView) view.findViewById(R.id.users_image);
         usersName = (TextView) view.findViewById(R.id.users_fullname_tv);

@@ -19,7 +19,6 @@ import com.gfive.jasdipc.loopandroid.Models.LoopRide;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.RideOverviewActivity;
 import com.gfive.jasdipc.loopandroid.ViewHolders.DriverViewHolder;
-import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -65,7 +64,7 @@ public class DriverRidesFragment extends Fragment {
         mDriverRidesView = (RecyclerView) view.findViewById(R.id.driver_rides_recycler_view);
 
         WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(getContext());
-        driverAdapter = mRidesAdapter.getDriverRecyclerAdapter(StorageManager.getInstance(getContext()).getDriverRides());
+        driverAdapter = mRidesAdapter.getDriverRidesAdapter(StorageManager.getInstance(getContext()).getDriverRides());
 
         mDriverRidesView.setLayoutManager(wCLLM);
         mDriverRidesView.setAdapter(driverAdapter);

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.StringTokenizer;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -132,5 +133,15 @@ public class FormatHelper {
         }
 
         return new Date();
+    }
+
+
+    ///NAME TRUNCATION
+
+    public static String shortHandName(String name) {
+        StringTokenizer stringTokenizer = new StringTokenizer(name, " ");
+        String shortHandName = stringTokenizer.nextToken() + " " + stringTokenizer.nextToken().charAt(0) + ".";
+
+        return shortHandName;
     }
 }

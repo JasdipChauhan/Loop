@@ -14,12 +14,15 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.gfive.jasdipc.loopandroid.Adapters.RidesAdapter;
 import com.gfive.jasdipc.loopandroid.Helpers.RecyclerItemClickListener;
 import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
+import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
 import com.gfive.jasdipc.loopandroid.Models.LoopRide;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.RideOverviewActivity;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RidesViewHolder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +39,7 @@ public class AllRidesFragment extends Fragment  {
     private RidesAdapter mRidesAdapter;
 
     private DatabaseReference mDatabaseReference;
-    private FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> firebaseRecyclerAdapter;
+    private FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> allRidesAdapter;
 
     public AllRidesFragment() {
         // Required empty public constructor
@@ -53,6 +56,9 @@ public class AllRidesFragment extends Fragment  {
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Ride");
         mRidesAdapter = new RidesAdapter(getContext(), mDatabaseReference);
+
+        Set<String> myRides = StorageManager.getInstance(getContext()).getRiderRides();
+        allRidesAdapter = mRidesAdapter.getAllRidesAdapter(myRides);
     }
 
     @Override
@@ -65,18 +71,17 @@ public class AllRidesFragment extends Fragment  {
         WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(getContext());
 
         mAllRidesView.setLayoutManager(wCLLM);
-        firebaseRecyclerAdapter = mRidesAdapter.getFirebaseRecyclerAdapter();
-        mAllRidesView.setAdapter(firebaseRecyclerAdapter);
+        mAllRidesView.setAdapter(allRidesAdapter);
 
         mAllRidesView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), mAllRidesView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
 
-                String rideKey = firebaseRecyclerAdapter.getRef(position).getKey();
+                String rideKey = allRidesAdapter.getRef(position).getKey();
 
                 Intent rideDetailIntent = new Intent(getContext(), RideOverviewActivity.class);
                 rideDetailIntent.putExtra("existingRide", true);
-                rideDetailIntent.putExtra("ride", firebaseRecyclerAdapter.getItem(position));
+                rideDetailIntent.putExtra("ride", allRidesAdapter.getItem(position));
                 rideDetailIntent.putExtra("rideKey", rideKey);
                 startActivity(rideDetailIntent);
 

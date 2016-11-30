@@ -58,13 +58,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/cost_tv"
-                    android:background="@drawable/price_tag_bg"
+                    android:background="@drawable/combined_shape"
+                    android:padding="6dp"
                     android:text="$$$"
                     android:gravity="center"
                     android:textColor="@color/text"
                     android:layout_below="@id/date_view"
                     android:layout_alignParentRight="true"
-                    android:elevation="5dp"/>
+                    android:elevation="1dp"/>
 
                 <View
                     android:layout_width="4dp"
@@ -136,7 +137,7 @@
                     android:layout_below="@+id/journey_tv"
                     android:layout_toRightOf="@id/profile_view"
                     android:drawableLeft="@drawable/time5"
-                    android:drawablePadding="4dp"
+                    android:drawablePadding="8dp"
                     android:gravity="center"
                     android:paddingTop="4dp"
                     android:text="TIME"
@@ -151,6 +152,7 @@
                     android:id="@+id/passengers_tv"
                     android:layout_toRightOf="@id/time_tv"
                     android:layout_alignBaseline="@id/time_tv"
+                    android:drawablePadding="8dp"
                     android:drawableLeft="@drawable/unfilled_seat5"
                     android:layout_marginStart="16dp"
                     android:paddingTop="4dp"

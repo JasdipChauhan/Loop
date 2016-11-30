@@ -70,7 +70,7 @@ public class MyRidesFragment extends Fragment {
         mMyRidesView = (RecyclerView) view.findViewById(R.id.my_rides_recycler_view);
 
         WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(getContext());
-        firebaseRecyclerAdapter = mRidesAdapter.getLocalRecyclerAdapter(mSavedRides);
+        firebaseRecyclerAdapter = mRidesAdapter.getRiderRidesAdapter(mSavedRides);
 
         mMyRidesView.setLayoutManager(wCLLM);
         mMyRidesView.setAdapter(firebaseRecyclerAdapter);

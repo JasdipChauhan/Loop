@@ -17,7 +17,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.RidesActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -47,7 +46,7 @@
         <activity android:name=".Activities.RegisterActivity" />
         <activity android:name=".Activities.RiderActivity" />
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".Activities.RidesActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

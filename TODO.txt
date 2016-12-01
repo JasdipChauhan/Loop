@@ -1,25 +1,32 @@
 TODO
 
-- custom toolbar
-- current user profile view on navigation bar
+- custom fonts everywhere!!!
+- login screen styling
+- login screen backend token management
+- icons for map view
+- directions for map fragment
 - android splash screen
 - organization on github for loop???
 - loop website???
 
 IN PROGRESS
-- STYLING STYLING STYLING
-- all rides card styling - update the view on the left if it is their ride or not
-- my rides card styling - ^
+- current user profile view on navigation bar
 
 MAYBE
-- banner showing ride dates for grouping
 - add rides to user profile on firebase db 
 - rider screen has placeholder cards
+- async tasks to delegate checking for my rides
 
 BUGS
+- group header not shown for other 
 
 DONE
 
+- custom toolbar
+- banner showing ride dates for grouping
+- icon in drawer layout
+- all rides card styling - update the view on the left if it is their ride or not
+- my rides card styling - ^
 - driver card styling
 - rider cards/screen is done
 - on showing number of passengers

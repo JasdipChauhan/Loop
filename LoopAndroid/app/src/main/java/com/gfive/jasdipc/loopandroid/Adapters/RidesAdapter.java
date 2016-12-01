@@ -129,6 +129,7 @@ public class RidesAdapter {
                 String ref = getRef(position).getKey().toString();
                 if (!savedRides.contains(ref)) {
                     holder.cardView.setVisibility(View.GONE);
+                    lastRideDate = "";
                     return;
                 }
 

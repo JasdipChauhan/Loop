@@ -21,8 +21,10 @@ import com.gfive.jasdipc.loopandroid.Fragments.Tabs.AllRidesFragment;
 import com.gfive.jasdipc.loopandroid.Fragments.Tabs.DriverRidesFragment;
 import com.gfive.jasdipc.loopandroid.Fragments.Tabs.MyRidesFragment;
 import com.gfive.jasdipc.loopandroid.LoginActivity;
+import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.RideOverviewActivity;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RidesActivity extends AppCompatActivity
@@ -71,7 +73,8 @@ public class RidesActivity extends AppCompatActivity
     }
 
     private void handleLogout() {
-        FirebaseAuth.getInstance().signOut();
+        ProfileManager.getInstance().signOut();
+
         Intent intent = new Intent(RidesActivity.this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         finish();

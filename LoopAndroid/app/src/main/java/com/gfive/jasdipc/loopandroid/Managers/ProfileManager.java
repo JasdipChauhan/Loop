@@ -1,6 +1,8 @@
 package com.gfive.jasdipc.loopandroid.Managers;
 
+import com.facebook.login.LoginManager;
 import com.gfive.jasdipc.loopandroid.Models.LoopUser;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 /**
@@ -11,6 +13,8 @@ public class ProfileManager {
     private static ProfileManager profileManager;
     private FirebaseUser firebaseUser;
     private LoopUser loopUser;
+
+    private FirebaseAuth mFirebaseAuth;
 
     private final int PROFILE_PICTURE_HEIGHT = 200;
     private final int PROFILE_PICTURE_WIDTH = 200;
@@ -43,4 +47,12 @@ public class ProfileManager {
     public FirebaseUser getFirebaseUser() {return firebaseUser;}
 
     public LoopUser getLoopUser() {return loopUser;}
+
+    //AUTHENTICATION
+
+    //sign out of all authentication providers
+    public void signOut () {
+        FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut();
+    }
 }

@@ -45,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
 
+        BackendClient.getInstance().cleanDatabase();
+
         AppEventsLogger.activateApp(getApplication());
         callbackManager = CallbackManager.Factory.create();
 

@@ -1,17 +1,14 @@
 package com.gfive.jasdipc.loopandroid.Clients;
 
-import android.support.annotation.Nullable;
+import android.os.AsyncTask;
 import android.util.Log;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.gfive.jasdipc.loopandroid.Helpers.FormatHelper;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerLookup;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerPassback;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
 import com.gfive.jasdipc.loopandroid.Models.LoopRide;
 import com.gfive.jasdipc.loopandroid.Models.LoopUser;
-import com.gfive.jasdipc.loopandroid.ViewHolders.DriverViewHolder;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,9 +20,6 @@ import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -57,39 +51,7 @@ public class BackendClient {
     }
 
     public void cleanDatabase() {
-
-        final Query query = mRideDatabase.orderByChild("date");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
-                boolean noMoreDeadlines = false;
-
-                while (iterator.hasNext() && !noMoreDeadlines) {
-
-                    DataSnapshot rideSnapshot = iterator.next();
-
-                    LoopRide ride = rideSnapshot.getValue(LoopRide.class);
-                    Date rideDate = new Date(ride.getDate());
-                    Date rightNow = new Date();
-
-                    if (rideDate.after(rightNow)) {
-                        //we have come to the soonest ride that has not passed, so stop iterating
-                        noMoreDeadlines = true;
-                    } else {
-                        //could be more rides that have a past deadline so iterate again
-                        rideSnapshot.getRef().removeValue();
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                databaseError.toException().printStackTrace();
-            }
-        });
+        new CleanDatabase().execute();
     }
 
     public void doesUserExist(final FirebaseUser user, final ServerAction callback) {
@@ -315,6 +277,48 @@ public class BackendClient {
             }
         });
 
+    }
+
+
+    private class CleanDatabase extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            final Query query = mRideDatabase.orderByChild("date");
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
+                    boolean noMoreDeadlines = false;
+
+                    while (iterator.hasNext() && !noMoreDeadlines) {
+
+                        DataSnapshot rideSnapshot = iterator.next();
+
+                        LoopRide ride = rideSnapshot.getValue(LoopRide.class);
+                        Date rideDate = new Date(ride.getDate());
+                        Date rightNow = new Date();
+
+                        if (rideDate.after(rightNow)) {
+                            //we have come to the soonest ride that has not passed, so stop iterating
+                            noMoreDeadlines = true;
+                        } else {
+                            //could be more rides that have a past deadline so iterate again
+                            rideSnapshot.getRef().removeValue();
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    databaseError.toException().printStackTrace();
+                }
+            });
+
+            return null;
+        }
     }
 
 }

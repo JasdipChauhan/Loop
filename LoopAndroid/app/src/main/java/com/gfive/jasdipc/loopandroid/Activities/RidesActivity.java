@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.gfive.jasdipc.loopandroid.Adapters.PagerAdapter;
+import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Fragments.Tabs.AllRidesFragment;
 import com.gfive.jasdipc.loopandroid.Fragments.Tabs.DriverRidesFragment;
 import com.gfive.jasdipc.loopandroid.Fragments.Tabs.MyRidesFragment;
@@ -34,6 +35,13 @@ public class RidesActivity extends AppCompatActivity
     private PagerAdapter pagerAdapter;
 
     private TabLayout tabLayout;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        BackendClient.getInstance().cleanDatabase();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

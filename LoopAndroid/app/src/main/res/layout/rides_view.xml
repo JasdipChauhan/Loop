@@ -27,6 +27,8 @@
                 android:layout_height="wrap_content"
                 android:text="riide"
                 android:gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
                 />
 
         </android.support.v7.widget.Toolbar>

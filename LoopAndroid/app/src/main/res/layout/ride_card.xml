@@ -85,12 +85,19 @@
                 android:gravity="center"
                 android:id="@+id/profile_view">
 
-                <ImageView
+
+                <!--<ImageView-->
+                    <!--android:layout_width="32dp"-->
+                    <!--android:layout_height="32dp"-->
+                    <!--android:id="@+id/users_image"-->
+                    <!--android:src="@drawable/username4"-->
+                <!--/>-->
+
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:id="@+id/users_image"
-                    android:src="@drawable/username4"
-                    />
+                    android:src="@drawable/username4"/>
 
                 <TextView
                     android:layout_width="wrap_content"

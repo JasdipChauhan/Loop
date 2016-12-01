@@ -51,7 +51,7 @@ public class RiderAdapter {
                 viewHolder.ridersEmail.setText(model.getEmail());
                 viewHolder.ridersPhone.setText(model.getPhoneNumber());
 
-                //Picasso.with(mContext).load(model.getPhoto()).into(viewHolder.ridersImage);
+                Picasso.with(mContext).load(model.getPhoto()).into(viewHolder.ridersImage);
 
                 viewHolder.messageRiderArea.setOnClickListener(new View.OnClickListener() {
 

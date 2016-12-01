@@ -169,8 +169,7 @@ public class RidesAdapter {
             holder.myRideView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccent));
         }
 
-
-        //Picasso.with(mContext).load(model.getDriver().getPhoto()).into(holder.userImage);
+        Picasso.with(mContext).load(model.getDriver().getPhoto()).into(holder.userImage);
 
 
         runEnterAnimation(holder.itemView, position);

@@ -1,5 +1,6 @@
 TODO
 
+- circular images
 - custom fonts everywhere!!!
 - register screen styling
 - login screen styling

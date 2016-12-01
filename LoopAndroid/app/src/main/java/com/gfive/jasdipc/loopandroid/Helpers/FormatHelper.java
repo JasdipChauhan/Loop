@@ -100,6 +100,10 @@ public class FormatHelper {
         return "";
     }
 
+    public static long getBaseDate(long date, String readableTime) {
+        return subtractTimeFromDate(date, readableTime);
+    }
+
     private static long addTimeToDate(long date, String readableTime) {
 
         SimpleDateFormat time12Format = new SimpleDateFormat("hh:mm a");
@@ -113,6 +117,26 @@ public class FormatHelper {
             timeLong += timeDate.getMinutes() * MINUTE_MILLI;
 
             date = date + timeLong;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return date;
+    }
+
+    private static long subtractTimeFromDate(long date, String readableTime) {
+        SimpleDateFormat time12Format = new SimpleDateFormat("hh:mm a");
+
+        try {
+
+            Date timeDate = time12Format.parse(readableTime);
+            long timeLong = 0;
+
+            timeLong += timeDate.getHours() * HOUR_MILLI;
+            timeLong += timeDate.getMinutes() * MINUTE_MILLI;
+
+            date = date - timeLong;
 
         } catch (Exception e) {
             e.printStackTrace();

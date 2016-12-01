@@ -18,8 +18,16 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:title="riide"
+            android:gravity="center"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:contentInsetStart="0dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="riide"
+                android:gravity="center"
+                />
 
         </android.support.v7.widget.Toolbar>
 

@@ -2,10 +2,17 @@ package com.gfive.jasdipc.loopandroid.Adapters;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.ActionBarOverlayLayout;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
@@ -32,6 +39,8 @@ public class RidesAdapter {
 
     private Context mContext;
     private DatabaseReference mReference;
+
+    private String lastRideDate = "";
     private int lastPosition = -1;
 
     private FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> firebaseRecyclerAdapter;
@@ -112,6 +121,7 @@ public class RidesAdapter {
                 query
 
         ) {
+
             @Override
             protected void populateViewHolder(RidesViewHolder holder, LoopRide model, int position) {
 
@@ -133,6 +143,19 @@ public class RidesAdapter {
     //Helper functions
 
     private void fillViewHolder(RidesViewHolder holder, LoopRide model, int position, String rideKey, Set<String> myRides) {
+
+        String currentRideDate = FormatHelper.toReadableFormat(model.getDate());
+
+        if (lastRideDate.equalsIgnoreCase(currentRideDate)) {
+            holder.dateView.setVisibility(View.GONE);
+
+            holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 85, mContext.getResources().getDisplayMetrics())
+            ));
+        }
+
+
+        lastRideDate = currentRideDate;
 
         holder.usersName.setText(FormatHelper.shortHandName(model.getDriver().getName()));
         holder.date.setText(FormatHelper.toReadableFormat(model.getDate()));
@@ -181,4 +204,3 @@ public class RidesAdapter {
         }
     }
 }
-

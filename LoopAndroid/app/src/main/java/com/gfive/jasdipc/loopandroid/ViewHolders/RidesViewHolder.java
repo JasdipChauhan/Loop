@@ -13,6 +13,7 @@ public class RidesViewHolder extends RecyclerView.ViewHolder {
 
     public CardView cardView;
     public TextView date;
+    public RelativeLayout dateView;
     public ImageView userImage;
     public TextView usersName;
     public TextView journey;
@@ -27,6 +28,7 @@ public class RidesViewHolder extends RecyclerView.ViewHolder {
         cardView = (CardView) view.findViewById(R.id.card_view);
         myRideView = view.findViewById(R.id.my_ride_view);
         date = (TextView) view.findViewById(R.id.date_tv);
+        dateView = (RelativeLayout) view.findViewById(R.id.date_view);
         userImage = (ImageView) view.findViewById(R.id.users_image);
         usersName = (TextView) view.findViewById(R.id.users_fullname_tv);
         journey = (TextView) view.findViewById(R.id.journey_tv);

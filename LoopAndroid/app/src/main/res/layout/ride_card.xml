@@ -7,161 +7,172 @@
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:id="@+id/card_view"
-            android:minHeight="0dp"
-            android:background="@color/colorPrimary">
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/card_view"
+        android:minHeight="85dp"
+        android:background="@color/colorPrimary">
 
-            <!--TOP DATE VIEW-->
+        <!--TOP DATE VIEW-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/ride_card_layout"
+            android:background="@color/colorPrimary"
+            android:minHeight="0dp"
+            >
 
             <RelativeLayout
+                android:layout_alignParentTop="true"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/ride_card_layout"
-                android:background="@color/colorPrimary"
+                android:layout_height="35dp"
+                android:background="@color/colorPrimaryDark"
+                android:id="@+id/date_view"
+                android:padding="4dp"
                 >
 
-                <RelativeLayout
-                    android:layout_alignParentTop="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimaryDark"
-                    android:id="@+id/date_view"
-                    android:padding="4dp"
-                    >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/calendar"
-                        android:layout_centerVertical="true"
-                        android:id="@+id/date_icon"
-                        android:layout_marginStart="8dp"
-                        android:padding="2dp"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/date_tv"
-                        android:layout_toRightOf="@id/date_icon"
-                        android:layout_centerVertical="true"
-                        android:text="DATE"
-                        android:textColor="@color/text"
-                        android:padding="2dp"
-                        android:layout_marginLeft="8dp"/>
-
-                </RelativeLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/cost_tv"
-                    android:background="@drawable/combined_shape"
-                    android:padding="6dp"
-                    android:text="$$$"
-                    android:gravity="center"
-                    android:textColor="@color/text"
-                    android:layout_below="@id/date_view"
-                    android:layout_alignParentRight="true"
-                    android:elevation="1dp"/>
-
-                <View
-                    android:layout_width="4dp"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/date_view"
-                    android:layout_alignParentStart="true"
-                    android:background="@color/colorPrimaryDark"
-                    android:id="@+id/my_ride_view"/>
-
-                <LinearLayout
-                    android:layout_width="120dp"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/date_view"
-                    android:layout_toRightOf="@id/my_ride_view"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:id="@+id/profile_view">
-
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:id="@+id/users_image"
-                        android:src="@drawable/username4"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/users_fullname_tv"
-                        android:text="FULL NAME"
-                        android:textColor="@color/text"
-                        />
-
-                </LinearLayout>
-
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/to_with_dot5"
-                    android:id="@+id/from_to_image"
-                    android:layout_marginTop="10dp"
-                    android:layout_toRightOf="@id/profile_view"
-                    android:layout_below="@id/date_view"/>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/dashed_line"
-                    android:src="@drawable/dashed_line"
-                    android:layout_alignStart="@id/from_to_image"
-                    android:layout_alignEnd="@id/date_view"
-                    android:layout_alignBottom="@id/from_to_image"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/journey_tv"
-                    android:layout_toRightOf="@+id/from_to_image"
-                    android:layout_above="@id/dashed_line"
-                    android:padding="4dp"
+                    android:src="@drawable/calendar"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/date_icon"
                     android:layout_marginStart="8dp"
-                    android:textColor="@color/text"
-                    android:text="PICKUP TO DROPOFF"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/time_tv"
-                    android:layout_below="@+id/journey_tv"
-                    android:layout_toRightOf="@id/profile_view"
-                    android:drawableLeft="@drawable/time5"
-                    android:drawablePadding="8dp"
-                    android:gravity="center"
-                    android:paddingTop="4dp"
-                    android:text="TIME"
-                    android:textColor="@color/text"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="6dp"
+                    android:padding="2dp"
                     />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/passengers_tv"
-                    android:layout_toRightOf="@id/time_tv"
-                    android:layout_alignBaseline="@id/time_tv"
-                    android:drawablePadding="8dp"
-                    android:drawableLeft="@drawable/unfilled_seat5"
-                    android:layout_marginStart="16dp"
-                    android:paddingTop="4dp"
-                    android:text="PASSENGERS"
+                    android:id="@+id/date_tv"
+                    android:layout_toRightOf="@id/date_icon"
+                    android:layout_centerVertical="true"
+                    android:text="DATE"
                     android:textColor="@color/text"
-                    />
+                    android:padding="2dp"
+                    android:layout_marginLeft="8dp"/>
 
             </RelativeLayout>
 
-        </android.support.v7.widget.CardView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cost_tv"
+                android:background="@drawable/combined_shape"
+                android:padding="6dp"
+                android:text="$$$"
+                android:gravity="center"
+                android:textColor="@color/text"
+                android:layout_below="@id/date_view"
+                android:layout_alignParentRight="true"
+                android:elevation="1dp"/>
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="match_parent"
+                android:layout_below="@id/date_view"
+                android:layout_alignParentStart="true"
+                android:background="@color/colorPrimaryDark"
+                android:id="@+id/my_ride_view"/>
+
+            <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:layout_below="@id/date_view"
+                android:layout_toRightOf="@id/my_ride_view"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:id="@+id/profile_view">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:id="@+id/users_image"
+                    android:src="@drawable/username4"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/users_fullname_tv"
+                    android:text="FULL NAME"
+                    android:textColor="@color/text"
+                    />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/to_with_dot5"
+                android:id="@+id/from_to_image"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/profile_view"
+                android:layout_below="@id/date_view"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dashed_line"
+                android:src="@drawable/dashed_line"
+                android:layout_alignStart="@id/from_to_image"
+                android:layout_alignEnd="@id/date_view"
+                android:layout_alignBottom="@id/from_to_image"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/journey_tv"
+                android:layout_toRightOf="@+id/from_to_image"
+                android:layout_above="@id/dashed_line"
+                android:padding="4dp"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/text"
+                android:text="PICKUP TO DROPOFF"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/time_tv"
+                android:layout_below="@+id/journey_tv"
+                android:layout_toRightOf="@id/profile_view"
+                android:drawableLeft="@drawable/time5"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:paddingTop="4dp"
+                android:text="TIME"
+                android:textColor="@color/text"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="6dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/passengers_tv"
+                android:layout_toRightOf="@id/time_tv"
+                android:layout_alignBaseline="@id/time_tv"
+                android:drawablePadding="8dp"
+                android:drawableLeft="@drawable/unfilled_seat5"
+                android:layout_marginStart="16dp"
+                android:paddingTop="4dp"
+                android:text="PASSENGERS"
+                android:textColor="@color/text"
+                />
+
+
+            <ImageView
+
+                android:layout_width="match_parent"
+
+                android:layout_height="1dp"
+
+                android:layout_alignParentBottom="true"
+
+                android:src="@drawable/line"/>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

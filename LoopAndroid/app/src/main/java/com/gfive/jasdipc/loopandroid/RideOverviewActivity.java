@@ -1,30 +1,23 @@
 package com.gfive.jasdipc.loopandroid;
 
+import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.gfive.jasdipc.loopandroid.Activities.RiderActivity;
-import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Fragments.RideOverviews.ExistingRideFragment;
 import com.gfive.jasdipc.loopandroid.Fragments.RideOverviews.NewRideFragment;
 import com.gfive.jasdipc.loopandroid.Interfaces.OnSpinnerSelection;
-import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
-import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
-import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
 import com.gfive.jasdipc.loopandroid.Models.LoopRide;
-import com.gfive.jasdipc.loopandroid.Models.LoopUser;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -38,6 +31,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.List;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class RideOverviewActivity extends AppCompatActivity implements OnMapReadyCallback, ExistingRideFragment.OnFragmentInteractionListener, OnSpinnerSelection {
 
@@ -115,6 +110,11 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
     //Mark: Map methods
 
     @Override
@@ -153,7 +153,8 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
             LatLng pickupCoordinates = new LatLng(pickupAddress.getLatitude(), pickupAddress.getLongitude());
             LatLng dropoffCoordinates = new LatLng(dropoffAddress.getLatitude(), dropoffAddress.getLongitude());
 
-            BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromResource(R.drawable.map_pin);
+            //BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromResource(R.drawable.map_pin);
+            BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromResource(R.drawable.mapmarkerstick);
 
             pickupMarker = mMap.addMarker(new MarkerOptions()
                     .position(pickupCoordinates)

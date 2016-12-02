@@ -1,6 +1,7 @@
 package com.gfive.jasdipc.loopandroid.Managers;
 
 import android.app.Application;
+import android.content.res.Configuration;
 
 import com.gfive.jasdipc.loopandroid.R;
 
@@ -22,5 +23,20 @@ public class MyApplication extends Application {
                 .build()
         );
 
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

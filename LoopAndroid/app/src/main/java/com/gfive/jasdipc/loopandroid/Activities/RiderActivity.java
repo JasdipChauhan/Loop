@@ -1,5 +1,6 @@
 package com.gfive.jasdipc.loopandroid.Activities;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import com.gfive.jasdipc.loopandroid.Adapters.RiderAdapter;
 import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
 import com.gfive.jasdipc.loopandroid.R;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class RiderActivity extends AppCompatActivity {
 
@@ -34,4 +37,10 @@ public class RiderActivity extends AppCompatActivity {
         mRidersRecyclerView.setAdapter(mRiderAdapter.getmRiderRecyclerAdapter());
 
     }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
 }

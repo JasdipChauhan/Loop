@@ -9,6 +9,10 @@
     <string name="book_ride_title">Book</string>
     <string name="message_button">Message</string>
 
+
+    <!--LOGIN ACTIVITY-->
+    <string name="riide_slogan">Made on the way for you.</string>
+
     <!--SEE EXISTING RIDE STRINGS-->
     <string name="date_edit_text">On the road today.</string>
     <string name="time_edit_text">Leaving now.</string>

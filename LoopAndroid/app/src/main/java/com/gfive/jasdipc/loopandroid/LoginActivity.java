@@ -1,10 +1,14 @@
 package com.gfive.jasdipc.loopandroid;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,21 +33,24 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class LoginActivity extends AppCompatActivity {
 
     private LoginButton loginButton;
-    private TextView loginTV;
     private CallbackManager callbackManager;
-
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseUser user;
 
+    private Button facebookButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
+        getSupportActionBar().hide();
 
         BackendClient.getInstance().cleanDatabase();
 
@@ -52,7 +59,8 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
         loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginTV = (TextView) findViewById(R.id.login_TV);
+        facebookButton = (Button) findViewById(R.id.facebook_button);
+
         loginButton.setReadPermissions("email", "public_profile");
 
         mAuth = FirebaseAuth.getInstance();
@@ -66,14 +74,13 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onCancel() {
-                loginTV.setText("User cancelled");
+                Snackbar.make(findViewById(R.id.activity_login), "Cancelled...", Snackbar.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(FacebookException error) {
                 error.printStackTrace();
-                loginTV.setText("Error logging in");
-
+                Snackbar.make(findViewById(R.id.activity_login), "Error logging in...", Snackbar.LENGTH_SHORT).show();
             }
         });
 
@@ -92,6 +99,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
     }
+
+    public void facebookClickedAction(View view) {
+        loginButton.performClick();
+    }
+
     //MARK: Helper Functions
 
     private void handleFacebookAccessToken(AccessToken token) {
@@ -153,7 +165,6 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -163,7 +174,6 @@ public class LoginActivity extends AppCompatActivity {
             handleLogin();
         }
     }
-
 
     @Override
     protected void onResume() {
@@ -184,6 +194,11 @@ public class LoginActivity extends AppCompatActivity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 }

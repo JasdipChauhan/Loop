@@ -30,6 +30,9 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         mRegisterImage = (ImageView) findViewById(R.id.register_photo);
         mRegisterName = (TextView) findViewById(R.id.register_name);
         mRegisterEmail = (TextView) findViewById(R.id.register_email);

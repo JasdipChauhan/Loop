@@ -29,8 +29,6 @@
                 android:gravity="center"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                fontPath="fonts/Birds of Paradise.ttf"
-                tools:ignore="MissingPrefix"
                 />
 
         </android.support.v7.widget.Toolbar>

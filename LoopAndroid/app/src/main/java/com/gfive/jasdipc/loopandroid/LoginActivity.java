@@ -2,13 +2,20 @@ package com.gfive.jasdipc.loopandroid;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +39,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -45,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseUser user;
 
     private Button facebookButton;
+    private LinearLayout backgroundLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +72,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         loginButton = (LoginButton) findViewById(R.id.login_button);
         facebookButton = (Button) findViewById(R.id.facebook_button);
+        backgroundLayout = (LinearLayout) findViewById(R.id.activity_login);
 
+        new SetBackgroundAsync().execute();
         loginButton.setReadPermissions("email", "public_profile");
 
         mAuth = FirebaseAuth.getInstance();
@@ -201,4 +215,37 @@ public class LoginActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+
+    private class SetBackgroundAsync extends AsyncTask<Void, Void, Drawable> {
+
+        private Animation fadeIn;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            fadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.animator.fade_in);
+
+        }
+
+        @Override
+        protected Drawable doInBackground(Void... params) {
+
+            try {
+                return new BitmapDrawable(getResources(), Picasso.with(getApplicationContext()).load("http://i.imgur.com/eoQxjP0.jpg").get());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Drawable drawable) {
+            super.onPostExecute(drawable);
+
+            backgroundLayout.setBackground(drawable);
+            backgroundLayout.startAnimation(fadeIn);
+        }
+    }
 }

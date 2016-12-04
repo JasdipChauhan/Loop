@@ -21,124 +21,75 @@
 
 
         <RelativeLayout
-
             android:layout_width="match_parent"
-
             android:layout_height="match_parent"
-
             android:background="@color/colorPrimary"
-
             android:id="@+id/profile_rider_area">
 
-
-
             <TextView
-
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
-
                 android:layout_alignParentLeft="true"
-
                 android:layout_centerVertical="true"
-
                 android:id="@+id/rider_counter"
-
                 android:background="@drawable/rider_counter"
-
                 android:text="#"
-
                 android:textColor="@color/text"
-
                 android:gravity="center"
-
                 android:textSize="16sp"/>
 
-
-
-
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:id="@+id/riders_image"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/rider_counter"
                 android:layout_marginLeft="16dp"
                 android:src="@drawable/username4"/>
 
-
-
             <View
-
                 android:layout_width="1dp"
-
                 android:layout_height="1dp"
-
                 android:id="@+id/center_placeholder"
-
+                android:layout_toRightOf="@id/riders_image"
                 android:layout_centerVertical="true"/>
 
-
-
+            <!--IF WE DECIDE TO SHOW EMAIL-->
             <TextView
-
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
-
                 android:id="@+id/riders_email"
-
                 android:layout_toRightOf="@id/riders_image"
-
                 android:layout_centerVertical="true"
-
+                android:visibility="gone"
                 android:text="EMAIL"
-
                 style="@style/rider_info"/>
 
 
 
             <TextView
-
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
-
                 android:id="@+id/riders_name"
-
                 android:layout_toRightOf="@id/riders_image"
-
                 android:text="NAME"
-
-                android:layout_above="@id/riders_email"
-
+                android:layout_marginStart="14dp"
+                android:textSize="14sp"
+                android:layout_above="@id/center_placeholder"
                 style="@style/rider_info"/>
-
-
 
             <TextView
-
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
-
                 android:id="@+id/riders_phone"
-
+                android:layout_marginStart="14dp"
                 android:layout_toRightOf="@id/riders_image"
-
-                android:layout_below="@id/riders_email"
-
+                android:layout_below="@id/center_placeholder"
                 android:text="PHONE NUMBER"
-
+                android:textSize="14sp"
                 style="@style/rider_info"/>
-
-
-
-
 
             <!--RIGHT SIDE-->
-
-
 
             <RelativeLayout
 

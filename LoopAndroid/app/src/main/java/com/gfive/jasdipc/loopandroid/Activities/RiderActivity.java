@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 
 import com.gfive.jasdipc.loopandroid.Adapters.RiderAdapter;
 import com.gfive.jasdipc.loopandroid.Helpers.WrapContentLinearLayoutManager;
@@ -22,11 +23,24 @@ public class RiderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rider);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         RIDE_KEY = getIntent().getStringExtra("RIDE_KEY");
 
         mRidersRecyclerView = (RecyclerView) findViewById(R.id.rider_recycler_view);
         WrapContentLinearLayoutManager wCLLM = new WrapContentLinearLayoutManager(RiderActivity.this);
         mRidersRecyclerView.setLayoutManager(wCLLM);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

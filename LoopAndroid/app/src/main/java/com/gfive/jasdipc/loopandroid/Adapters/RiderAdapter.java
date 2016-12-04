@@ -3,16 +3,21 @@ package com.gfive.jasdipc.loopandroid.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.View;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.gfive.jasdipc.loopandroid.Activities.ProfileActivity;
+import com.gfive.jasdipc.loopandroid.Models.AppConstants;
 import com.gfive.jasdipc.loopandroid.Models.LoopUser;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.ViewHolders.RiderViewHolder;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+
+import java.util.Locale;
 
 /**
  * Created by JasdipC on 2016-11-14.
@@ -49,7 +54,7 @@ public class RiderAdapter {
                 viewHolder.riderCount.setText(Integer.toString(count));
                 viewHolder.ridersName.setText(model.getName());
                 viewHolder.ridersEmail.setText(model.getEmail());
-                viewHolder.ridersPhone.setText(model.getPhoneNumber());
+                viewHolder.ridersPhone.setText(PhoneNumberUtils.formatNumber(model.getPhoneNumber(), Locale.getDefault().getCountry()));
 
                 Picasso.with(mContext).load(model.getPhoto()).into(viewHolder.ridersImage);
 
@@ -69,7 +74,9 @@ public class RiderAdapter {
 
                     @Override
                     public void onClick(View v) {
-                        Log.i("PROFILE", "PROFILE");
+                        Intent i = new Intent(mContext, ProfileActivity.class);
+                        i.putExtra(AppConstants.TO_LOOP_USER, model);
+                        mContext.startActivity(i);
                     }
                 });
             }

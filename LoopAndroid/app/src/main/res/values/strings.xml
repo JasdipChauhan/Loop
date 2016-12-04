@@ -26,6 +26,12 @@
     <string name="nav_sign_out">Sign Out</string>
     <string name="nav_you">You</string>
 
+    <!--PROFILE ACTIVITY-->
+    <string name="profile_name_header">@string/registration_name_header</string>
+    <string name="profile_phone_header">@string/registration_phone_header</string>
+    <string name="profile_message">Message</string>
+
+
     <!--SEE EXISTING RIDE STRINGS-->
     <string name="date_edit_text">On the road today.</string>
     <string name="time_edit_text">Leaving now.</string>
@@ -47,7 +53,6 @@
     <string name="already_booked_snackbar">You have already booked this ride</string>
     <string name="book_ride_failure">Could not book your ride, please try again...</string>
     <string name="book_ride_success">Successfully booked ride!</string>
-
 
     <!--riiders OF RIDE-->
     <string name="message_driver">Message</string>

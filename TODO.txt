@@ -1,7 +1,6 @@
 TODO
 
 - current user profile view on navigation bar
-- login screen backend token management
 - icons for map view
 - directions for map fragment
 - android splash screen
@@ -13,14 +12,17 @@ IN PROGRESS
 MAYBE
 - add rides to user profile on firebase db
 - rider screen has placeholder cards
+- preload phone number into the edittext field
 
 DESIGNER THINGS
 - login screen - login with facebook is low res
 - registration - background
 - whole app - reimport all assets with right names
+- new marker asset for the map
 
 BUGS
 - marker is not positioned correctly on the map (use new marker asset)
+- login screen backend token management (HUGE BUG FIX ASAP)
 
 DONE
 

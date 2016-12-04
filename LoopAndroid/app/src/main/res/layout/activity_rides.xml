@@ -23,35 +23,161 @@
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/nav_header_height"
-            android:background="@drawable/side_nav_bar"
-            android:gravity="bottom"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark">
+            android:weightSum="1"
+            >
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/nav_header_vertical_spacing"
-                app:srcCompat="@android:drawable/sym_def_app_icon" />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/nav_header_vertical_spacing"
-                android:text="Android Studio"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                android:layout_height="0dp"
+                android:layout_weight="0.4"
+                android:orientation="vertical"
+                android:gravity="center|bottom">
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="android.studio@android.com" />
+                <FrameLayout
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"
+                    android:background="@drawable/profile_background_circle"
+                    android:layout_gravity="center"
+                    >
+
+                    <FrameLayout
+                        android:layout_width="112dp"
+                        android:layout_height="112dp"
+                        android:background="@drawable/profile_background_circle"
+                        android:layout_gravity="center">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:layout_gravity="center"
+                            android:layout_width="84dp"
+                            android:layout_height="84dp"
+                            android:background="@drawable/username7"
+                            android:id="@+id/nav_profile_picture"/>
+
+                    </FrameLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.25"
+                android:gravity="center"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    style="@style/divider" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:padding="8dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/username1"
+                        android:id="@+id/nav_name_asset"
+                        android:layout_centerVertical="true"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/nav_name_header"
+                        android:text="@string/nav_name_header"
+                        android:textColor="@color/textSecondary"
+                        android:layout_alignTop="@id/nav_name_asset"
+                        android:layout_toRightOf="@id/nav_name_asset"
+                        android:layout_marginLeft="8dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/nav_name"
+                        android:text="NAME"
+                        android:textColor="@color/textBetween"
+                        android:layout_marginTop="4dp"
+                        android:layout_below="@+id/nav_name_header"
+                        android:layout_alignStart="@+id/nav_name_header"
+                        />
+
+                </RelativeLayout>
+
+                <ImageView
+                    style="@style/divider" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:padding="8dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/phone2"
+                        android:id="@+id/nav_phone_asset"
+                        android:layout_centerVertical="true"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/nav_phone_header"
+                        android:text="@string/nav_phone_header"
+                        android:textColor="@color/textSecondary"
+                        android:layout_toRightOf="@id/nav_phone_asset"
+                        android:layout_marginStart="16dp"
+                        android:layout_alignParentTop="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/nav_phone_header"
+                        android:layout_marginTop="4dp"
+                        android:layout_alignStart="@id/nav_phone_header"
+                        android:text="@string/nav_phone_header"
+                        android:id="@+id/nav_phone_number"
+                        android:textColor="@color/textBetween"
+                        />
+
+                </RelativeLayout>
+
+                <ImageView
+                    style="@style/divider" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                android:gravity="center">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nav_sign_out"
+                    android:text="@string/nav_sign_out"
+                    android:textColor="@color/textSecondary"
+                    android:textSize="14sp"
+                    android:background="@drawable/sign_out_bg"
+                    android:onClick="signOutAction"
+                    />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

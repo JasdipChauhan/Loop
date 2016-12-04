@@ -16,6 +16,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.gfive.jasdipc.loopandroid.Adapters.PagerAdapter;
 import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
@@ -24,19 +26,26 @@ import com.gfive.jasdipc.loopandroid.Fragments.Tabs.DriverRidesFragment;
 import com.gfive.jasdipc.loopandroid.Fragments.Tabs.MyRidesFragment;
 import com.gfive.jasdipc.loopandroid.LoginActivity;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
+import com.gfive.jasdipc.loopandroid.Models.LoopUser;
 import com.gfive.jasdipc.loopandroid.R;
 import com.gfive.jasdipc.loopandroid.RideOverviewActivity;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class RidesActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AllRidesFragment.OnFragmentInteractionListener, MyRidesFragment.OnFragmentInteractionListener, DriverRidesFragment.OnFragmentInteractionListener {
 
+
+    //MARK NAV BAR PROPERTIES
+    private ImageView mNavProfile;
+    private TextView mNavName;
+    private TextView mNavPhoneNumber;
+
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
-
     private TabLayout tabLayout;
 
     @Override
@@ -75,13 +84,33 @@ public class RidesActivity extends AppCompatActivity
 
         pager = (ViewPager) findViewById(R.id.rides_view_pager);
         tabLayout = (TabLayout) findViewById(R.id.rides_tab_layout);
+        mNavProfile = (ImageView) findViewById(R.id.nav_profile_picture);
+        mNavName = (TextView) findViewById(R.id.nav_name);
+        mNavPhoneNumber = (TextView) findViewById(R.id.nav_phone_number);
 
         pagerAdapter = new PagerAdapter(getSupportFragmentManager(), this);
         pager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(pager);
         tabLayout.getTabAt(PagerAdapter.ALL_RIDES).select();
 
+        setupNav();
     }
+
+    //MARK: Nav bar methods
+
+    public void signOutAction(View view) {
+        handleLogout();
+    }
+
+    private void setupNav() {
+        LoopUser user = ProfileManager.getInstance().getLoopUser();
+
+        Picasso.with(RidesActivity.this).load(user.getPhoto()).into(mNavProfile);
+        mNavName.setText(user.getName());
+        mNavPhoneNumber.setText(user.getPhoneNumber());
+    }
+
+    //MARK: Activity methods
 
     private void handleLogout() {
         ProfileManager.getInstance().signOut();

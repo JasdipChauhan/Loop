@@ -66,7 +66,6 @@ public class RegisterActivity extends AppCompatActivity {
         mRegisterName.setText(currentUser.getDisplayName());
 
         mRegisterPhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
-
         mRegisterPhoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

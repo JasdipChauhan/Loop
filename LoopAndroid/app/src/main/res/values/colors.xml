@@ -11,7 +11,7 @@
 
     <color name="text">@color/white</color>
     <color name="textSecondary">#80FFFFFF</color>
-    <color name="text_betweenn">#B3FFFFFF</color>
+    <color name="textBetween">#B3FFFFFF</color>
     <color name="dark_jungle">#202020</color>
 
     <!--REGISTRATION-->

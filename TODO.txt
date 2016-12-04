@@ -1,8 +1,6 @@
 TODO
 
 - current user profile view on navigation bar
-- register screen styling
-- login screen styling
 - login screen backend token management
 - icons for map view
 - directions for map fragment
@@ -13,18 +11,25 @@ TODO
 IN PROGRESS
 
 MAYBE
-- add rides to user profile on firebase db 
+- add rides to user profile on firebase db
 - rider screen has placeholder cards
+
+DESIGNER THINGS
+- login screen - login with facebook is low res
+- registration - background
+- whole app - reimport all assets with right names
 
 BUGS
 - marker is not positioned correctly on the map (use new marker asset)
 
 DONE
 
+- register screen styling
+- login screen styling
 - circular images
 - async tasks to delegate checking for my rides
 - custom fonts everywhere!!!
-- group header not shown for other 
+- group header not shown for other
 - custom toolbar
 - banner showing ride dates for grouping
 - icon in drawer layout
@@ -39,7 +44,7 @@ DONE
 - incorporating time into backend date var
 - date adds an extra day to long variable
 - delete past ride dates
-- filtering of soonest rides 
+- filtering of soonest rides
 - double backend call for ride reservation (fixed using transactions)
 - refactor (directory management, delete obsolete code)
 - don't make adapters a singleton pattern

@@ -4,7 +4,7 @@
     android:shape="oval">
 
     <solid
-        android:color="#565656"/>
+        android:color="@color/profile_outer_circle"/>
 
     <size
         android:width="128dp"

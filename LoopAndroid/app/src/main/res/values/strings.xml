@@ -13,6 +13,13 @@
     <!--LOGIN ACTIVITY-->
     <string name="riide_slogan">Made on the way for you.</string>
 
+    <!--REGISTRATION SCREEN-->
+    <string name="registration_name_header">NAME</string>
+    <string name="registration_phone_header">PHONE</string>
+    <string name="registration_phone_field">Enter your phone number...</string>
+    <string name="register_button">Register</string>
+    <string name="phone_consent_message">Your phone number is used so that riiders and driivers can contact each other</string>
+
     <!--SEE EXISTING RIDE STRINGS-->
     <string name="date_edit_text">On the road today.</string>
     <string name="time_edit_text">Leaving now.</string>

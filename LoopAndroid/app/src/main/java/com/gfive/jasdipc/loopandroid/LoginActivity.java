@@ -2,7 +2,6 @@ package com.gfive.jasdipc.loopandroid;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -16,7 +15,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -32,6 +30,7 @@ import com.gfive.jasdipc.loopandroid.Activities.RegisterActivity;
 import com.gfive.jasdipc.loopandroid.Clients.BackendClient;
 import com.gfive.jasdipc.loopandroid.Interfaces.ServerAction;
 import com.gfive.jasdipc.loopandroid.Managers.ProfileManager;
+import com.gfive.jasdipc.loopandroid.Models.AppConstants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -42,7 +41,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -155,6 +153,9 @@ public class LoginActivity extends AppCompatActivity {
                 new ServerAction() {
                     @Override
                     public void response(boolean userExists) {
+
+                        Log.i("RESPONSE", "NEXT ACTIVITY");
+
                         finish();
                         Intent intent;
                         if (userExists) {
@@ -215,7 +216,6 @@ public class LoginActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-
     private class SetBackgroundAsync extends AsyncTask<Void, Void, Drawable> {
 
         private Animation fadeIn;
@@ -232,7 +232,7 @@ public class LoginActivity extends AppCompatActivity {
         protected Drawable doInBackground(Void... params) {
 
             try {
-                return new BitmapDrawable(getResources(), Picasso.with(getApplicationContext()).load("http://i.imgur.com/eoQxjP0.jpg").get());
+                return new BitmapDrawable(getResources(), Picasso.with(getApplicationContext()).load(AppConstants.LOGIN_ACTIVITY_BACKGROUND_IMAGE).get());
             } catch (IOException e) {
                 e.printStackTrace();
             }

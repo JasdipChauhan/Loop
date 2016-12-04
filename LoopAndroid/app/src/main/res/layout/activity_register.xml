@@ -1,78 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
-    android:orientation="vertical"
-    android:background="@color/colorPrimary"
-    tools:context="com.gfive.jasdipc.loopandroid.Activities.RegisterActivity">
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/registration_background_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        />
 
     <LinearLayout
+        android:id="@+id/activity_register"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.4"
+        android:layout_height="match_parent"
+        android:weightSum="1"
         android:orientation="vertical"
-        android:gravity="center">
-        
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/profile_outer_circle">
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        tools:context="com.gfive.jasdipc.loopandroid.Activities.RegisterActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.45"
+            android:orientation="vertical"
+            android:gravity="center">
 
             <FrameLayout
-                android:layout_width="wrap_content"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:background="@drawable/profile_background_circle"
+                android:layout_gravity="center"
+                >
+
+                <FrameLayout
+                    android:layout_width="112dp"
+                    android:layout_height="112dp"
+                    android:background="@drawable/profile_background_circle"
+                    android:layout_gravity="center">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_gravity="center"
+                        android:layout_width="84dp"
+                        android:layout_height="84dp"
+                        android:background="@drawable/username7"
+                        android:id="@+id/register_photo"/>
+
+                </FrameLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"
+            android:gravity="center"
+            android:orientation="vertical"
+            >
+
+            <ImageView
+                style="@style/divider" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/profile_inner_circle">
+                android:layout_marginStart="8dp"
+                android:padding="8dp"
+                >
+
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/username"/>
+                    android:src="@drawable/username1"
+                    android:id="@+id/register_name_asset"
+                    android:layout_centerVertical="true"
+                    />
 
-            </FrameLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/register_name_header"
+                    android:text="NAME"
+                    android:textColor="@color/textSecondary"
+                    android:layout_alignTop="@id/register_name_asset"
+                    android:layout_toRightOf="@id/register_name_asset"
+                    android:layout_marginLeft="8dp"
+                    />
 
-        </FrameLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/register_name"
+                    android:text="@string/registration_name_header"
+                    android:textColor="@color/text_betweenn"
+                    android:layout_marginTop="4dp"
+                    android:layout_below="@+id/register_name_header"
+                    android:layout_alignStart="@+id/register_name_header"
+                    />
+
+            </RelativeLayout>
+
+            <ImageView
+                style="@style/divider" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:padding="4dp"
+                >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/phone2"
+                    android:id="@+id/register_phone_asset"
+                    android:layout_centerVertical="true"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/register_phone_header"
+                    android:text="@string/registration_phone_header"
+                    android:textColor="@color/textSecondary"
+                    android:layout_alignTop="@id/register_phone_asset"
+                    android:layout_toRightOf="@id/register_phone_asset"
+                    android:layout_marginLeft="8dp"
+                    />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/register_phone_header"
+                    android:layout_alignStart="@id/register_phone_header"
+                    android:id="@+id/register_phone_number"
+                    android:hint="@string/registration_phone_field"
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/text"
+                    android:inputType="phone"
+                    android:maxLength="14"
+                    />
+
+            </RelativeLayout>
+
+            <ImageView
+                style="@style/divider" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.20"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/disabled_sign_up_bg"
+                android:alpha="0.75"
+                android:text="@string/register_button"
+                android:textColor="@color/white"
+                android:id="@+id/register_button"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone_consent_message"
+                android:textColor="@color/textSecondary"
+                android:gravity="center|top"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"></LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/register_photo"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/register_name"
-        android:text="USER'S NAME"
-        />
+</FrameLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/register_name"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/register_email"
-        android:text="USER'S EMAIL" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/register_email"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/register_phone_number"
-        android:hint="Enter your phone number..." />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorAccent"
-        android:text="Register"
-        android:textColor="@color/white"
-        android:id="@+id/register_button"/>
-
-</LinearLayout>

@@ -1,6 +1,5 @@
 TODO
 
-- current user profile view on navigation bar
 - icons for map view
 - directions for map fragment
 - android splash screen
@@ -8,6 +7,7 @@ TODO
 - loop website???
 
 IN PROGRESS
+- profile activity
 
 MAYBE
 - add rides to user profile on firebase db
@@ -26,6 +26,7 @@ BUGS
 
 DONE
 
+- current user profile view on navigation bar
 - register screen styling
 - login screen styling
 - circular images

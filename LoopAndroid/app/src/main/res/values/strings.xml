@@ -24,6 +24,7 @@
     <string name="nav_name_header">@string/registration_name_header</string>
     <string name="nav_phone_header">@string/registration_phone_header</string>
     <string name="nav_sign_out">Sign Out</string>
+    <string name="nav_you">You</string>
 
     <!--SEE EXISTING RIDE STRINGS-->
     <string name="date_edit_text">On the road today.</string>

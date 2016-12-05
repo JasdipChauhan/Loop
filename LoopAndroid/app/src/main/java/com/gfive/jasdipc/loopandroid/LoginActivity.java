@@ -56,6 +56,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button facebookButton;
     private LinearLayout backgroundLayout;
 
+    private boolean canLogin = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +112,8 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         };
+
+        canLogin = true;
     }
 
     public void facebookClickedAction(View view) {
@@ -148,6 +152,8 @@ public class LoginActivity extends AppCompatActivity {
 
         ProfileManager.getInstance().setLocalUser(user);
 
+        canLogin = true;
+
         BackendClient.getInstance().doesUserExist(
                 user,
                 new ServerAction() {
@@ -158,15 +164,22 @@ public class LoginActivity extends AppCompatActivity {
 
                         finish();
                         Intent intent;
-                        if (userExists) {
+                        if (userExists && canLogin) {
                             //user has already registered
                             intent = new Intent(LoginActivity.this, RidesActivity.class);
-                        } else {
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+
+                        if (!userExists && canLogin) {
                             //need to register user
                             intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
                         }
-                        finish();
-                        startActivity(intent);
+
+                        canLogin = false;
+
                     }
                 }
         );
@@ -185,6 +198,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
 
+        canLogin = false;
         if (mAuth.getCurrentUser() != null) {
             handleLogin();
         }
@@ -196,6 +210,7 @@ public class LoginActivity extends AppCompatActivity {
 
         user = mAuth.getCurrentUser();
 
+        canLogin = false;
         if (user != null) {
             handleLogin();
         }
@@ -205,6 +220,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 
+        canLogin = false;
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }

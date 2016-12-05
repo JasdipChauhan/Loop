@@ -153,11 +153,6 @@ public class RidesActivity extends AppCompatActivity
 
                 break;
 
-            case R.id.logout_menu:
-
-                handleLogout();
-                break;
-
             default:
                 break;
         }

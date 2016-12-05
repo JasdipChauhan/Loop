@@ -7,10 +7,4 @@
         android:title="AddRideTitle"
         app:showAsAction="always"/>
 
-    <item
-        android:id="@+id/logout_menu"
-        android:orderInCategory="100"
-        android:title="Logout"
-        app:showAsAction="never" />
-
 </menu>

@@ -49,13 +49,6 @@ public class RidesActivity extends AppCompatActivity
     private TabLayout tabLayout;
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-        BackendClient.getInstance().cleanDatabase();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rides);
@@ -94,6 +87,15 @@ public class RidesActivity extends AppCompatActivity
         tabLayout.getTabAt(PagerAdapter.ALL_RIDES).select();
 
         setupNav();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        BackendClient.getInstance().cleanDatabase();
+
+
     }
 
     //MARK: Nav bar methods

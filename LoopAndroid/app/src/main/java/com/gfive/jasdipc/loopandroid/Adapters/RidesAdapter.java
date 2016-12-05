@@ -28,6 +28,7 @@ import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -35,17 +36,16 @@ import java.util.Set;
 
 public class RidesAdapter {
 
-    private static RidesAdapter ridesAdapter;
-
     private Context mContext;
     private DatabaseReference mReference;
 
-    private String lastRideDate = "";
     private int lastPosition = -1;
 
     private FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> firebaseRecyclerAdapter;
     private FirebaseRecyclerAdapter<LoopRide, RidesViewHolder> localRecyclerAdapter;
     private FirebaseRecyclerAdapter<LoopRide, DriverViewHolder> driverRecyclerAdapter;
+
+    private Map<String, Long> dateMapper = new HashMap<>();
 
     public RidesAdapter(final Context mContext, DatabaseReference mReference) {
         this.mContext = mContext;
@@ -129,7 +129,6 @@ public class RidesAdapter {
                 String ref = getRef(position).getKey().toString();
                 if (!savedRides.contains(ref)) {
                     holder.cardView.setVisibility(View.GONE);
-                    lastRideDate = "";
                     return;
                 }
 
@@ -147,16 +146,25 @@ public class RidesAdapter {
 
         String currentRideDate = FormatHelper.toReadableFormat(model.getDate());
 
-        if (lastRideDate.equalsIgnoreCase(currentRideDate)) {
-            holder.dateView.setVisibility(View.GONE);
+        /////
 
+        //update with the more recent date
+
+        if ((!dateMapper.containsKey(currentRideDate)) || (model.getDate() <= dateMapper.get(currentRideDate))) {
+            dateMapper.put(currentRideDate, model.getDate());
+            holder.dateView.setVisibility(View.VISIBLE);
+            holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 120, mContext.getResources().getDisplayMetrics())
+            ));
+
+        } else {
+
+            holder.dateView.setVisibility(View.GONE);
             holder.cardView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 85, mContext.getResources().getDisplayMetrics())
             ));
+
         }
-
-
-        lastRideDate = currentRideDate;
 
         holder.usersName.setText(FormatHelper.shortHandName(model.getDriver().getName()));
         holder.date.setText(FormatHelper.toReadableFormat(model.getDate()));
@@ -173,22 +181,6 @@ public class RidesAdapter {
 
 
         runEnterAnimation(holder.itemView, position);
-    }
-
-    private List<String> getRiderList(Map<String, String> riderMap) {
-        List<String> riderList = new ArrayList<>();
-
-        ///DEBUG PURPOSES
-        for (Map.Entry<String, String> entry: riderMap.entrySet()) {
-
-            Log.i("USER KEY", entry.getKey());
-            Log.i("USER ID VALUE", entry.getValue());
-        }
-        ///DEBUG PURPOSES
-
-        riderList.addAll(riderMap.values());
-
-        return riderList;
     }
 
     //Animations

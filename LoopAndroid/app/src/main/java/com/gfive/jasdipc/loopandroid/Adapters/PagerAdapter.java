@@ -41,8 +41,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
             case ALL_RIDES:
                 return AllRidesFragment.newInstance();
             case MY_RIDES:
-                return MyRidesFragment.newInstance();
-
+                 return MyRidesFragment.newInstance();
             default:
 
             return null;

@@ -72,7 +72,7 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
     private String pickupString;
     private String dropoffString;
     private String rideCarJSON;
-    private double ridePriceJSON;
+    private int ridePriceJSON;
     private String pickupDesJSON;
     private String dropoffDesJSON;
     private int rideCapacity = 0;
@@ -297,7 +297,7 @@ public class NewRideFragment extends Fragment implements AdapterView.OnItemSelec
 
         try {
             String priceStr = ridePrice.getText().toString().trim();
-            ridePriceJSON = Double.parseDouble(priceStr);
+            ridePriceJSON = Integer.parseInt(priceStr);
         } catch (Exception e) {
             e.printStackTrace();
             return false;

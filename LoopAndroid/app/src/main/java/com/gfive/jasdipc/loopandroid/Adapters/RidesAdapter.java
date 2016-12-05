@@ -171,7 +171,7 @@ public class RidesAdapter {
         holder.journey.setText(model.getPickup() + " to " + model.getDropoff());
         holder.pickupTime.setText(model.getTime());
         holder.seats.setText(model.getSeatsLeft() + "/" + model.getSeatsSize());
-        holder.cost.setText("$".concat(Double.toString(model.getPrice())));
+        holder.cost.setText("$".concat(Integer.toString(model.getPrice())));
 
         if (myRides.contains(rideKey)) {
             holder.myRideView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccent));

@@ -16,7 +16,7 @@ public class LoopRide implements Parcelable {
     private String dropoffDescription;
     private String pickup;
     private String pickupDescription;
-    private double price;
+    private int price;
     private int seatsLeft;
     private int seatsSize;
     private String time;
@@ -37,7 +37,7 @@ public class LoopRide implements Parcelable {
         pickupDescription = "";
     }
 
-    public LoopRide(String car, long date, LoopUser driver, Map<String, LoopUser> riders, String dropoff, String dropoffDescription, String pickup, String pickupDescription, double price, int seatsLeft, int seatsSize, String time) {
+    public LoopRide(String car, long date, LoopUser driver, Map<String, LoopUser> riders, String dropoff, String dropoffDescription, String pickup, String pickupDescription, int price, int seatsLeft, int seatsSize, String time) {
         this.car = car;
         this.date = date;
         this.driver = driver;
@@ -118,11 +118,11 @@ public class LoopRide implements Parcelable {
         this.pickupDescription = pickupDescription;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -154,7 +154,6 @@ public class LoopRide implements Parcelable {
         return CREATOR;
     }
 
-
     //Parcelable
 
     @Override
@@ -176,7 +175,7 @@ public class LoopRide implements Parcelable {
         dest.writeString(this.dropoffDescription);
         dest.writeString(this.pickup);
         dest.writeString(this.pickupDescription);
-        dest.writeDouble(this.price);
+        dest.writeInt(this.price);
         dest.writeInt(this.seatsLeft);
         dest.writeInt(this.seatsSize);
         dest.writeString(this.time);
@@ -197,7 +196,7 @@ public class LoopRide implements Parcelable {
         this.dropoffDescription = in.readString();
         this.pickup = in.readString();
         this.pickupDescription = in.readString();
-        this.price = in.readDouble();
+        this.price = in.readInt();
         this.seatsLeft = in.readInt();
         this.seatsSize = in.readInt();
         this.time = in.readString();

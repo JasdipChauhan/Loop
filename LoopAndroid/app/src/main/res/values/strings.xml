@@ -20,6 +20,9 @@
     <string name="register_button">Register</string>
     <string name="phone_consent_message">Your phone number is used so that drivers and their riders can contact each other</string>
 
+    <!--RIDES ACTIVITY-->
+    <string name="rides_loop_title">loop</string>
+
     <!--RIDES ACTIVITY NAV DRAWER-->
     <string name="nav_name_header">@string/registration_name_header</string>
     <string name="nav_phone_header">@string/registration_phone_header</string>
@@ -30,7 +33,6 @@
     <string name="profile_name_header">@string/registration_name_header</string>
     <string name="profile_phone_header">@string/registration_phone_header</string>
     <string name="profile_message">Message</string>
-
 
     <!--SEE EXISTING RIDE STRINGS-->
     <string name="date_edit_text">On the road today.</string>

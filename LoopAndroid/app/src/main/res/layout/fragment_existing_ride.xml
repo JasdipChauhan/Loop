@@ -363,6 +363,18 @@
                     android:layout_marginRight="12dp"
                     />
 
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg2"
+                    android:onClick="deleteRideClicked"
+                    android:textColor="@color/white"
+                    android:text="@string/delete_ride_button"
+                    android:layout_centerHorizontal="true"
+                    android:visibility="gone"
+                    android:id="@+id/delete_button"
+                    />
+
             </RelativeLayout>
 
         </LinearLayout>

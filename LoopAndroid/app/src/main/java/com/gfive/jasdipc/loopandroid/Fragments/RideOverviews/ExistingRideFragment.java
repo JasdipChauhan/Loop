@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gfive.jasdipc.loopandroid.Activities.RiderActivity;
@@ -32,7 +31,6 @@ import com.gfive.jasdipc.loopandroid.Managers.StorageManager;
 import com.gfive.jasdipc.loopandroid.Models.LoopRide;
 import com.gfive.jasdipc.loopandroid.Models.LoopUser;
 import com.gfive.jasdipc.loopandroid.R;
-import com.gfive.jasdipc.loopandroid.RideOverviewActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +46,7 @@ public class ExistingRideFragment extends Fragment {
     private static final String RIDE_KEY_PARAM = "RIDE_KEY";
     private LoopRide mRide;
     private String mRideKey;
+    private boolean userIsDriver = false;
 
     private OnFragmentInteractionListener mListener;
 
@@ -70,6 +69,8 @@ public class ExistingRideFragment extends Fragment {
     private ImageView riderIMG6;
 
     private Button reserveButton;
+    private Button messageButton;
+    private Button deleteButton;
 
     public ExistingRideFragment() {
         // Required empty public constructor
@@ -111,6 +112,8 @@ public class ExistingRideFragment extends Fragment {
         rideCar = (TextView) view.findViewById(R.id.ride_car);
         pickupDescription = (EditText) view.findViewById(R.id.pickup_description);
         dropoffDescription = (EditText) view.findViewById(R.id.dropoff_description);
+        messageButton = (Button) view.findViewById(R.id.message_button);
+        deleteButton = (Button) view.findViewById(R.id.delete_button);
 
         riderListView = (LinearLayout) view.findViewById(R.id.rider_list_view);
         riderIMG1 = (ImageView) view.findViewById(R.id.rider1);
@@ -137,35 +140,52 @@ public class ExistingRideFragment extends Fragment {
             setRideToBooked();
         }
 
+        if (StorageManager.getInstance(getContext()).getDriverRides().contains(mRideKey)) {
+            userIsDriver = true;
+            setUserAsDriver();
+            getActivity().invalidateOptionsMenu();
+        }
+
         return view;
     }
 
     public void reserveRide(View view) {
         if (!TextUtils.isEmpty(mRideKey)) {
 
-            LoopUser currentUser = ProfileManager.getInstance().getLoopUser();
+            final LoopUser currentUser = ProfileManager.getInstance().getLoopUser();
 
-            BackendClient.getInstance().reserveRide(mRideKey, currentUser, new ServerAction() {
+            BackendClient.getInstance().checkIfUserIsDriver(mRideKey, currentUser.getUuid(), new ServerAction() {
                 @Override
-                public void response(boolean isSuccessful) {
-
-                    if (isSuccessful) {
-
-                        if (StorageManager.getInstance(getContext()).isAlreadySaved(mRideKey)) {
-                            Snackbar.make(getView().findViewById(R.id.scroll_view), R.string.already_booked_snackbar, Snackbar.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        StorageManager.getInstance(getContext())
-                                .saveRiderRides(mRideKey);
-
-                        Snackbar.make(getView().findViewById(R.id.scroll_view), R.string.book_ride_success, Snackbar.LENGTH_SHORT).show();
-
-                        setRideToBooked();
-
-                    } else {
-                        Snackbar.make(getView().findViewById(R.id.scroll_view), R.string.book_ride_failure, Snackbar.LENGTH_SHORT).show();
+                public void response(boolean iAmDriver) {
+                    if (iAmDriver) {
+                        Snackbar.make(getView().findViewById(R.id.scroll_view), R.string.book_your_own_rides, Snackbar.LENGTH_SHORT).show();
+                        return;
                     }
+
+                    BackendClient.getInstance().reserveRide(mRideKey, currentUser, new ServerAction() {
+                        @Override
+                        public void response(boolean isSuccessful) {
+
+                            if (isSuccessful) {
+
+                                if (StorageManager.getInstance(getContext()).isAlreadySaved(mRideKey)) {
+                                    Snackbar.make(getView().findViewById(R.id.scroll_view), R.string.already_booked_snackbar, Snackbar.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                StorageManager.getInstance(getContext())
+                                        .saveRiderRides(mRideKey);
+
+                                Snackbar.make(getView().findViewById(R.id.scroll_view), R.string.book_ride_success, Snackbar.LENGTH_SHORT).show();
+
+                                setRideToBooked();
+
+                            } else {
+                                Snackbar.make(getView().findViewById(R.id.scroll_view), R.string.book_ride_failure, Snackbar.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    });
 
                 }
             });
@@ -185,6 +205,21 @@ public class ExistingRideFragment extends Fragment {
         Intent toRiders = new Intent(getContext(), RiderActivity.class);
         toRiders.putExtra("RIDE_KEY", mRideKey);
         startActivity(toRiders);
+    }
+
+    public void deleteRide(View view) {
+        BackendClient.getInstance().deleteRide(mRideKey, new ServerAction() {
+            @Override
+            public void response(boolean isDeleted) {
+
+                if (isDeleted) {
+                    getActivity().finish();
+                } else {
+                    Snackbar.make(getView().findViewById(R.id.scroll_view), R.string.unable_to_delete, Snackbar.LENGTH_SHORT).show();
+                }
+
+            }
+        });
     }
 
     @Override
@@ -226,6 +261,10 @@ public class ExistingRideFragment extends Fragment {
             case R.id.action_book_ride:
                 reserveButton.callOnClick();
                 break;
+
+            case R.id.action_delete_ride:
+                deleteButton.callOnClick();
+
             default:
                 break;
         }
@@ -237,13 +276,25 @@ public class ExistingRideFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.book_ride_menu, menu);
+
+        if (userIsDriver) {
+            inflater.inflate(R.menu.driver_ride_menu, menu);
+        } else {
+            inflater.inflate(R.menu.book_ride_menu, menu);
+        }
+
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     //MARK: HELPER FUNCTIONS
 
-    public void setRideToBooked() {
+    private void setUserAsDriver() {
+        deleteButton.setVisibility(View.VISIBLE);
+        messageButton.setVisibility(View.GONE);
+        reserveButton.setVisibility(View.GONE);
+    }
+
+    private void setRideToBooked() {
 
         Activity parentActivity = getActivity();
 

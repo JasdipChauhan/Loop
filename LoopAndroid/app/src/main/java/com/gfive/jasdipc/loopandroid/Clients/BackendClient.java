@@ -124,82 +124,60 @@ public class BackendClient {
 
     public void reserveRide(final String rideID, final LoopUser user, final ServerAction callback) {
 
-        isMyRide(rideID, new ServerAction() {
+        mRideDatabase.child(rideID).runTransaction(new Transaction.Handler() {
             @Override
-            public void response(boolean isMyRide) {
+            public Transaction.Result doTransaction(MutableData mutableData) {
 
-                if (isMyRide) {
+                LoopRide ride = mutableData.getValue(LoopRide.class);
+
+                if (ride == null) {
+                    Log.e("BACKEND", "COULD NOT RETRIEVE RIDE");
                     callback.response(false);
-                    return;
-                } else {
-
-                    mRideDatabase.child(rideID).runTransaction(new Transaction.Handler() {
-                        @Override
-                        public Transaction.Result doTransaction(MutableData mutableData) {
-
-                            LoopRide ride = mutableData.getValue(LoopRide.class);
-
-                            if (ride == null) {
-                                Log.e("BACKEND", "COULD NOT RETRIEVE RIDE");
-                                callback.response(false);
-                                return Transaction.success(mutableData);
-                            }
-
-                            if (ride.getSeatsLeft() < 1) {
-                                Log.e("BACKEND", "Ride has no seats left");
-                                callback.response(false);
-                                return Transaction.success(mutableData);
-                            }
-
-                            int newSeats = ride.getSeatsLeft() - 1;
-                            ride.setSeatsLeft(newSeats);
-
-                            LoopUser loopUser = ProfileManager.getInstance().getLoopUser();
-
-                            if (!ride.getRiders().containsKey(user.getUuid())) {
-                                ride.getRiders().put(user.getUuid(), loopUser);
-                                mutableData.setValue(ride);
-                            }
-
-                            callback.response(true);
-                            return Transaction.success(mutableData);
-                        }
-
-                        @Override
-                        public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-                            Log.d("BACKEND UPLOAD", "postTransaction:onComplete:" + databaseError);
-                        }
-                    });
-
+                    return Transaction.success(mutableData);
                 }
 
+                if (ride.getSeatsLeft() < 1) {
+                    Log.e("BACKEND", "Ride has no seats left");
+                    callback.response(false);
+                    return Transaction.success(mutableData);
+                }
+
+                int newSeats = ride.getSeatsLeft() - 1;
+                ride.setSeatsLeft(newSeats);
+
+                LoopUser loopUser = ProfileManager.getInstance().getLoopUser();
+
+                if (!ride.getRiders().containsKey(user.getUuid())) {
+                    ride.getRiders().put(user.getUuid(), loopUser);
+                    mutableData.setValue(ride);
+                }
+
+                callback.response(true);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                Log.d("BACKEND UPLOAD", "postTransaction:onComplete:" + databaseError);
             }
         });
+
     }
 
-    private void isMyRide(final String rideID, final ServerAction callback) {
-
+    public void deleteRide(final String rideID, final ServerAction callback) {
         mRideDatabase.child(rideID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                LoopUser driverUser = dataSnapshot.child("driver").getValue(LoopUser.class);
-                LoopUser currentUser = ProfileManager.getInstance().getLoopUser();
-
-                if (driverUser.getUuid().equalsIgnoreCase(currentUser.getUuid())) {
-                    callback.response(true);
-                } else {
-                    callback.response(false);
-                }
+                dataSnapshot.getRef().removeValue();
+                callback.response(true);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 databaseError.toException().printStackTrace();
-
-                callback.response(true); //fallback to not being able to book a ride
+                callback.response(false);
             }
         });
-
     }
 
     //ON PRESENTATION LAYER
@@ -234,12 +212,11 @@ public class BackendClient {
 
     }
 
-    public void checkIfDriver(final String ref, final String currentUsersID, final ServerAction callback) {
+    public void checkIfUserIsDriver(final String ref, final String currentUsersID, final ServerAction callback) {
 
         mRideDatabase.child(ref).child("driver").child("uuid").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
 
                 String driversID = dataSnapshot.getValue(String.class);
 
@@ -278,7 +255,6 @@ public class BackendClient {
         });
 
     }
-
 
     private class CleanDatabase extends AsyncTask<Void, Void, Void> {
 

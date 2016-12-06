@@ -43,6 +43,7 @@
     <string name="dropoff_edit_desc">Drop off your loopers here.</string>
     <string name="create_ride_button">Create</string>
     <string name="book_ride_button">Book</string>
+    <string name="delete_ride_button">Delete</string>
 
     <!--PAGE TITLES-->
     <string name="my_rides_page_title">RIDER</string>
@@ -54,6 +55,7 @@
     <string name="book_ride_failure">Could not book your ride, please try again...</string>
     <string name="book_ride_success">Successfully booked ride!</string>
     <string name="book_your_own_rides">Sorry but you cannot book your own rides!</string>
+    <string name="unable_to_delete">Sorry, but we could not delete your ride...</string>
 
     <!--Riders OF Loop-->
     <string name="message_driver">Message</string>

@@ -195,6 +195,14 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
         existingRideFragment.showRiders(view);
     }
 
+    public void messageButtonClicked (View view) {
+        existingRideFragment.messageDriver(view);
+    }
+
+    public void deleteRideClicked (View view) {
+        existingRideFragment.deleteRide(view);
+    }
+
     //Mark: NEW RIDE FRAGMENT interactions
 
     public void createButtonClicked (View view) {
@@ -243,7 +251,4 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
         newRideFragment.handleDatePicked();
     }
 
-    public void messageButtonClicked (View view) {
-        existingRideFragment.messageDriver(view);
-    }
 }

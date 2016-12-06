@@ -66,6 +66,11 @@ public class RidesAdapter {
             @Override
             protected void populateViewHolder(final RidesViewHolder holder, LoopRide model, int position) {
                 String ref = getRef(position).getKey().toString();
+
+                if (model.getSeatsLeft() < 1) {
+                    holder.cardView.setVisibility(View.GONE);
+                }
+
                 fillViewHolder(holder, model, position, ref, savedRides);
             }
         };

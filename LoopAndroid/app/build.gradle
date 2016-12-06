@@ -12,10 +12,6 @@ android {
         versionName "1.0"
         multiDexEnabled true
     }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     buildTypes {
         release {
             minifyEnabled false

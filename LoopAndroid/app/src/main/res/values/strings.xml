@@ -11,14 +11,14 @@
 
 
     <!--LOGIN ACTIVITY-->
-    <string name="riide_slogan">Made on the way for you.</string>
+    <string name="loop_slogan">Made on the way for you.</string>
 
     <!--REGISTRATION ACTIVITY-->
     <string name="registration_name_header">NAME</string>
     <string name="registration_phone_header">PHONE</string>
     <string name="registration_phone_field">Enter your phone number...</string>
     <string name="register_button">Register</string>
-    <string name="phone_consent_message">Your phone number is used so that riiders and driivers can contact each other</string>
+    <string name="phone_consent_message">Your phone number is used so that drivers and their riders can contact each other</string>
 
     <!--RIDES ACTIVITY NAV DRAWER-->
     <string name="nav_name_header">@string/registration_name_header</string>
@@ -50,16 +50,17 @@
     <string name="driver_rides_page_title">DRIVER</string>
 
     <!--RIDE OVERVIEW FEEDBACK SNACKBARS-->
-    <string name="already_booked_snackbar">You have already booked this ride</string>
+    <string name="already_booked_snackbar">You have already booked this ride!</string>
     <string name="book_ride_failure">Could not book your ride, please try again...</string>
     <string name="book_ride_success">Successfully booked ride!</string>
+    <string name="book_your_own_rides">Sorry but you cannot book your own rides!</string>
 
-    <!--riiders OF RIDE-->
+    <!--Riders OF Loop-->
     <string name="message_driver">Message</string>
 
-    <!--driver of RIDE-->
+    <!--Driver of Loop-->
     <string name="driver_card_time">TIME</string>
-    <string name="driver_card_riiders">RIIDERS</string>
+    <string name="driver_card_riders">riders</string>
     <string name="title_activity_main">MainActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

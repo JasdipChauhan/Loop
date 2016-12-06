@@ -144,7 +144,7 @@
                     android:id="@+id/driver_rider_count_tv"
                     android:layout_toRightOf="@id/driver_time_tv"
                     android:layout_marginLeft="16dp"
-                    android:text="@string/driver_card_riiders"
+                    android:text="@string/driver_card_riders"
                     android:textColor="@color/text"
                     android:drawablePadding="6dp"
                     android:gravity="center"

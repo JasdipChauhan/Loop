@@ -125,17 +125,18 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-        Log.i("BUTTON CLICKED", "GOOOOOOD");
     }
 
     @Override
     public void onPickupSelected(String location) {
+        pickup = location + ", Ontario, Canada";
         mMap.clear();
         plotMap();
     }
 
     @Override
     public void onDropoffSelected(String location) {
+        dropoff = location + ", Ontario, Canada";
         mMap.clear();
         plotMap();
     }

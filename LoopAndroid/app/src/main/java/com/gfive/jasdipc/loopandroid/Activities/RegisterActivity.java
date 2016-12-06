@@ -143,7 +143,7 @@ public class RegisterActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            fadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.animator.fade_in);
+            fadeIn = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
 
         }
 

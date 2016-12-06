@@ -1,5 +1,6 @@
 package com.gfive.jasdipc.loopandroid.Fragments.Dialogs;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
@@ -23,6 +24,7 @@ public class TimeDialog extends DialogFragment implements TimePickerDialog.OnTim
 
     private TextView timeTV;
 
+    @SuppressLint("ValidFragment")
     public TimeDialog(View view) {
         timeTV = (TextView) view;
     }

@@ -1,5 +1,6 @@
 package com.gfive.jasdipc.loopandroid.Fragments.Dialogs;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.DatePickerDialog;
@@ -23,6 +24,7 @@ public class DateDialog extends DialogFragment implements android.app.DatePicker
 
     private TextView datePickerTV;
 
+    @SuppressLint("ValidFragment")
     public DateDialog(View view) {
         datePickerTV = (TextView) view;
     }

@@ -1,7 +1,11 @@
 package com.gfive.jasdipc.loopandroid;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -9,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -41,6 +46,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -57,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     private LinearLayout backgroundLayout;
 
     private boolean canLogin = false;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
 
         AppEventsLogger.activateApp(getApplication());
         callbackManager = CallbackManager.Factory.create();
+        dialog = new ProgressDialog(this);
 
         setContentView(R.layout.activity_login);
         loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -124,6 +133,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void handleFacebookAccessToken(AccessToken token) {
 
+        showDialog();
+
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -146,6 +157,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void handleLogin() {
 
+        showDialog();
+
         if (user == null) {
             return;
         }
@@ -162,7 +175,6 @@ public class LoginActivity extends AppCompatActivity {
 
                         Log.i("RESPONSE", "NEXT ACTIVITY");
 
-                        finish();
                         Intent intent;
                         if (userExists && canLogin) {
                             //user has already registered
@@ -172,14 +184,14 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         if (!userExists && canLogin) {
-                            //need to register user
                             intent = new Intent(LoginActivity.this, RegisterActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                         }
 
+                        hideDialog();
                         canLogin = false;
-
+                        finish();
                     }
                 }
         );
@@ -230,6 +242,21 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    private void showDialog() {
+        if (dialog != null) {
+            dialog.setCancelable(false);
+            dialog.setMessage("Logging in...");
+            dialog.show();
+        }
+
+    }
+
+    private void hideDialog() {
+        if (dialog != null) {
+            dialog.dismiss();
+        }
     }
 
     private class SetBackgroundAsync extends AsyncTask<Void, Void, Drawable> {

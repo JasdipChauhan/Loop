@@ -55,9 +55,11 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text=""
             android:background="@drawable/facebook_bg"
+            android:drawableLeft="@drawable/facebook_button"
+            android:alpha="0.95"
             android:layout_centerHorizontal="true"
-            android:drawableLeft="@drawable/login_with_facebook"
             android:layout_alignParentBottom="true"
             android:id="@+id/facebook_button"
             android:onClick="facebookClickedAction"/>

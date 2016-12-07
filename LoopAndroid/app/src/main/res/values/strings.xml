@@ -12,6 +12,7 @@
 
     <!--LOGIN ACTIVITY-->
     <string name="loop_slogan">Made on the way for you.</string>
+    <string name="login_with_facebook">Log In with Facebook</string>
 
     <!--REGISTRATION ACTIVITY-->
     <string name="registration_name_header">NAME</string>

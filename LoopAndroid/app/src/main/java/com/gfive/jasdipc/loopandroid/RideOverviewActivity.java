@@ -154,8 +154,7 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
             LatLng pickupCoordinates = new LatLng(pickupAddress.getLatitude(), pickupAddress.getLongitude());
             LatLng dropoffCoordinates = new LatLng(dropoffAddress.getLatitude(), dropoffAddress.getLongitude());
 
-            //BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromResource(R.drawable.map_pin);
-            BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromResource(R.drawable.mapmarkerstick);
+            BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromResource(R.drawable.marker);
 
             pickupMarker = mMap.addMarker(new MarkerOptions()
                     .position(pickupCoordinates)
@@ -167,7 +166,6 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
                     .title("Dropoff")
                     .icon(markerIcon));
 
-
             mMap.addPolyline(new PolylineOptions()
                     .add(pickupMarker.getPosition(), dropoffMarker.getPosition())
                     .width(5)
@@ -177,9 +175,15 @@ public class RideOverviewActivity extends AppCompatActivity implements OnMapRead
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             builder.include(pickupMarker.getPosition());
             builder.include(dropoffMarker.getPosition());
-            LatLngBounds bounds = builder.build();
+            final LatLngBounds bounds = builder.build();
 
-            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, MAP_PADDING));
+            mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                @Override
+                public void onMapLoaded() {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 30));
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }

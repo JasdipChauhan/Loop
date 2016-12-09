@@ -105,7 +105,7 @@ public class RidesAdapter {
                 viewHolder.journeyText.setText(journeyTextString);
                 viewHolder.capacityText.setText(capacityTextString);
                 viewHolder.costView.setText("$" + model.getPrice());
-                viewHolder.riderText.setText(filledSpots + " riiders");
+                viewHolder.riderText.setText(filledSpots + " riders");
 
             }
         };

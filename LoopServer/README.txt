@@ -1,8 +1,3 @@
-DEFAULT SUPERUSER
------------------
-username: jasdipc
-password: bubblyboi13
-token: cd3cc979c1babdc173dd8624ce78fb8536074240
 -----------------
 Sample User
 -----------------
